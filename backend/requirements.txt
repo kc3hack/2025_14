@@ -1,0 +1,6 @@
+Flask
+flask-cors
+flask-login
+flask_sqlalchemy
+google-genai
+werkzeug

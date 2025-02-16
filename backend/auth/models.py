@@ -15,3 +15,21 @@ class User(db.Model):
     @password.setter
     def password(self, password):
         self.password_hash = generate_password_hash(password)
+
+class Image(db.Model):
+    __tablename__ = "image"
+    image_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("profile.user_id"))
+    image_path = db.Column(db.String)
+    datetime = db.Column(db.DateTime)
+
+    user = db.relationship("User", backref="images")
+
+class Text(db.Model):
+    __tablename__ = "text"
+    text_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("profile.user_id"))
+    text = db.Column(db.String)
+    datetime = db.Column(db.DateTime)
+
+    user = db.relationship("User", backref="texts")

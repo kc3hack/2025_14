@@ -1,11 +1,23 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from config import config
 
-app = Flask(__name__)
+db = SQLAlchemy()
 
-@app.route("/")
-def home():
-    return render_template("index.html")
+def create_app(config_key):
+    app = Flask(__name__)
+    app.config.from_object(config[config_key])
+    db.init_app(app)
+    Migrate(app, db)
+    CORS(app)
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5001, host='0.0.0.0')
+    from blueprint import auth
+    app.register_blueprint(auth.auth)
+    return app
+
+
+if __name__ == '__main__':
+    app = create_app('local')
+    app.run()

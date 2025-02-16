@@ -3,7 +3,8 @@
 FROM --platform=$BUILDPLATFORM node:22.12.0-bullseye-slim as builder
 
 RUN apt-get update \
-    && apt-get install -y curl git build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
+    && apt-get install -y curl git build-essential libffi-dev libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
+    && apt install sqlite3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -23,6 +24,8 @@ RUN pyenv install 3.9.18 \
     && python -m venv venv \
     && pip install --upgrade pip
 
-RUN cd backend && pip install -r requirements.txt
+RUN npm install -g dbdocs
+
+RUN cd backend && pip install python-dotenv && pip install -r requirements.txt
 
 RUN cd frontend && npm install && npm install web-vitals axios

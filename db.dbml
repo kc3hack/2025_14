@@ -1,0 +1,33 @@
+Table profiles as prof {
+  user_id integer [pk]
+  user_name varchar [not null]
+  password varchar
+  Date datetime [not null, default: `now()`]
+  Indexes {
+    user_id [unique, name: "idx_profiles_user_id"]
+  }
+}
+
+Table image as im {
+  image_id integer [pk, increment]
+  user_id integer
+  image_path varchar [pk, not null]
+  caption varchar
+  Date datetime [not null, default: `now()`]
+  Indexes {
+    user_id [unique, name: "idx_profiles_user_id"]
+  }
+}
+
+Table Text as txt {
+  text_id integer [pk, increment]
+  user_id integer
+  caption varchar [not null]
+  Date datetime [not null, default: `now()`]
+  Indexes {
+    user_id [unique, name: "idx_profiles_user_id"]
+  }
+}
+
+Ref fk_user_id_image_path : profiles.user_id < image.fk_user_id_image_path
+Ref fk_user_id_text : profiles.user_id < txt.user_id

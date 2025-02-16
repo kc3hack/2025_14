@@ -37,7 +37,10 @@
 				"dbaeumer.vscode-eslint",
 				"ecmel.vscode-html-css",
 				"xabikos.JavaScriptSnippets",
-				"cstrap.flask-snippets"
+				"cstrap.flask-snippets",
+				"nicolas-liger.dbml-viewer",
+				"matt-meyers.vscode-dbml",
+				"alexcvzz.vscode-sqlite"
 			]
 		}
 	}

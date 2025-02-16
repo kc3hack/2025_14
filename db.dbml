@@ -2,7 +2,7 @@ Table profiles as prof {
   user_id integer [pk]
   user_name varchar [not null]
   password varchar
-  created_at datetime [not null, default: `now()`]
+  Date datetime [not null, default: `now()`]
   Indexes {
     user_id [unique, name: "idx_profiles_user_id"]
   }
@@ -11,12 +11,12 @@ Table profiles as prof {
 Table image as im {
   user_id integer
   image_id integer [pk, increment]
-  image_pass varchar [pk, not null]
+  image_path varchar [pk, not null]
   caption varchar
-  created_at datetime [not null, default: `now()`]
+  Date datetime [not null, default: `now()`]
   Indexes {
     user_id [unique, name: "idx_profiles_user_id"]
   }
 }
 
-Ref fk_user_id_image_pass : profiles.user_id < image.image_pass
+Ref fk_user_id_image_path : profiles.user_id < image.fk_user_id_image_path

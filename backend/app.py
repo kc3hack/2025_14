@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint
+from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -12,7 +12,12 @@ def create_app(config_key):
     db.init_app(app)
     Migrate(app, db)
     CORS(app)
-    
-    from auth import views
-    app.register_blueprint(views.auth)
+
+    from blueprint import auth
+    app.register_blueprint(auth.auth)
     return app
+
+
+if __name__ == '__main__':
+    app = create_app('local')
+    app.run()

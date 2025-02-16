@@ -11,7 +11,7 @@ class User(db.Model):
     @property
     def password(self):
         raise AttributeError("読み取り不可")
-    
+
     @password.setter
     def password(self, password):
         self.password_hash = generate_password_hash(password)

@@ -23,6 +23,8 @@ RUN pyenv install 3.9.18 \
     && python -m venv venv \
     && pip install --upgrade pip
 
+RUN npm install -g dbdocs
+
 RUN cd backend && pip install -r requirements.txt
 
 RUN cd frontend && npm install && npm install web-vitals axios

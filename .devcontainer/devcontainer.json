@@ -39,7 +39,8 @@
 				"xabikos.JavaScriptSnippets",
 				"cstrap.flask-snippets",
 				"nicolas-liger.dbml-viewer",
-				"matt-meyers.vscode-dbml"
+				"matt-meyers.vscode-dbml",
+				"alexcvzz.vscode-sqlite"
 			]
 		}
 	}

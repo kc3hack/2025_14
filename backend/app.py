@@ -14,7 +14,9 @@ def create_app(config_key):
     CORS(app)
 
     from blueprint import auth
+    from blueprint import collection
     app.register_blueprint(auth.auth)
+    app.register_blueprint(collection.collection)
     return app
 
 

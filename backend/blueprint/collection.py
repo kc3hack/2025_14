@@ -22,6 +22,7 @@ def get():
     response = Image.query.all()
     item = response[0]
     d = {'user_id':item.user_id, 'image_path':item.image_path, 'datetime':item.datetime}
+
     # 辞書をjson形式として結果を返す
     return make_response(jsonify(d))
 
@@ -49,4 +50,11 @@ def save():
 
 @collection.route("/delete", methods=['GET'])
 def delete():
+    from sqlalchemy import text
+    # テストのために追加したデータを全て削除する
+    db.session.execute(text("PRAGMA foreign_keys=OFF")) # 削除のために外部キー制約を無効化
+    for table in reversed(db.metadata.sorted_tables):
+        db.session.execute(table.delete())
+    db.session.commit()
+    db.session.execute(text("PRAGMA foreign_keys=ON"))  # 無効化した外部キー制約を有効化
     return 'delete'

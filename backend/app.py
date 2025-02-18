@@ -13,8 +13,9 @@ def create_app(config_key):
     Migrate(app, db)
     CORS(app)
 
-    from blueprint import auth
-    app.register_blueprint(auth.auth)
+    from blueprint import auth,gemini
+    import models
+    app.register_blueprint(gemini.app)
     return app
 
 

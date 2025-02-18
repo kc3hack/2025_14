@@ -1,10 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, redirect, url_for
 
 auth = Blueprint('blueprint', __name__)
 
 @auth.route("/")
 def home():
-    return 'Hello, World!'
+    return redirect(url_for("auth.register"))
 
 @auth.route("/register")
 def register():

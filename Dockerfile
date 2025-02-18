@@ -11,6 +11,7 @@ RUN apt-get update \
 WORKDIR /app
 COPY . .
 
+
 ENV PYENV_ROOT="/root/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PATH"
 RUN curl https://pyenv.run | bash \

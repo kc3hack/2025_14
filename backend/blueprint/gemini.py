@@ -1,15 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Blueprint, request, jsonify
 import os
-from __init__py import read_image, read_text, daily_lucky_powder
-from flask_cors import CORS
+from gemini.think  import read_image, read_text, daily_lucky_powder
 
-app = Flask(__name__)
-CORS(app)  # CORSの設定
+app = Blueprint(__name__)
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'picutures'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route("/upload", methods=["POST"])
+@app.route("/prosess_image", methods=["POST"]) #画像を受け取った場合に
 def upload_file():
     if 'file' not in request.files:
         return "No file part", 400
@@ -38,8 +36,3 @@ def process_uploaded_text():
 def get_daily_lucky_powder():
     result = daily_lucky_powder()
     return jsonify({"result": result})
-
-if __name__ == "__main__":
-    if not os.path.exists(UPLOAD_FOLDER):
-        os.makedirs(UPLOAD_FOLDER)
-    app.run(debug=True, port=5001, host='0.0.0.0')

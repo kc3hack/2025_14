@@ -1,6 +1,5 @@
-
 # プロダクト名
-粉物判定アプリ 
+粉物判定アプリ
 <!-- プロダクト名に変更してください -->
 
 ![プロダクト名](https://kc3.me/cms/wp-content/uploads/2024/11/hack25-eyecatch.png)

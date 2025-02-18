@@ -1,5 +1,5 @@
 from app import db
-from auth.models import User, Image
+from models import user, image
 from flask import Blueprint
 from flask import request, make_response, jsonify
 from datetime import datetime
@@ -19,7 +19,7 @@ def get():
     # response = {'result': res}
 
     # 仮でDBのImageモデルのデータを全て検索して取得する
-    response = Image.query.all()
+    response = image.Image.query.all()
     item = response[0]
     d = {'user_id':item.user_id, 'image_path':item.image_path, 'datetime':item.datetime}
 
@@ -37,13 +37,13 @@ def save():
     datetime_str = data['datetime']
     datetime_obj = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
 
-    user = User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
-    db.session.add(user)
+    user_data = user.User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
+    db.session.add(user_data)
     db.session.commit()
 
     # Imageクラスでインスタンス化
-    image = Image(user_id=user_id, image_path=image_path, datetime=datetime_obj)
-    db.session.add(image)
+    image_data = image.Image(user_id=user_id, image_path=image_path, datetime=datetime_obj)
+    db.session.add(image_data)
     db.session.commit()
 
     return 'save'

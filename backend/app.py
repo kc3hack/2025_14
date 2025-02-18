@@ -9,12 +9,14 @@ db = SQLAlchemy()
 def create_app(config_key):
     app = Flask(__name__)
     app.config.from_object(config[config_key])
+    app.config['UPLOAD_FOLDER'] = "pictures"
     db.init_app(app)
     Migrate(app, db)
     CORS(app)
 
     from blueprint import auth,gemini
-    import models
+    from models import user, image, text
+    app.register_blueprint(auth.auth)
     app.register_blueprint(gemini.app)
     return app
 

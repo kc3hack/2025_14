@@ -1,13 +1,12 @@
 from flask import Blueprint, request, jsonify
 import os
-from gemini.think  import read_image, read_text, daily_lucky_powder
+from gemini.think import read_image, read_text, daily_lucky_powder
 
-app = Blueprint(__name__)
+app = Blueprint('gemini', __name__)
 
-UPLOAD_FOLDER = 'picutures'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = 'pictures'
 
-@app.route("/prosess_image", methods=["POST"]) #画像を受け取った場合に
+@app.route("/prosess_image", methods=["POST"]) #画像を受け取った場合に動作する
 def upload_file():
     if 'file' not in request.files:
         return "No file part", 400
@@ -19,20 +18,20 @@ def upload_file():
     if file:
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
-        result = read_image(file_path)
+        result = read_image(file_path) #画像パスを投げるとgeminiからテキスト形式で返される
         return jsonify({"result": result})
 
-@app.route("/process_text", methods=["POST"])
+@app.route("/process_text", methods=["POST"]) #テキストを受け取った場合に動作する
 def process_uploaded_text():
     data = request.json
     if not data or 'text' not in data:
         return "No text provided", 400
     
     text = data['text']
-    result = read_text(text)
+    result = read_text(text) #テキストを投げるとgeminiからテキスト形式で返される
     return jsonify({"result": result})
 
-@app.route("/daily_lucky_powder", methods=["GET"])
+@app.route("/daily_lucky_powder", methods=["GET"]) #占いを行う際に動作する
 def get_daily_lucky_powder():
-    result = daily_lucky_powder()
+    result = daily_lucky_powder() #geminiからテキスト形式で返される
     return jsonify({"result": result})

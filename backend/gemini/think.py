@@ -9,8 +9,8 @@ from gemini.api_key import apiKey
 from google import genai
 import PIL.Image
 
-def read_image(image_path): #画像をgeminiに渡す関数
-    image = PIL.Image.open(image_path)
+def read_image(image_path): #画像をgeminiに渡し、その出力を返す関数
+    image = PIL.Image.open(image_path) #渡された画像パスを開く
     client = genai.Client(api_key=apiKey) #api_key.pyに保存したapiキーを呼び出す
 
     prompt = "この画像に写っているものを「粉物」であるとこじつけてください．その際，次に示す規則を守って返事をしてください．\
@@ -24,9 +24,9 @@ def read_image(image_path): #画像をgeminiに渡す関数
 
     response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents=[prompt , image])
+        contents=[prompt , image]) #プロンプトと画像をgeminiに渡す
 
-    return response.text
+    return response.text #geminiの出力結果をテキストで返す
 
 def read_text(text): #テキストをgeminiに渡す関数
     client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
@@ -42,9 +42,9 @@ def read_text(text): #テキストをgeminiに渡す関数
 
     response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents=[prompt, text])
+        contents=[prompt, text]) #プロンプトとテキストをgeminiに渡す
 
-    return response.text
+    return response.text #geminiの出力結果をテキストで返す
 
 def daily_lucky_powder(): #「今日のラッキー粉物」関数
     client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
@@ -59,6 +59,6 @@ def daily_lucky_powder(): #「今日のラッキー粉物」関数
 
     response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents=[prompt])
+        contents=[prompt]) #geminiにプロンプトを渡す
 
-    return response.text
+    return response.text #geminiの出力結果をテキストで返す

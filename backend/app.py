@@ -1,10 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from config import config
-
-db = SQLAlchemy()
+from db_instance import db
 
 def create_app(config_key):
     app = Flask(__name__)
@@ -14,8 +12,11 @@ def create_app(config_key):
     CORS(app)
 
     from blueprint import auth
+    from blueprint import collection
     from models import user, image, text
     app.register_blueprint(auth.auth)
+    app.register_blueprint(collection.collection, url_prefix="/collection")
+
     return app
 
 

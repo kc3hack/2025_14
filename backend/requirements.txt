@@ -5,3 +5,4 @@ flask_sqlalchemy
 flask-migrate
 google-genai
 werkzeug
+Pillow

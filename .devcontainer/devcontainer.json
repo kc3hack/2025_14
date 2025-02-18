@@ -40,7 +40,8 @@
 				"cstrap.flask-snippets",
 				"nicolas-liger.dbml-viewer",
 				"matt-meyers.vscode-dbml",
-				"alexcvzz.vscode-sqlite"
+				"alexcvzz.vscode-sqlite",
+				"hediet.vscode-drawio"
 			]
 		}
 	}

@@ -4,7 +4,7 @@ auth = Blueprint('blueprint', __name__)
 
 @auth.route("/")
 def home():
-    return redirect(url_for("auth.register"))
+    return redirect(url_for("blueprint.register"))
 
 @auth.route("/register")
 def register():

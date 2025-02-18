@@ -1,5 +1,4 @@
-from app import db
-from models import user, image
+from models import User, Image
 from flask import Blueprint
 from flask import request, make_response, jsonify
 from datetime import datetime
@@ -19,7 +18,7 @@ def get():
     # response = {'result': res}
 
     # 仮でDBのImageモデルのデータを全て検索して取得する
-    response = image.Image.query.all()
+    response = Image.query.all()
     item = response[0]
     d = {'user_id':item.user_id, 'image_path':item.image_path, 'datetime':item.datetime}
 
@@ -28,6 +27,8 @@ def get():
 
 @collection.route("/save", methods=['POST'])
 def save():
+    from db_instance import db
+
     # フロントからjson形式でデータを受け取る
     data = request.get_json()
 
@@ -37,12 +38,12 @@ def save():
     datetime_str = data['datetime']
     datetime_obj = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
 
-    user_data = user.User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
+    user_data = User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
     db.session.add(user_data)
     db.session.commit()
 
     # Imageクラスでインスタンス化
-    image_data = image.Image(user_id=user_id, image_path=image_path, datetime=datetime_obj)
+    image_data = Image(user_id=user_id, image_path=image_path, datetime=datetime_obj)
     db.session.add(image_data)
     db.session.commit()
 
@@ -50,6 +51,7 @@ def save():
 
 @collection.route("/delete", methods=['GET'])
 def delete():
+    from db_instance import db
     from sqlalchemy import text
     # テストのために追加したデータを全て削除する
     db.session.execute(text("PRAGMA foreign_keys=OFF")) # 削除のために外部キー制約を無効化

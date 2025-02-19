@@ -13,7 +13,7 @@ def create_app(config_key):
 
     from blueprint import auth
     from blueprint import collection
-    from models import user, image, text
+    from models import user, image, text, tag
     app.register_blueprint(auth.auth)
     app.register_blueprint(collection.collection, url_prefix="/collection")
 

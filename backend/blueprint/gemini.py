@@ -3,6 +3,7 @@ import os
 from gemini.think import read_image, read_text, daily_lucky_powder
 from models import Tag
 from datetime import datetime
+from db_instance import db
 
 app = Blueprint('gemini', __name__)
 
@@ -16,7 +17,7 @@ def process_uploaded_data():
         if file.filename == '':
             return "No selected file", 400
 
-        file_path = os.path.join("work/space2025_14", app.config['UPLOAD_FOLDER'], file.filename)
+        file_path = os.path.join('..', UPLOAD_FOLDER, file.filename)
         file.save(file_path)
         result, tag_result = read_image(file_path)  # 画像処理を行う
 
@@ -25,30 +26,31 @@ def process_uploaded_data():
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
 
         if existing_tag:
-            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": existing_tag.id})
+            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": existing_tag})
         else:
             new_tag = Tag(tag=tag_result, datetime=datetime_obj)
-            Tag.session.add(new_tag)  # 新しいタグをデータベースに追加
-            Tag.session.commit()  # コミットして保存
-            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": new_tag.id})
+            db.session.add(new_tag)  # 新しいタグをデータベースに追加
+            db.session.commit()  # コミットして保存
+            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": new_tag.tag_id})
 
     # テキストのアップロードチェック
     elif request.is_json and 'text' in request.json:  # テキストが送られてきた場合
         data = request.json
         text = data['text']
+        print(text)
         result, tag_result = read_text(text)  # テキスト処理を行う
 
         # データベースでタグを探す
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
 
         if existing_tag:
-            return jsonify({"caption": result, "tag": tag_result, "tag_id": existing_tag.id})
+            return jsonify({"caption": result, "tag": tag_result, "tag_id": existing_tag})
         else:
             datetime_obj = datetime.now()
             new_tag = Tag(tag=tag_result, datetime=datetime_obj)
-            Tag.session.add(new_tag)  # 新しいタグをデータベースに追加
-            Tag.session.commit()  # コミットして保存
-            return jsonify({"caption": result, "tag": tag_result, "tag_id": new_tag.id})
+            db.session.add(new_tag)  # 新しいタグをデータベースに追加
+            db.session.commit()  # コミットして保存
+            return jsonify({"caption": result, "tag": tag_result, "tag_id": new_tag.tag_id})
 
     return "Invalid data provided", 400  # どちらでもない場合はエラーを返す
 

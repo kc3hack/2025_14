@@ -57,7 +57,7 @@ def save():
 
     return 'save'
 
-@collection.route("/delete", methods=['GET'])
+@collection.route("/delete", methods=['POST'])
 def delete():
     import os
     data = request.get_json()

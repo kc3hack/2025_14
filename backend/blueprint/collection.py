@@ -14,15 +14,17 @@ def get():
 
     # DBのImageモデルからuser_idで絞り込んでデータを取得
     response = Image.query.filter_by(user_id=user_id)
-    # 画像のパスを保存する辞書を作成
-    l = []
-    for res in response:
-        tag = Tag.query.get(res.tag_id)
-        print(tag)
-        l.append([res.image_path, res.caption, tag.tag])
 
-    # 辞書をjson形式として結果を返す
-    return make_response(jsonify({'result': l}))
+    result_list = [] # 検索結果を保存するリスト
+    for res in response:
+
+        # tag_id先にあるtagを取得している
+        tag = Tag.query.get(res.tag_id)
+
+        result_list.append([res.image_path, res.caption, tag.tag])
+
+    # 検索結果をjsonに変換して返す
+    return make_response(jsonify({'result': result_list}))
 
 @collection.route("/save", methods=['POST'])
 def save():
@@ -38,18 +40,20 @@ def save():
     tag_id = data['tag_id']
     datetime_obj = datetime.now()
 
+    # Userに関するテストデータの追加のためのコード
     user_data = User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
     db.session.add(user_data)
     db.session.commit()
 
+    # Tagに関するテストデータの追加のためのコード
     tag_data = Tag(tag="広島焼き", datetime=datetime_obj)
     db.session.add(tag_data)
     db.session.commit()
 
     # Imageクラスでインスタンス化
     image_data = Image(user_id=user_id, image_path=image_path, caption=caption, tag_id=tag_id, datetime=datetime_obj)
-    db.session.add(image_data)
-    db.session.commit()
+    db.session.add(image_data)  # ImageをDBに追加
+    db.session.commit()         # 追加を適用
 
     return 'save'
 

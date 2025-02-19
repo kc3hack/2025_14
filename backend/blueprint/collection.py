@@ -1,4 +1,4 @@
-from models import User, Image
+from models import User, Image, Tag
 from flask import Blueprint
 from flask import request, make_response, jsonify
 from datetime import datetime
@@ -12,18 +12,16 @@ def get():
     # 受け取ったデータからID情報を抽出する
     user_id = data['user_id']
 
-    # # 仮で結果をIDとする
-    # res = id
-    # # 結果の応答を辞書で作成
-    # response = {'result': res}
-
-    # 仮でDBのImageモデルのデータを全て検索して取得する
-    response = Image.query.all()
-    item = response[0]
-    d = {'user_id':item.user_id, 'image_path':item.image_path, 'datetime':item.datetime}
+    # DBのImageモデルからuser_idで絞り込んでデータを取得
+    response = Image.query.filter_by(user_id=user_id)
+    # 画像のパスを保存する辞書を作成
+    l = []
+    for res in response:
+        tag_name = Tag.query.get(res.tag_id)
+        l.append([res.image_path, res.caption, tag_name])
 
     # 辞書をjson形式として結果を返す
-    return make_response(jsonify(d))
+    return make_response(jsonify({'result': l}))
 
 @collection.route("/save", methods=['POST'])
 def save():
@@ -35,15 +33,18 @@ def save():
     # 受け取ったデータから保存するデータを取得
     user_id = data['user_id']
     image_path = data['image_path']
-    datetime_str = data['datetime']
-    datetime_obj = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
+    caption = data['caption']
+    tag_id = data['tag_id']
+    datetime_obj = datetime.now()
 
     user_data = User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
     db.session.add(user_data)
     db.session.commit()
+    
+    tag_data = Tag(tag_name="お好み焼き")
 
     # Imageクラスでインスタンス化
-    image_data = Image(user_id=user_id, image_path=image_path, datetime=datetime_obj)
+    image_data = Image(user_id=user_id, image_path=image_path, caption=caption, tag_id=tag_id, datetime=datetime_obj)
     db.session.add(image_data)
     db.session.commit()
 

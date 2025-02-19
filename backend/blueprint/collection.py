@@ -1,4 +1,4 @@
-from models import User, Image
+from models import User, Image, Tag
 from flask import Blueprint
 from flask import request, make_response, jsonify
 from datetime import datetime
@@ -12,18 +12,19 @@ def get():
     # 受け取ったデータからID情報を抽出する
     user_id = data['user_id']
 
-    # # 仮で結果をIDとする
-    # res = id
-    # # 結果の応答を辞書で作成
-    # response = {'result': res}
+    # DBのImageモデルからuser_idで絞り込んでデータを取得
+    response = Image.query.filter_by(user_id=user_id)
 
-    # 仮でDBのImageモデルのデータを全て検索して取得する
-    response = Image.query.all()
-    item = response[0]
-    d = {'user_id':item.user_id, 'image_path':item.image_path, 'datetime':item.datetime}
+    result_list = [] # 検索結果を保存するリスト
+    for res in response:
 
-    # 辞書をjson形式として結果を返す
-    return make_response(jsonify(d))
+        # tag_id先にあるtagを取得している
+        tag = Tag.query.get(res.tag_id)
+
+        result_list.append([res.image_path, res.caption, tag.tag])
+
+    # 検索結果をjsonに変換して返す
+    return make_response(jsonify({'result': result_list}))
 
 @collection.route("/save", methods=['POST'])
 def save():
@@ -35,28 +36,28 @@ def save():
     # 受け取ったデータから保存するデータを取得
     user_id = data['user_id']
     image_path = data['image_path']
-    datetime_str = data['datetime']
-    datetime_obj = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
-
-    user_data = User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
-    db.session.add(user_data)
-    db.session.commit()
+    caption = data['caption']
+    tag_id = data['tag_id']
+    datetime_obj = datetime.now()
 
     # Imageクラスでインスタンス化
-    image_data = Image(user_id=user_id, image_path=image_path, datetime=datetime_obj)
-    db.session.add(image_data)
-    db.session.commit()
+    image_data = Image(user_id=user_id, image_path=image_path, caption=caption, tag_id=tag_id, datetime=datetime_obj)
+    db.session.add(image_data)  # ImageをDBに追加
+    db.session.commit()         # 追加を適用
 
     return 'save'
 
-@collection.route("/delete", methods=['GET'])
+@collection.route("/delete", methods=['POST'])
 def delete():
-    from db_instance import db
-    from sqlalchemy import text
-    # テストのために追加したデータを全て削除する
-    db.session.execute(text("PRAGMA foreign_keys=OFF")) # 削除のために外部キー制約を無効化
-    for table in reversed(db.metadata.sorted_tables):
-        db.session.execute(table.delete())
-    db.session.commit()
-    db.session.execute(text("PRAGMA foreign_keys=ON"))  # 無効化した外部キー制約を有効化
+    import os
+    data = request.get_json()
+    image_path = data["image_path"]
+
+    # パス先にあるのがファイルか確認し，ファイルでなければエラーを返す
+    if not os.path.isfile(image_path):
+        return "No such File", 400
+
+    # パス先のファイルを削除
+    os.remove(image_path)
+
     return 'delete'

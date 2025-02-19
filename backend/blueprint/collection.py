@@ -41,7 +41,7 @@ def save():
     user_data = User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
     db.session.add(user_data)
     db.session.commit()
-    
+
     tag_data = Tag(tag="広島焼き", datetime=datetime_obj)
     db.session.add(tag_data)
     db.session.commit()
@@ -55,12 +55,15 @@ def save():
 
 @collection.route("/delete", methods=['GET'])
 def delete():
-    from db_instance import db
-    from sqlalchemy import text
-    # テストのために追加したデータを全て削除する
-    db.session.execute(text("PRAGMA foreign_keys=OFF")) # 削除のために外部キー制約を無効化
-    for table in reversed(db.metadata.sorted_tables):
-        db.session.execute(table.delete())
-    db.session.commit()
-    db.session.execute(text("PRAGMA foreign_keys=ON"))  # 無効化した外部キー制約を有効化
+    import os
+    data = request.get_json()
+    image_path = data["image_path"]
+
+    # パス先にあるのがファイルか確認し，ファイルでなければエラーを返す
+    if not os.path.isfile(image_path):
+        return "No such File", 400
+
+    # パス先のファイルを削除
+    os.remove(image_path)
+
     return 'delete'

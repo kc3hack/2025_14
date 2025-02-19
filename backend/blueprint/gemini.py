@@ -10,7 +10,7 @@ UPLOAD_FOLDER = 'pictures'
 def upload_file():
     if 'file' not in request.files:
         return "No file part", 400
-    
+
     file = request.files['file']
     if file.filename == '':
         return "No selected file", 400
@@ -26,7 +26,7 @@ def process_uploaded_text():
     data = request.json
     if not data or 'text' not in data:
         return "No text provided", 400
-    
+
     text = data['text']
     result, tag = read_text(text) #テキストを投げるとgeminiからテキスト形式で返される
     return jsonify({"result": result, "tag_name": tag}) #geminiの出力結果とタグの名前をjson形式で返す
@@ -35,13 +35,3 @@ def process_uploaded_text():
 def get_daily_lucky_powder():
     result = daily_lucky_powder() #geminiからテキスト形式で返される
     return jsonify({"result": result})
-
-@app.route("/save_result", methods=["POST"]) #出力結果の保存を行う際に動作する
-def tagging_result():
-    data = request.json #
-    if not data or 'text' not in data:
-        return "No text provided", 400
-    
-    text = data['text']
-    result = read_text(text) #テキストを投げるとgeminiからタグづけされたものがjson形式で返される
-    return jsonify({"result": result}) #geminiの出力結果をjson形式で返す

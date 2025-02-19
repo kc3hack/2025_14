@@ -15,3 +15,6 @@ class User(db.Model):
     @password.setter
     def password(self, password):
         self.password_hash = generate_password_hash(password)
+
+    def is_duplicate_user(self):
+        return User.query.filter_by(user_name=self.user_name).first() is not None

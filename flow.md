@@ -137,6 +137,13 @@ http://127.0.0.1:3000/????
 ## json
 ```json
 {
-    "image_paths" : []
+    "result" : [
+        {
+            "user_id": 1,
+            "image_path": "next/to/here",
+            "caption": "これは生ものです",
+            "tag":
+        },
+    ]
 }
 ```

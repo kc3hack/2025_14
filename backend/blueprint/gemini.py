@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 import os
 from gemini.think import read_image, read_text, daily_lucky_powder
 from models import Tag
+from datetime import datetime
 
 app = Blueprint('gemini', __name__)
 
@@ -21,11 +22,13 @@ def upload_file():
         file.save(file_path)
         result, tag_result = read_image(file_path) #画像パスを投げるとgeminiからテキスト形式で返される
 
+        datetime_obj = datetime.now() #現在の時間の取得
         existing_tag = Tag.query.filter_by(tag=tag_result).first()# 最初の一致するレコードを取得
         if existing_tag: #すでにデータベースにタグが存在する場合
             return jsonify({"result": result, "image_path": file_path, "tag_name": tag_result, "ID": existing_tag.id}) #geminiの出力結果と画像パス、タグの名前をjson形式で返す
         else:
-            new_tag = Tag(tag=tag_result)
+            datetime_obj = datetime.now() #現在の時間の取得
+            new_tag = Tag(tag=tag_result, datetime=datetime_obj)
             Tag.session.add(new_tag)  # セッションに新しいタグを追加
             Tag.session.commit()  # 変更をコミットしてデータベースに保存
             return jsonify({"result": result, "image_path": file_path, "tag_name": tag_result, "ID": new_tag.id}) #geminiの出力結果と画像パス、タグの名前をjson形式で返す
@@ -43,7 +46,8 @@ def process_uploaded_text():
     if existing_tag: #すでにデータベースにタグが存在する場合
         return jsonify({"result": result, "tag_name": tag_result, "ID": existing_tag.id}) #geminiの出力結果とタグの名前をjson形式で返す
     else: #データベースにタグが存在しない場合
-        new_tag = Tag(tag=tag_result)
+        datetime_obj = datetime.now() #現在の時間の取得
+        new_tag = Tag(tag=tag_result, datetime=datetime_obj)
         Tag.session.add(new_tag)  # セッションに新しいタグを追加
         Tag.session.commit()  # 変更をコミットしてデータベースに保存
         return jsonify({"result": result, "tag_name": tag_result, "ID": new_tag.id}) #geminiの出力結果とタグの名前をjson形式で返す

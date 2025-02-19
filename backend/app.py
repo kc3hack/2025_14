@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from config import config
 from db_instance import db
-from session.secret_kay import secretKey
+from session.secret_key import secretKey
 
 def create_app(config_key):
     app = Flask(__name__)

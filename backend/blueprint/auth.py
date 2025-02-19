@@ -21,13 +21,12 @@ def register():
     date = datetime.now()
 
     # 重複ユーザーのチェック
-    if User.is_duplicate_user(user_name):
+    if User.query.filter_by(user_name=user_name).first():
         return jsonify({"error": "User already exists"}), 400
 
-    # パスワードのハッシュ化
     hashed_password = generate_password_hash(password)
 
-    user = User(user_name=user_name, password=hashed_password, datetime=date)
+    user = User(user_name=user_name, password_hash=hashed_password, datetime=date)
     db.session.add(user)
     db.session.commit()
 
@@ -43,7 +42,7 @@ def login():
     password = data["password"]
 
     user = User.query.filter_by(user_name=user_name).first()
-    if not user or not check_password_hash(user.password, password):
+    if not user or not check_password_hash(user.password_hash, password):
         return jsonify({"error": "Invalid credentials"}), 401
 
     session["user_name"] = user_name

@@ -16,12 +16,25 @@ geminiの出力結果をjsonで送信
 ## 送信先
 http://127.0.0.1:3000/????
 ## json
+### image
 ```json
 {
     "user_id" : "",
     "image_path" : "",
     "caption" : "",
-    "tag_id" : ""
+    "tag_id" : "",
+    "tag" : ""
+}
+```
+
+### text
+```json
+{
+    "user_id" : "",
+    "image_path" : "",
+    "caption" : "",
+    "tag_id" : "",
+    "tag" : ""
 }
 ```
 
@@ -92,8 +105,7 @@ http://127.0.0.1:3000/????
 ## json
 ```json
 {
-    "status" : "",
-    "user_id" : ""
+    "status" : ""
 }
 ```
 
@@ -101,12 +113,6 @@ http://127.0.0.1:3000/????
 ログアウト
 ## 送信先
 http://127.0.0.1:5000/logout
-## json
-```json
-{
-    "user_id" : ""
-}
-```
 
 # 10
 ログアウトリザルト

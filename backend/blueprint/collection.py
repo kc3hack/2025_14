@@ -17,8 +17,9 @@ def get():
     # 画像のパスを保存する辞書を作成
     l = []
     for res in response:
-        tag_name = Tag.query.get(res.tag_id)
-        l.append([res.image_path, res.caption, tag_name])
+        tag = Tag.query.get(res.tag_id)
+        print(tag)
+        l.append([res.image_path, res.caption, tag.tag])
 
     # 辞書をjson形式として結果を返す
     return make_response(jsonify({'result': l}))
@@ -41,7 +42,9 @@ def save():
     db.session.add(user_data)
     db.session.commit()
     
-    tag_data = Tag(tag_name="お好み焼き")
+    tag_data = Tag(tag="広島焼き", datetime=datetime_obj)
+    db.session.add(tag_data)
+    db.session.commit()
 
     # Imageクラスでインスタンス化
     image_data = Image(user_id=user_id, image_path=image_path, caption=caption, tag_id=tag_id, datetime=datetime_obj)

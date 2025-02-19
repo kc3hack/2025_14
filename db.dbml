@@ -13,6 +13,7 @@ Table image as im {
     user_id integer
     image_path varchar [pk, not null]
     caption varchar
+    tag_id integer [ref: > Tags.tag_id]
     Date datetime [not null, default: `now()`]
     Indexes {
         user_id [unique, name: "idx_profiles_user_id"]
@@ -26,6 +27,15 @@ Table Text as txt {
     Date datetime [not null, default: `now()`]
     Indexes {
         user_id [unique, name: "idx_profiles_user_id"]
+    }
+}
+
+Table Tags {
+    tag_id integer [pk, increment]
+    tag_name varchar [not null]
+    Date datetime [not null, default: `now()`]
+    Indexes {
+        tag_id [unique, name: "idx_tags_tag_id"]
     }
 }
 

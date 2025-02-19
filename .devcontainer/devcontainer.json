@@ -41,7 +41,8 @@
 				"nicolas-liger.dbml-viewer",
 				"matt-meyers.vscode-dbml",
 				"alexcvzz.vscode-sqlite",
-				"hediet.vscode-drawio"
+				"hediet.vscode-drawio",
+				"Postman.postman-for-vscode"
 			]
 		}
 	}

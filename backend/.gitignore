@@ -1,2 +1,5 @@
 __pycache__/
+
 api_key.py
+
+local.sqlite

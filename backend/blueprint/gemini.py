@@ -25,12 +25,12 @@ def process_uploaded_data():
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
 
         if existing_tag:
-            return jsonify({"result": result, "image_path": file_path, "tag_name": tag_result, "ID": existing_tag.id})
+            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": existing_tag.id})
         else:
             new_tag = Tag(tag=tag_result, datetime=datetime_obj)
             Tag.session.add(new_tag)  # 新しいタグをデータベースに追加
             Tag.session.commit()  # コミットして保存
-            return jsonify({"result": result, "image_path": file_path, "tag_name": tag_result, "ID": new_tag.id})
+            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": new_tag.id})
 
     # テキストのアップロードチェック
     elif request.is_json and 'text' in request.json:  # テキストが送られてきた場合
@@ -42,17 +42,17 @@ def process_uploaded_data():
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
 
         if existing_tag:
-            return jsonify({"result": result, "tag_name": tag_result, "ID": existing_tag.id})
+            return jsonify({"caption": result, "tag": tag_result, "tag_id": existing_tag.id})
         else:
             datetime_obj = datetime.now()
             new_tag = Tag(tag=tag_result, datetime=datetime_obj)
             Tag.session.add(new_tag)  # 新しいタグをデータベースに追加
             Tag.session.commit()  # コミットして保存
-            return jsonify({"result": result, "tag_name": tag_result, "ID": new_tag.id})
+            return jsonify({"caption": result, "tag": tag_result, "tag_id": new_tag.id})
 
     return "Invalid data provided", 400  # どちらでもない場合はエラーを返す
 
 @app.route("/daily_lucky_powder", methods=["GET"]) #占いを行う際に動作する
 def get_daily_lucky_powder():
     result = daily_lucky_powder() #geminiからテキスト形式で返される
-    return jsonify({"result": result})
+    return jsonify({"caption": result})

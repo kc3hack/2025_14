@@ -40,16 +40,6 @@ def save():
     tag_id = data['tag_id']
     datetime_obj = datetime.now()
 
-    # Userに関するテストデータの追加のためのコード
-    user_data = User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
-    db.session.add(user_data)
-    db.session.commit()
-
-    # Tagに関するテストデータの追加のためのコード
-    tag_data = Tag(tag="広島焼き", datetime=datetime_obj)
-    db.session.add(tag_data)
-    db.session.commit()
-
     # Imageクラスでインスタンス化
     image_data = Image(user_id=user_id, image_path=image_path, caption=caption, tag_id=tag_id, datetime=datetime_obj)
     db.session.add(image_data)  # ImageをDBに追加

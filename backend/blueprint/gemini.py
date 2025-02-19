@@ -16,7 +16,7 @@ def process_uploaded_data():
         if file.filename == '':
             return "No selected file", 400
 
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        file_path = os.path.join("work/space2025_14", app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
         result, tag_result = read_image(file_path)  # 画像処理を行う
 

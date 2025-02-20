@@ -69,6 +69,7 @@ def tagging_result_text(result_text): #geminiの出力結果をもとにタグ�
     prompt = "次に示すテキストの「粉物」についてタグ付けをしてください。その際、次に示す規則を守って返事をしてください。\
             1. タグは一つだけつけてください\
             2. タグは粉物に関する名前をつけてください\
+            3. タグは単語のみを出力してください\
             "
 
     response = client.models.generate_content(

@@ -1,4 +1,4 @@
-from models import User, Image, Tag
+from models import Image, Tag
 from flask import Blueprint
 from flask import request, make_response, jsonify
 from datetime import datetime

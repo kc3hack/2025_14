@@ -39,7 +39,7 @@ def reset_password():
         return jsonify({"error": "Request must be JSON"}, 400)
     return auth_reset_password.reset_password(request.get_json())
 
-@auth.route("delete_account", methods=["POST"])
+@auth.route("/delete_account", methods=["POST"])
 def delete_account():
     # アカウントを削除する
     # 削除に成功した場合は json({status: "success"}), 200 を返す

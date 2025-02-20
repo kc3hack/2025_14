@@ -14,5 +14,4 @@ def delete_account(data):
     if 'user_name' in session:
         session.pop('user_name', None)
     user.delete()
-    user.save()
     return jsonify({"status": "success"}), 200

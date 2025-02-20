@@ -1,8 +1,5 @@
 from flask import Blueprint, redirect, url_for, request, session, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
-from models import User
-from db_instance import db
-from datetime import datetime
+from authentication import auth_register, auth_login
 
 auth = Blueprint("blueprint", __name__)
 
@@ -12,41 +9,23 @@ def home():
 
 @auth.route("/register", methods=["POST"])
 def register():
-    data = request.get_json()
-    if not data or "user_name" not in data or "password" not in data:
-        return jsonify({"error": "Missing user_name or password"}), 400
-
-    user_name = data["user_name"]
-    password = data["password"]
-    date = datetime.now()
-
-    # 重複ユーザーのチェック
-    if User.query.filter_by(user_name=user_name).first():
-        return jsonify({"error": "User already exists"}), 400
-
-    hashed_password = generate_password_hash(password)
-
-    user = User(user_name=user_name, password_hash=hashed_password, datetime=date)
-    db.session.add(user)
-    db.session.commit()
-
-    return jsonify({"status": "success"}), 201
+    if request.is_json:
+        # ユーザー登録を行う
+        # 登録に成功した場合は json({status: "success"}), 200 を返す
+        # ユーザー登録に失敗した場合は json({error: "error message"}), 400 を返す
+        return auth_register.register(request.get_json())
+    else :
+        return jsonify({"error": "Request must be JSON"}), 400
 
 @auth.route("/login", methods=["POST"])
 def login():
-    data = request.get_json()
-    if not data or "user_name" not in data or "password" not in data:
-        return jsonify({"error": "Missing user_name or password"}), 400
-
-    user_name = data["user_name"]
-    password = data["password"]
-
-    user = User.query.filter_by(user_name=user_name).first()
-    if not user or not check_password_hash(user.password_hash, password):
-        return jsonify({"error": "Invalid credentials"}), 401
-
-    session["user_name"] = user_name
-    return jsonify({"status": "success"}), 200
+    if request.is_json:
+        # ログインを行う
+        # ログインに成功した場合は json({status: "success"}), 200 を返す
+        # ログインに失敗した場合は json({error: "error message"}), 400 を返す
+        return auth_login.login(request.get_json())
+    else:
+        return jsonify({"error": "Request must be JSON"}), 400
 
 @auth.route("/logout", methods=["POST"])
 def logout():

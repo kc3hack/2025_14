@@ -14,4 +14,4 @@ def save():
 
 @collection.route("/delete", methods=["POST"])
 def delete():
-    return collection_delete.delete()
+    return collection_delete.delete(request.get_json())

@@ -1,62 +1,17 @@
-from models import User, Image
+from flask import request
 from flask import Blueprint
-from flask import request, make_response, jsonify
-from datetime import datetime
+from collection import collection_get, collection_save, collection_delete
 
-collection = Blueprint('collection', __name__)
+collection = Blueprint("collection", __name__)
 
-@collection.route("/get", methods=['GET', 'POST'])
+@collection.route("/get", methods=["POST"])
 def get():
-    # フロントからjson形式でデータを受け取る
-    data = request.get_json()
-    # 受け取ったデータからID情報を抽出する
-    user_id = data['user_id']
+    return collection_get.get(request.get_json())
 
-    # # 仮で結果をIDとする
-    # res = id
-    # # 結果の応答を辞書で作成
-    # response = {'result': res}
-
-    # 仮でDBのImageモデルのデータを全て検索して取得する
-    response = Image.query.all()
-    item = response[0]
-    d = {'user_id':item.user_id, 'image_path':item.image_path, 'datetime':item.datetime}
-
-    # 辞書をjson形式として結果を返す
-    return make_response(jsonify(d))
-
-@collection.route("/save", methods=['POST'])
+@collection.route("/save", methods=["POST"])
 def save():
-    from db_instance import db
+    return collection_save.save(request.get_json())
 
-    # フロントからjson形式でデータを受け取る
-    data = request.get_json()
-
-    # 受け取ったデータから保存するデータを取得
-    user_id = data['user_id']
-    image_path = data['image_path']
-    datetime_str = data['datetime']
-    datetime_obj = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
-
-    user_data = User(user_name="kawa", password_hash="hash", datetime=datetime_obj)
-    db.session.add(user_data)
-    db.session.commit()
-
-    # Imageクラスでインスタンス化
-    image_data = Image(user_id=user_id, image_path=image_path, datetime=datetime_obj)
-    db.session.add(image_data)
-    db.session.commit()
-
-    return 'save'
-
-@collection.route("/delete", methods=['GET'])
+@collection.route("/delete", methods=["POST"])
 def delete():
-    from db_instance import db
-    from sqlalchemy import text
-    # テストのために追加したデータを全て削除する
-    db.session.execute(text("PRAGMA foreign_keys=OFF")) # 削除のために外部キー制約を無効化
-    for table in reversed(db.metadata.sorted_tables):
-        db.session.execute(table.delete())
-    db.session.commit()
-    db.session.execute(text("PRAGMA foreign_keys=ON"))  # 無効化した外部キー制約を有効化
-    return 'delete'
+    return collection_delete.delete(request.get_json())

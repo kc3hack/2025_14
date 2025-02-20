@@ -1,5 +1,6 @@
 from app import db
 from werkzeug.security import generate_password_hash
+from datetime import datetime
 
 class User(db.Model):
     __tablename__ = "profile"
@@ -8,10 +9,16 @@ class User(db.Model):
     password_hash = db.Column(db.String)
     datetime = db.Column(db.DateTime)
 
-    @property
-    def password(self):
-        raise AttributeError("読み取り不可")
-
-    @password.setter
-    def password(self, password):
+    def set_password(self, password):
+        # パスワードをハッシュ化して保存
         self.password_hash = generate_password_hash(password)
+        self.datetime = datetime.now()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+

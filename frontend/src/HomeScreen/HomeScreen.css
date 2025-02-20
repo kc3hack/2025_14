@@ -1,0 +1,189 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.background {
+  background-image: url("./material/background.png");
+  background-size: cover; /* 全体をカバー */
+  background-position: center; /* 中央配置 */
+  width: 100vw; /* ビューポート全幅 */
+  height: 100vh; /* ビューポート全高 */
+}
+
+.title-frame {
+  background-image: url("./material/title-frame.png");
+  width: 843px;
+  height: 171px;
+  flex-shrink: 0;
+
+  /*中央揃え*/
+  margin: auto;
+}
+
+.Group9 {
+  /*横並び*/
+  display: flex;
+  /*画像の空白*/
+  gap: 21px;
+
+  padding: 0 20px;
+  /* 左右に20pxの余白を追加 */
+
+  width: 1590px;
+  height: 165px;
+  flex-shrink: 0;
+}
+
+.image2 {
+  background-repeat: no-repeat; /* 画像の繰り返しを防ぐ */
+  background-image: url("./material/image-2.png");
+  width: 248px;
+  height: 165px;
+  flex-shrink: 0;
+  aspect-ratio: 248/165;
+}
+
+.sobako {
+  background-image: url("./material/sobako.png");
+  width: 247px;
+  height: 165px;
+  flex-shrink: 0;
+  aspect-ratio: 247/165;
+}
+
+.image3 {
+  background-image: url("./material/image-3.png");
+  width: 248px;
+  height: 165px;
+  flex-shrink: 0;
+  aspect-ratio: 248/165;
+}
+
+.image4 {
+  background-image: url("./material/image-4.png");
+  width: 248px;
+  height: 165px;
+  flex-shrink: 0;
+  aspect-ratio: 248/165;
+}
+
+.avatar {
+  background-image: url("./material/3DAvatar.png");
+  display: flex;
+  width: 210px;
+  height: 210px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  margin: auto;
+}
+
+.Group10 {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  /* 縦方向の中央揃え */
+  justify-content: center;
+  /* 横方向の中央揃え（必要なら） */
+  gap: 20px;
+}
+
+.camera-icon,.to-picture-book-button{
+  /*背景透過*/
+  background-color: transparent;
+  /*ボタンの縁を消し去るもの(以下の2つ)*/
+  outline: none;
+  border: none;
+}
+
+.camera-icon {
+  background-image: url("./material/CameraIcon.png");
+  width: 66.908px;
+  height: 66.908px;
+  flex-shrink: 0;
+}
+
+.image-icon {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  background-image: url("./material/ImageIcon.png");
+  width: 66.908px;
+  height: 66.908px;
+  flex-shrink: 0;
+}
+
+.text-input {
+  display: flex;
+  min-width: 1000px;
+  padding: var(--sds-size-space-300) var(--sds-size-space-400);
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px; /* 角を大きく丸くする */
+  font-size: 30px; /* フォントサイズを適切に設定 */
+}
+
+/* プレースホルダー（初期状態の文字）のサイズを大きくする */
+.text-input::placeholder {
+  font-size: 30px;
+  color: black;
+  /* プレースホルダーの色（必要なら変更可） */
+}
+
+.send-icon {
+  width: 100px;
+  height: 100px;
+  background-image: url('./material/sendIcon.png');
+  background-size: 70%;
+  background-repeat: no-repeat; /* 画像の繰り返しを防ぐ */
+  background-position: center;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+}
+
+.to-picture-book-button{
+  background-repeat: no-repeat; /* 画像の繰り返しを防ぐ */
+  background-image: url('./material/toPictureBook.png');
+  width: 219px;
+  height: 139.613px;
+  flex-shrink: 0;
+  margin-left: 1400px; /*リファクター対象*/
+}

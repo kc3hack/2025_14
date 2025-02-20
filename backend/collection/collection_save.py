@@ -5,8 +5,8 @@ from datetime import datetime
 def save(data):
     from db_instance import db
 
-    if 'username' not in session:
-        return f'Logged in as {session["username"]}', 400
+    if 'user_name' not in session:
+        return f'Logged in as {session["user_name"]}', 400
 
     # dataに必要な形式がないならエラー
     if not data or "user_id" not in data or "image_name" not in data or "caption" not in data or "tag_id" not in data:

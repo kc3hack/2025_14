@@ -3,8 +3,8 @@ from models import Image, Tag
 
 def get(data):
 
-    if 'username' not in session:
-        return f'Logged in as {session["username"]}', 400
+    if 'user_name' not in session:
+        return f'Logged in as {session["user_name"]}', 400
 
     if not data or "user_id" not in data: # dataに必要な形式がないならエラー
         return "Not enough parameter", 400

@@ -6,3 +6,4 @@ flask-migrate
 google-genai
 werkzeug
 Pillow
+boto3

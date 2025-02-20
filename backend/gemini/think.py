@@ -4,13 +4,14 @@ import hmac
 import hashlib
 import base64
 import time
+import io
 from gemini.api_key import apiKey
 
 from google import genai
 import PIL.Image
 
-def read_image(image_path): #画像をgeminiに渡し、その出力を返す関数
-    image = PIL.Image.open(image_path) #渡された画像パスを開く
+def read_image(file_content): #画像をgeminiに渡し、その出力を返す関数
+    image = PIL.Image.open(io.BytesIO(file_content)) #渡された画像コンテンツをバイナリで開く
     client = genai.Client(api_key=apiKey) #api_key.pyに保存したapiキーを呼び出す
 
     prompt = "この画像に写っているものを「粉物」であるとこじつけてください．その際，次に示す規則を守って返事をしてください．\

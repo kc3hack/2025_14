@@ -21,8 +21,18 @@ def process_uploaded_data():
         if file.filename == '':
             return "No selected file", 400
 
+        # 許可する拡張子をリストに指定
+        allowed_extensions = ['png', 'jpg', 'jpeg', 'gif','bmp', 'webp'] #JPEG, PNG, GIF, BMP, WEBPの拡張子を許可
+
         # ファイル名と拡張子を分離
         _, file_extension = os.path.splitext(file.filename)
+        
+        # 拡張子を小文字に変換して比較
+        check_file_extension = file_extension.lower() #大文字の拡張子の場合でも弾かれないようにするため
+
+        # 拡張子が許可されたリストにあるか確認
+        if check_file_extension not in allowed_extensions:
+            return "Invalid file type. Only PNG, JPG, JPEG, and GIF, BMP, WEBP are allowed.", 400
 
         # 新しいファイル名を生成し、元の拡張子を追加
         new_filename = str(uuid.uuid4()) + file_extension

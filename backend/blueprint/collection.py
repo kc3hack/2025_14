@@ -1,3 +1,4 @@
+from flask import session
 from models import Image, Tag
 from flask import Blueprint
 from flask import request, make_response, jsonify
@@ -7,6 +8,9 @@ collection = Blueprint("collection", __name__)
 
 @collection.route("/get", methods=["POST"])
 def get():
+
+    if 'username' not in session:
+        return f'Logged in as {session["username"]}', 400
 
     # フロントからjson形式でデータを受け取る
     data = request.get_json()
@@ -34,6 +38,9 @@ def get():
 @collection.route("/save", methods=["POST"])
 def save():
     from db_instance import db
+
+    if 'username' not in session:
+        return f'Logged in as {session["username"]}', 400
 
     # フロントからjson形式でデータを受け取る
     data = request.get_json()

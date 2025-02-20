@@ -18,7 +18,12 @@ def process_uploaded_data():
         if file.filename == '':
             return "No selected file", 400
 
-        file_path = os.path.join('..', UPLOAD_FOLDER, str(uuid.uuid4()))
+        # ファイル名と拡張子を分離
+        filename, file_extension = os.path.splitext(file.filename)
+
+        # 新しいファイル名を生成し、元の拡張子を追加
+        new_filename = str(uuid.uuid4()) + file_extension
+        file_path = os.path.join('..', UPLOAD_FOLDER, new_filename)
         file.save(file_path)
         result, tag_result = read_image(file_path)  # 画像処理を行う
 

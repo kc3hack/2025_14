@@ -1,4 +1,4 @@
 api_key.py
 __pycache__/
 local.sqlite
-session/secret_key.py
+secret_key.py

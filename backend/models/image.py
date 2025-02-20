@@ -6,7 +6,7 @@ class Image(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("profile.user_id"))
     tag_id = db.Column(db.Integer, db.ForeignKey("tag.tag_id"))
     caption = db.Column(db.String)
-    image_path = db.Column(db.String)
+    image_name = db.Column(db.String)
     datetime = db.Column(db.DateTime)
 
     user = db.relationship("User", backref="images")

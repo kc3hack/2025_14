@@ -20,7 +20,7 @@ http://127.0.0.1:3000/????
 ```json
 {
     "user_id" : "",
-    "image_path" : "",
+    "image_name" : "",
     "caption" : "",
     "tag_id" : "",
     "tag" : ""
@@ -31,7 +31,7 @@ http://127.0.0.1:3000/????
 ```json
 {
     "user_id" : "",
-    "image_path" : "",
+    "image_name" : "",
     "caption" : "",
     "tag_id" : "",
     "tag" : ""
@@ -46,7 +46,7 @@ http://127.0.0.1:5000/collection/save
 ```json
 {
     "user_id" : "",
-    "image_path" : "",
+    "image_name" : "",
     "caption" : "",
     "tag_id" : ""
 }
@@ -59,7 +59,7 @@ http://127.0.0.1:5000/collection/delete
 ## json
 ```json
 {
-    "image_path" : "",
+    "image_name" : "",
 }
 ```
 
@@ -146,7 +146,7 @@ http://127.0.0.1:3000/????
     "result" : [
         {
             "user_id": 1,
-            "image_path": "next/to/here",
+            "image_name": "",
             "caption": "これは生ものです",
             "tag":
         },

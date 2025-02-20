@@ -11,12 +11,13 @@ Table profiles as prof {
 Table image as im {
     image_id integer [pk, increment]
     user_id integer
-    image_path varchar [pk, not null]
+    image_name varchar [pk, not null]
     caption varchar
     tag_id integer [ref: > Tags.tag_id]
     Date datetime [not null, default: `now()`]
     Indexes {
         user_id [unique, name: "idx_profiles_user_id"]
+        tag_id [name: "idx_image_tag_id"]
     }
 }
 
@@ -39,5 +40,5 @@ Table Tags {
     }
 }
 
-Ref: prof.user_id > im.user_id
+Ref: im.user_id > prof.user_id
 Ref: prof.user_id > txt.user_id

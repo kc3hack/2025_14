@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
 
-.login-page{
+.sign-page{
     background-image: url("./image/back.png");
-    background-size:cover;
+    background-size: cover;
     background-position: center;
     width: 100vw;
     height: 100vh;
     position: relative;
 }
 
-.login-logo-image {
+.sign-logo-image {
     button {
         border: 0rem; /* 枠線なし */
         background: none;
@@ -21,37 +21,36 @@
     margin-bottom: 1rem;
 }
 
-.login-logo-image img {
+.sign-logo-image img {
     width: 80%; /* 親要素に合わせてリサイズ */
     height: auto; /* アスペクト比を維持 */
     justify-content: center;
 }
 
-.login-pro-container{
+.sign-pro-container{
     display: flex; /* 横並びにする */
     justify-content: center;
     align-items: center; /* 垂直方向の中央揃え */
     gap: 10px; /* 画像とテキストの間隔を指定 */
 }
-
-.login-pro-image{
+.sign-pro-image{
     display: flex;
 }
 
-.login-pro-image img{
+.sign-pro-image img{
     width: clamp(15%,20%,50%); /* 親要素に合わせてリサイズ */
     height: auto; /* アスペクト比を維持 */
     min-width: 100px;
 }
 
-.login-pro-text{
+.sign-pro-text{
     display: flex;
     font-family: Yuji Mai, serif;
     font-size: 2rem;
     justify-content: center;
 }
 
-.login-text-input {/*入力欄*/
+.sign-text-input {/*入力欄*/
     position: relative;
     margin: auto;
     margin-bottom: 1rem;
@@ -64,14 +63,14 @@
     padding: clamp(0.5rem,2vw,1.25rem);
 }
 
-.login-password-container{
+.sign-password-container{
     position: relative;
     display: flex;
     align-items: center;
     margin: auto;
 }
 
-.login-PasswordReveal{
+.sign-PasswordReveal{
     position: absolute;
     right: clamp(10%,20%,40%);
     bottom: clamp(2rem,30%,50rem);
@@ -81,7 +80,7 @@
 }
 
 
-.login-signin-button {
+.sign-signin-button {
     button {
         margin: 1rem;
         background-color: black;
@@ -99,7 +98,7 @@
     justify-content: center;
 }
 
-.login-toSignup {
+.sign-toSignup {
     font-family: Yuji Mai, serif;
     font-size: clamp(1rem, 3vw, 2rem);
 

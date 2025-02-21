@@ -3,22 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from "react-icons/fa";  // アイコンライブラリ（Font Awesome）
 import Logo from "./image/logo.png";
 import Pro from "./image/pro.png";
-import Post from "./login_post.js";
-import "./login.css";
+import Post from "./signup_post.js";
+import "./signup.css";
 
 
 function LogoImage() { //ロゴ画像
   return (
-    <div className="login-logo-image">
+    <div className="sign-logo-image">
       <img src={Logo} alt="Logo" />
     </div>);
 }
 
 function ProImage() { //職人画像
   return (
-    <div className="login-pro-container">
-      <img src={Pro} alt="Pro" className="login-pro-image" />
-      <span className="login-pro-text">ログインしてや〜</span>
+    <div className="sign-pro-container">
+      <img src={Pro} alt="Pro" className="sign-pro-image" />
+      <span className="sign-pro-text">登録してや〜</span>
     </div>);
 }
 
@@ -37,22 +37,22 @@ export default function SignIn() {
   };
 
   return (
-    <div className="login-page">
+    <div className="sign-page">
       {/* ロゴボタン */}
-      <div className="login-logo-image">
+      <div className="sign-logo-image">
         <button onClick={() => clickedToPageBtn('HomeScreen')}>
           <LogoImage></LogoImage>
         </button>
       </div>
 
       {/* 職人画像 */}
-      <div className="login-pro-image">
+      <div className="sign-pro-image">
         <ProImage></ProImage>
       </div>
 
       {/* ユーザ名入力 */}
       <div>
-        <input className="login-text-input"
+        <input className="sign-text-input"
           value={userName}
           onChange={(e) => setInputUserName(e.target.value)}
           type="text"
@@ -61,8 +61,8 @@ export default function SignIn() {
       </div>
 
       {/* パスワード入力 */}
-      <div className="login-password-container">
-        <input className="login-text-input"
+      <div className="sign-password-container">
+        <input className="sign-text-input"
           value={password}
           onChange={(e) => setInputPassword(e.target.value)}
           type={isRevealPassword ? 'text' : 'password'} // showPasswordがtrueならtype="text"（表示）
@@ -71,27 +71,26 @@ export default function SignIn() {
         <span
           onClick={togglePassword}
           role="presentation"
-          className="login-PasswordReveal"
+          className="sign-PasswordReveal"
         >
           {isRevealPassword ? <FaEye /> : <FaEyeSlash />}
         </span>
       </div>
-
 
       {/* 送信 */}
       <div>
         <Post userName={userName} password={password} />
       </div>
 
-      {/* サインアップへ */}
-      <div className="login-toSignup">
+      {/* ログインへ */}
+      <div className="sign-toSignup">
         <a href="/"
           onClick={(e) => {
             e.preventDefault(); // デフォルトのリンク動作を防ぐ
-            clickedToPageBtn('SignUp');
+            clickedToPageBtn('/');
           }}
         >
-          ユーザ登録
+          ログイン
         </a>
       </div>
     </div>

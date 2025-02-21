@@ -3,6 +3,7 @@ import HomeScreen from "./HomeScreen/HomeScreen";
 import OutputScreen from "./OutputScreen/OutputScreen";
 import Login from "./LogIn/login";
 import PictureBook from "./PictureBook/PictureBook";
+import SignUp from "./SignUp/signup";
 import './App.css';
 import { FaFontAwesomeLogoFull } from "react-icons/fa";
 

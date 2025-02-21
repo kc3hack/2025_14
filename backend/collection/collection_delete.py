@@ -5,11 +5,11 @@ UPLOAD_FOLDER = 'pictures'
 
 def delete(data):
 
-    if not data or "image_name" not in data: # dataに必要な形式がないならエラー
+    if not data or "image_path" not in data: # dataに必要な形式がないならエラー
         return "Not enough parameter", 400
 
     # 画像へのパスを取得
-    image_path = data["image_name"]
+    image_path = data["image_path"]
 
     try:
         # **Cloudflare R2 からファイルを削除**

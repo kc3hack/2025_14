@@ -22,7 +22,7 @@ def process_uploaded_data():
             return "No selected file", 400
 
         # 許可する拡張子をリストに指定
-        allowed_extensions = ['.png', '.jpg', '.jpeg', '.gif','.bmp', '.webp'] #JPEG, PNG, GIF, BMP, WEBPの拡張子を許可
+        allowed_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'] #JPEG, PNG, GIF, BMP, WEBPの拡張子を許可
 
         # ファイル名と拡張子を分離
         _, file_extension = os.path.splitext(file.filename)
@@ -55,12 +55,12 @@ def process_uploaded_data():
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
 
         if existing_tag:
-            return jsonify({"caption": result, "image_name": file_path, "tag": tag_result, "tag_id": existing_tag.tag_id})
+            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": existing_tag.tag_id})
         else:
             new_tag = Tag(tag=tag_result, datetime=datetime_obj)
             db.session.add(new_tag)  # 新しいタグをデータベースに追加
             db.session.commit()  # コミットして保存
-            return jsonify({"caption": result, "image_name": file_path, "tag": tag_result, "tag_id": new_tag.tag_id})
+            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": new_tag.tag_id})
 
     # テキストのアップロードチェック
     elif request.is_json and 'text' in request.json:  # テキストが送られてきた場合

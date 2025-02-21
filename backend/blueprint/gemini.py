@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import os
 from gemini.think import read_image, read_text, daily_lucky_powder
-from models import Tag, image
+from models import Tag, Image
 from datetime import datetime
 from db_instance import db
 import uuid
@@ -76,20 +76,16 @@ def get_daily_lucky_powder():
 
     # データベースでタグを探す
     existing_tag = Tag.query.filter_by(tag=use_tag_name).first() #use_tag_nameと一致するタグを探す
-    tag_id = existing_tag.tag_id #tag_idに占いに使用したタグのidを渡す
-
-    # IDで画像を検索
-    Image = image.query.get(tag_id)  # get()メソッドを使ってidで1つのレコードを取得
 
     if existing_tag:
         tag_id = existing_tag.tag_id #tag_idに占いに使用したタグのidを渡す
 
         # IDで画像を検索
-        Image = image.query.get(tag_id)  # get()メソッドを使ってidで1つのレコードを取得
+        image = Image.query.get(tag_id)  # get()メソッドを使ってidで1つのレコードを取得
 
-        if Image:
+        if image:
             # 画像が見つかった場合、その画像のパスを返す
-            return jsonify({"caption": result, "image_path": Image.path})
+            return jsonify({"caption": result, "image_path": image.path})
         else:
             # 画像が見つからなかった場合、エラーメッセージを返す
             return jsonify({"error": "Image not found"}), 404

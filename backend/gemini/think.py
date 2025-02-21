@@ -52,8 +52,8 @@ def read_text(text): #テキストをgeminiに渡す関数
 def daily_lucky_powder(): #「今日のラッキー粉物」関数
     client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
 
-    tag_data = Tag.query().all() #全てのタグを取得
-    l = [] #空のリストを作成
+    tag_data = Tag.query.all() #全てのタグを取得
+    l = ["お好み焼き", "たこ焼き", "ガレット"] #空のリストを作成
     for item in tag_data:
         l.append(item.tag) #lにタグの名前を入れていく
 
@@ -73,13 +73,13 @@ def daily_lucky_powder(): #「今日のラッキー粉物」関数
         model="gemini-2.0-flash",
         contents=[prompt, tags_string]) #geminiにプロンプトを渡す
 
-    return response.text, daily_lucky_powder(response.text) #geminiの出力結果と、出力に利用したタグの粉物の名前を返す
+    return response.text, judge_daily_lucky_powder(response.text) #geminiの出力結果と、出力に利用したタグの粉物の名前を返す
 
 def judge_daily_lucky_powder(result_text): #「今日のラッキー粉物」関数で使用した粉物を返す
     client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
 
-    tag_data = Tag.query().all() #全てのタグを取得
-    l = [] #空のリストを作成
+    tag_data = Tag.query.all() #全てのタグを取得
+    l = ["お好み焼き", "たこ焼き", "ガレット"] #空のリストを作成
     for item in tag_data:
         l.append(item.tag) #lにタグの名前を入れていく
 

@@ -1,0 +1,8 @@
+__pycache__/
+.env
+.gitignore
+.dockerignoer
+Dockerfile
+api_key.py
+secret_key.py
+r2_secret_access_key.py

@@ -1,5 +1,4 @@
 import boto3
-import r2.r2_secret_access_key as r2_key
 from botocore.config import Config
 
 import os

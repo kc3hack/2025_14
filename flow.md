@@ -126,7 +126,7 @@ http://127.0.0.1:5000/collection/get
 ## json
 ```json
 {
-    "user_id" : ""
+    
 }
 ```
 
@@ -139,7 +139,7 @@ http://127.0.0.1:3000/????
 {
     "result" : [
         {
-            "user_id": 1,
+            "user_name": 1,
             "image_name": "",
             "caption": "これは生ものです",
             "tag":

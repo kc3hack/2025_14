@@ -1,0 +1,11 @@
+.background {
+    background-image: url("./material/background.png");
+    background-size: cover;
+    /* 全体をカバー */
+    background-position: center;
+    /* 中央配置 */
+    width: 100vw;
+    /* ビューポート全幅 */
+    height: 100vh;
+    /* ビューポート全高 */
+}

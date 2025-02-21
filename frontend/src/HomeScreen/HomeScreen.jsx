@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 import './HomeScreen.css';
 import CameraModal from './CameraModal';
-
-
 
 function HomeScreen() {
   /* 入力 */
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [imageSrc, setImageSrc] = useState(null); // 撮影画像を保存
 
-  const [file,setFile] = useState(null); //選択されたファイルを保存
+  const [file, setFile] = useState(null); //選択されたファイルを保存
 
   const [inputText, setInputElement] = useState(""); //テキストボックス内の文字列を保存
 
-  /* 出力 */
-  const [responseData,setResponseData] = useState(null); //geminiから受け取ったデータを保存
+  // 格納されたテキストの配列を管理するuseState
+  const [savedTexts, setSavedTexts] = useState("");
 
   // データを送る
   const sendData = (data) => {
@@ -32,6 +31,7 @@ function HomeScreen() {
       console.error("Error:", error);
     });
   }
+
 
   // カメラを起動
   const handleOpenCamera = () => {
@@ -52,21 +52,82 @@ function HomeScreen() {
 
   // ファイルを選択する
   const handleFileSelect = (event) => {
-    const files = event.target.files; // 選択されたファイル
-    console.log("Selected files:", files);
-    setFile(files);
-    sendData(files);
+    const file = event.target.files[0]; // 最初の1つだけ取得
+    console.log("Selected files:", file);
+    setFile(file);
+    sendData(file);
   };
+
+  // ボタンが押されたときの処理
+  const handleSaveText = () => {
+    if (inputText.trim() !== "") {
+      setSavedTexts(prevSavedTexts => {
+        const updatedTexts = prevSavedTexts + inputText; // 文字列をそのまま結合
+        sendData(updatedTexts); // 文字列として送信
+        return updatedTexts;
+      });
+      setInputElement(""); // 入力フィールドをクリア
+    }
+  };
+
+  // データを送る
+  const sendData = (data) => {
+    console.log(data);
+    if (data instanceof File) {
+      // 単一のファイルの場合
+      console.log("ファイルを送信します");
+      const formData = new FormData();
+      formData.append("file", data); // ファイルを 'file' という名前で追加
+      axios.post("http://127.0.0.1:5000/process", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Content-Type は multipart/form-data に設定
+        },
+      })
+        .then((response) => {
+          setResponseData(response.data);
+          console.log("File Upload Response:", response.data);
+          movePageToBringData("OutputScreen", response.data, data);
+        })
+        .catch((error) => {
+          console.error("File Upload Error:", error);
+        });
+    } else {
+      console.log("テキストを送信します");
+      // テキストを送る場合
+      axios.post("http://127.0.0.1:5000/process", { text: data }, {
+        headers: {
+          "Content-Type": "application/json", // JSONとして送ることを明示
+        },
+      })
+        .then((response) => {
+          setResponseData(response.data);
+          console.log("Text Processing Response:", response.data);
+          movePageToBringData("OutputScreen", response.data, null);
+        })
+        .catch((error) => {
+          console.error("Text Processing Error:", error);
+        });
+    }
+  };
+
+  //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
+  const movePageToBringData = (pageName, data, imgData) => {
+    navigate(pageName, {
+      state: { data, imgData },
+    });
+  }
+
+  //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
+  const movePage = (pageName) => {
+    console.log("図鑑画面に移動します");
+    navigate(pageName);
+  }
 
   return (
     <>
-      <div className='background'>
-        <br />
-        <br />
-        <div className="title-frame"></div>
+      <div className='background-homescreen'>
 
-        <br />
-        <br />
+        <div className="title-frame"></div>
 
         <div className="Group9">
           <div className="image2"></div>
@@ -77,13 +138,7 @@ function HomeScreen() {
           <div className="sobako"></div>
         </div>
 
-        <br />
-        <br />
-
-        <div className="avatar"></div>
-
-        <br />
-        <br />
+        <div className="avatar-homescreen"></div>
 
         <div className="Group10">
 
@@ -114,21 +169,16 @@ function HomeScreen() {
           />
           <button
             className="send-icon"
-            onClick={() => alert("ボタンがクリックされました")}>
+            onClick={handleSaveText}>
           </button>
         </div>
 
-        <br />
-        <br />
 
         <button
           className="to-picture-book-button"
-          onClick={() => alert("ボタンがクリックされました")}>
+          onClick={() => movePage("PictureBook")}>
         </button>
       </div>
-      <br />
-      <br />
-      <br />
     </>
   )
 }

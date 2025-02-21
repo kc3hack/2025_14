@@ -14,7 +14,7 @@ UPLOAD_FOLDER = 'pictures'
 
 @app.route("/process", methods=["POST"])  # 画像もテキストも処理するエンドポイント
 def process_uploaded_data():
-
+    print(request.files)
     # 画像のアップロードチェック
     if 'file' in request.files:  # 画像が送られてきた場合
         file = request.files['file']
@@ -52,7 +52,7 @@ def process_uploaded_data():
         # データベースでタグを探す
         datetime_obj = datetime.now()
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
-
+        print(result, file_path)
         if existing_tag:
             return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": existing_tag.tag_id})
         else:

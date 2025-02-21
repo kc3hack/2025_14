@@ -38,10 +38,10 @@ function HomeScreen() {
 
   // ファイルを選択する
   const handleFileSelect = (event) => {
-    const files = [...event.target.files]; // FileList → 配列に変換(実際には単体)
-    console.log("Selected files:", files);
-    setFile(files);
-    sendData(files);
+    const file = event.target.files[0]; // 最初の1つだけ取得
+    console.log("Selected files:", file);
+    setFile(file);
+    sendData(file);
   };
 
   // ボタンが押されたときの処理
@@ -58,13 +58,16 @@ function HomeScreen() {
 
   // データを送る
   const sendData = (data) => {
-    if (Array.isArray(data) && data.length > 0 && data[0] instanceof File) {
-      // ファイルの場合
+    console.log(data);
+    if (data instanceof File) {
+      // 単一のファイルの場合
+      console.log("ファイルを送信します");
       const formData = new FormData();
-      data.forEach(file => formData.append("files", file));
-
+      formData.append("file", data); // ファイルを 'file' という名前で追加
       axios.post("http://127.0.0.1:5000/process", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data", // Content-Type は multipart/form-data に設定
+        },
       })
         .then((response) => {
           setResponseData(response.data);
@@ -73,8 +76,8 @@ function HomeScreen() {
         .catch((error) => {
           console.error("File Upload Error:", error);
         });
-
     } else {
+      console.log("テキストを送信します");
       // テキストを送る場合
       axios.post("http://127.0.0.1:5000/process", { text: data }, {
         headers: {

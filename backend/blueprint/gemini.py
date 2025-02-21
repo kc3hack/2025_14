@@ -52,7 +52,7 @@ def process_uploaded_data():
         # データベースでタグを探す
         datetime_obj = datetime.now()
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
-        file_path = os.getenv('R2_ENDPOINT_URL') + os.path.join(os.getenv('R2_BUCKET_NAME'), file_path)
+        file_path = os.path.join(os.getenv('R2_PUBLIC_URL'), file_path)
         print(result, file_path)
         if existing_tag:
             return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": existing_tag.tag_id})

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 import './HomeScreen.css';
@@ -14,10 +15,13 @@ function HomeScreen() {
   const [inputText, setInputElement] = useState(""); //テキストボックス内の文字列を保存
 
   // 格納されたテキストの配列を管理するuseState
-  const [savedTexts, setSavedTexts] = useState([]);
+  const [savedTexts, setSavedTexts] = useState("");
 
   /* 出力 */
   const [responseData, setResponseData] = useState(null); //geminiから受け取ったデータを保存
+
+  /*画面遷移*/
+  const navigate = useNavigate();
 
   // カメラを起動
   const handleOpenCamera = () => {
@@ -48,8 +52,8 @@ function HomeScreen() {
   const handleSaveText = () => {
     if (inputText.trim() !== "") {
       setSavedTexts(prevSavedTexts => {
-        const updatedTexts = [...prevSavedTexts, inputText];
-        sendData(updatedTexts); // 新しいデータを送る
+        const updatedTexts = prevSavedTexts + inputText; // 文字列をそのまま結合
+        sendData(updatedTexts); // 文字列として送信
         return updatedTexts;
       });
       setInputElement(""); // 入力フィールドをクリア
@@ -72,6 +76,7 @@ function HomeScreen() {
         .then((response) => {
           setResponseData(response.data);
           console.log("File Upload Response:", response.data);
+          movePageToBringData("OutputScreen", response.data, data);
         })
         .catch((error) => {
           console.error("File Upload Error:", error);
@@ -87,6 +92,7 @@ function HomeScreen() {
         .then((response) => {
           setResponseData(response.data);
           console.log("Text Processing Response:", response.data);
+          movePageToBringData("OutputScreen", response.data, null);
         })
         .catch((error) => {
           console.error("Text Processing Error:", error);
@@ -94,16 +100,24 @@ function HomeScreen() {
     }
   };
 
+  //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
+  const movePageToBringData = (pageName, data, imgData) => {
+    navigate(pageName, {
+      state: { data, imgData },
+    });
+  }
+
+  //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
+  const movePage = (pageName) => {
+    console.log("図鑑画面に移動します");
+    navigate(pageName);
+  }
 
   return (
     <>
-      <div className='background'>
-        <br />
-        <br />
-        <div className="title-frame"></div>
+      <div className='background-homescreen'>
 
-        <br />
-        <br />
+        <div className="title-frame"></div>
 
         <div className="Group9">
           <div className="image2"></div>
@@ -114,13 +128,7 @@ function HomeScreen() {
           <div className="sobako"></div>
         </div>
 
-        <br />
-        <br />
-
-        <div className="avatar"></div>
-
-        <br />
-        <br />
+        <div className="avatar-homescreen"></div>
 
         <div className="Group10">
 
@@ -155,17 +163,12 @@ function HomeScreen() {
           </button>
         </div>
 
-        <br />
-        <br />
 
         <button
           className="to-picture-book-button"
-          onClick={() => alert("ボタンがクリックされました")}>
+          onClick={() => movePage("PictureBook")}>
         </button>
       </div>
-      <br />
-      <br />
-      <br />
     </>
   )
 }

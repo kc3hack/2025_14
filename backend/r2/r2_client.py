@@ -2,11 +2,13 @@ import boto3
 import r2.r2_secret_access_key as r2_key
 from botocore.config import Config
 
+import os
+
 # Cloudflare R2 設定
-R2_ENDPOINT_URL = r2_key.r2_endpoint_url
-R2_ACCESS_KEY_ID = r2_key.r2_access_key_id
-R2_SECRET_ACCESS_KEY = r2_key.r2_secret_access_key
-R2_BUCKET_NAME = r2_key.r2_bucket_name
+R2_ENDPOINT_URL = os.getenv("R2_ENDPOINT_URL")
+R2_ACCESS_KEY_ID = os.getenv("R2_ACCESS_KEY_ID")
+R2_SECRET_ACCESS_KEY = os.getenv("R2_SECRET_ACCESS_KEY")
+R2_BUCKET_NAME = os.getenv("R2_BUCKET_NAME")
 
 # `s3v4` を明示的に設定
 config = Config(signature_version="s3v4")

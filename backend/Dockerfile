@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:latest
 
 # 🔹 ビルド用ステージ（Python 3.10 ベース）
-FROM python:3.9.18-slim-bookworm AS builder
+FROM --platform=linux/amd64 python:3.9.18-slim-bookworm AS builder
 
 # 必要なパッケージをインストール
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
 # 🔹 実行環境（最適化された軽量ステージ）
-FROM python:3.9.18-slim-bookworm AS final
+FROM --platform=linux/amd64 python:3.9.18-slim-bookworm AS final
 
 # 必要なパッケージのみインストール
 RUN apt-get update && apt-get install -y --no-install-recommends \

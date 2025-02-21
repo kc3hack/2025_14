@@ -4,12 +4,6 @@
 ファイルで送信
 ## 送信先
 http://127.0.0.1:5000/process
-## json
-```json
-{
-    "user_id" : "",
-}
-```
 
 # 2
 geminiの出力結果をjsonで送信

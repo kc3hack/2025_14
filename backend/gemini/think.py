@@ -6,13 +6,17 @@ import base64
 import time
 from gemini.api_key import apiKey
 from models import Tag
+import io
+import os
 
 from google import genai
 import PIL.Image
 
-def read_image(image_path): #画像をgeminiに渡し、その出力を返す関数
-    image = PIL.Image.open(image_path) #渡された画像パスを開く
-    client = genai.Client(api_key=apiKey) #api_key.pyに保存したapiキーを呼び出す
+key = os.getenv("GEMINI_API_KEY")
+
+def read_image(file_content): #画像をgeminiに渡し、その出力を返す関数
+    image = PIL.Image.open(io.BytesIO(file_content)) #渡された画像コンテンツをバイナリで開く
+    client = genai.Client(api_key=key) #api_key.pyに保存したapiキーを呼び出す
 
     prompt = "この画像に写っているものを「粉物」であるとこじつけてください．その際，次に示す規則を守って返事をしてください．\
             1. 長くても100文字以内で全ての返答を終えてください\
@@ -31,7 +35,7 @@ def read_image(image_path): #画像をgeminiに渡し、その出力を返す関
     return response.text, tagging_result_text(response.text) #geminiの出力結果とタグ付けされた結果をテキストで返す
 
 def read_text(text): #テキストをgeminiに渡す関数
-    client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
+    client = genai.Client(api_key=key)  # api_key.pyに保存したapiキーを呼び出す
 
     prompt = "次に示すテキストについて「粉物」であるとこじつけてください。その際、次に示す規則を守って返事をしてください。\
             1. 長くても100文字以内で全ての返答を終えてください\
@@ -50,7 +54,7 @@ def read_text(text): #テキストをgeminiに渡す関数
     return response.text, tagging_result_text(response.text) #geminiの出力結果とタグ付けされた結果をテキストで返す
 
 def daily_lucky_powder(): #「今日のラッキー粉物」関数
-    client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
+    client = genai.Client(api_key=key)  # api_key.pyに保存したapiキーを呼び出す
 
     tag_data = Tag.query.all() #全てのタグを取得
     l = ["お好み焼き", "たこ焼き", "ガレット"] #空のリストを作成
@@ -98,7 +102,7 @@ def judge_daily_lucky_powder(result_text): #「今日のラッキー粉物」関
     return response.text #daily_lucky_powderで使用したタグの粉物を返す
 
 def tagging_result_text(result_text): #geminiの出力結果をもとにタグ付けを行う関数
-    client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
+    client = genai.Client(api_key=key)  # api_key.pyに保存したapiキーを呼び出す
 
     prompt = "次に示すテキストの「粉物」についてタグ付けをしてください。その際、次に示す規則を守って返事をしてください。\
             1. タグは一つだけつけてください\

@@ -2,3 +2,6 @@ api_key.py
 __pycache__/
 local.sqlite
 secret_key.py
+.env
+.dockerignore
+r2_secret_access_key.py

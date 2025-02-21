@@ -6,7 +6,9 @@ const CameraModal = ({ onClose, onCapture }) => {
     const webcamRef = useRef(null);
 
     const capture = () => {
-        const imageSrc = webcamRef.current?.getScreenshot();
+        // const imageSrc = webcamRef.current?.getScreenshot();
+
+        const imageSrc = webcamRef.current.toBlob();
         if (imageSrc) {
             onCapture(imageSrc);
         }

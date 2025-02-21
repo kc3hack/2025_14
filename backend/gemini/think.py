@@ -53,16 +53,12 @@ def read_text(text): #テキストをgeminiに渡す関数
 
     return response.text, tagging_result_text(response.text) #geminiの出力結果とタグ付けされた結果をテキストで返す
 
-def daily_lucky_powder(): #「今日のラッキー粉物」関数
+def daily_lucky_powder(use_list): #「今日のラッキー粉物」関数
     client = genai.Client(api_key=key)  # api_key.pyに保存したapiキーを呼び出す
 
-    tag_data = Tag.query.all() #全てのタグを取得
-    l = ["お好み焼き", "たこ焼き", "ガレット"] #空のリストを作成
-    for item in tag_data:
-        l.append(item.tag) #lにタグの名前を入れていく
-
     # タグをカンマ区切りの文字列に変換
-    tags_string = ', '.join(l)
+    judge_list = use_list
+    tags_string = ', '.join(use_list)
 
     prompt = "「今日のラッキー粉物」をしてください。その際、次に示す規則を守って返事をしてください。\
             1. 100文字以内で全ての返答を終えてください\
@@ -77,29 +73,21 @@ def daily_lucky_powder(): #「今日のラッキー粉物」関数
         model="gemini-2.0-flash",
         contents=[prompt, tags_string]) #geminiにプロンプトを渡す
 
-    return response.text, judge_daily_lucky_powder(response.text) #geminiの出力結果と、出力に利用したタグの粉物の名前を返す
+    return response.text, judge_daily_lucky_powder(response.text, judge_list) #geminiの出力結果と、出力に利用した粉物の名前を返す
 
-def judge_daily_lucky_powder(result_text): #「今日のラッキー粉物」関数で使用した粉物を返す
+def judge_daily_lucky_powder(result_text, judge_list): #「今日のラッキー粉物」関数で使用した粉物を返す
     client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
-
-    tag_data = Tag.query.all() #全てのタグを取得
-    l = ["お好み焼き", "たこ焼き", "ガレット"] #空のリストを作成
-    for item in tag_data:
-        l.append(item.tag) #lにタグの名前を入れていく
-
-    # タグをカンマ区切りの文字列に変換
-    tags_string = ', '.join(l)
 
     prompt = "次に示すリストの中身について、テキストと一致するものを出力してください。その際、次に示す規則を守って返事をしてください。\
             1. リストの中身から選んで出力してください\
-            2. 単語のみを出力してください\
+            2. 必ずリストの単語のみを出力してください\
             "
 
     response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents=[prompt, result_text, tags_string]) #geminiにプロンプトを渡す
+        contents=[prompt, result_text, judge_list]) #geminiにプロンプトを渡す
 
-    return response.text #daily_lucky_powderで使用したタグの粉物を返す
+    return response.text #daily_lucky_powderで使用したリストの粉物を返す
 
 def tagging_result_text(result_text): #geminiの出力結果をもとにタグ付けを行う関数
     client = genai.Client(api_key=key)  # api_key.pyに保存したapiキーを呼び出す

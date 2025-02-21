@@ -85,23 +85,27 @@ def process_uploaded_data():
 
 @app.route("/daily_lucky_powder", methods=["GET"]) #占いを行う際に動作する
 def get_daily_lucky_powder():
-    result, use_tag_name = daily_lucky_powder() #geminiからテキスト形式で占い結果と、使用したタグの名前が返される
+    use_list = ['お好み焼き', 'たこ焼き', 'うどん', 'そば', 'たい焼き', 'ガレット'] #占いの対象になる粉物をリスト化
+    use_dict = {
+        "お好み焼き": "okonomiyaki.png",
+        "たこ焼き": "takoyaki.png",
+        "うどん": "udon.png",
+        "そば": "soba.png",
+        "たい焼き": "taiyaki.png",
+        "ガレット": "garetto.png"
+    } #辞書に画像のパスを登録
 
-    # データベースでタグを探す
-    existing_tag = Tag.query.filter_by(tag=use_tag_name).first() #use_tag_nameと一致するタグを探す
+    result, use_list_name = daily_lucky_powder(use_list) #geminiからテキスト形式で占い結果と、使用した粉物の名前が返される
+    use_list_name = use_list_name.rstrip('\n')
 
-    if existing_tag:
-        tag_id = existing_tag.tag_id #tag_idに占いに使用したタグのidを渡す
+    print(use_list_name, use_dict[use_list_name])
+    
+    try:
+        # Cloudflare R2 から画像を取得
+        file_obj = s3.get_object(Bucket=R2_BUCKET_NAME, Key=use_dict[use_list_name])
+        file_content = file_obj["Body"].read()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-        # IDで画像を検索
-        image = Image.query.get(tag_id)  # get()メソッドを使ってidで1つのレコードを取得
+    return jsonify({"caption": result, "image_path": use_dict[use_list_name]})
 
-        if image:
-            # 画像が見つかった場合、その画像のパスを返す
-            return jsonify({"caption": result, "image_path": image.path})
-        else:
-            # 画像が見つからなかった場合、エラーメッセージを返す
-            return jsonify({"error": "Image not found"}), 404
-    else:
-        # タグが見つからなかった場合、エラーメッセージを返す
-        return jsonify({"error": "Tag not found"}), 404

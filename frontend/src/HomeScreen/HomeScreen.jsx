@@ -4,33 +4,20 @@ import axios from "axios";
 import './HomeScreen.css';
 import CameraModal from './CameraModal';
 
-
-
 function HomeScreen() {
   /* 入力 */
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [imageSrc, setImageSrc] = useState(null); // 撮影画像を保存
 
-  const [file,setFile] = useState(null); //選択されたファイルを保存
+  const [file, setFile] = useState(null); //選択されたファイルを保存
 
   const [inputText, setInputElement] = useState(""); //テキストボックス内の文字列を保存
 
-  /* 出力 */
-  const [responseData,setResponseData] = useState(null); //geminiから受け取ったデータを保存
+  // 格納されたテキストの配列を管理するuseState
+  const [savedTexts, setSavedTexts] = useState([]);
 
-  // データを送る
-  const sendData = (data) => {
-    axios.post("http://127.0.0.1:5000/process", { data })
-    .then((response) => {
-      // レスポンスの処理
-      setResponseData(response.data);
-      console.log(response.data);
-    })
-    .catch((error) => {
-      // エラーハンドリング
-      console.error("Error:", error);
-    });
-  }
+  /* 出力 */
+  const [responseData, setResponseData] = useState(null); //geminiから受け取ったデータを保存
 
   // カメラを起動
   const handleOpenCamera = () => {
@@ -51,11 +38,59 @@ function HomeScreen() {
 
   // ファイルを選択する
   const handleFileSelect = (event) => {
-    const files = event.target.files; // 選択されたファイル
+    const files = [...event.target.files]; // FileList → 配列に変換(実際には単体)
     console.log("Selected files:", files);
     setFile(files);
     sendData(files);
   };
+
+  // ボタンが押されたときの処理
+  const handleSaveText = () => {
+    if (inputText.trim() !== "") {
+      setSavedTexts(prevSavedTexts => {
+        const updatedTexts = [...prevSavedTexts, inputText];
+        sendData(updatedTexts); // 新しいデータを送る
+        return updatedTexts;
+      });
+      setInputElement(""); // 入力フィールドをクリア
+    }
+  };
+
+  // データを送る
+  const sendData = (data) => {
+    if (Array.isArray(data) && data.length > 0 && data[0] instanceof File) {
+      // ファイルの場合
+      const formData = new FormData();
+      data.forEach(file => formData.append("files", file));
+
+      axios.post("http://127.0.0.1:5000/process", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then((response) => {
+          setResponseData(response.data);
+          console.log("File Upload Response:", response.data);
+        })
+        .catch((error) => {
+          console.error("File Upload Error:", error);
+        });
+
+    } else {
+      // テキストを送る場合
+      axios.post("http://127.0.0.1:5000/process", { text: data }, {
+        headers: {
+          "Content-Type": "application/json", // JSONとして送ることを明示
+        },
+      })
+        .then((response) => {
+          setResponseData(response.data);
+          console.log("Text Processing Response:", response.data);
+        })
+        .catch((error) => {
+          console.error("Text Processing Error:", error);
+        });
+    }
+  };
+
 
   return (
     <>
@@ -113,7 +148,7 @@ function HomeScreen() {
           />
           <button
             className="send-icon"
-            onClick={() => alert("ボタンがクリックされました")}>
+            onClick={handleSaveText}>
           </button>
         </div>
 

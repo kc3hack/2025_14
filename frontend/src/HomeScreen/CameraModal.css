@@ -1,0 +1,68 @@
+/* カメラのモーダル（前面表示） */
+.camera-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* カメラの枠 */
+.camera-container {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* カメラの映像 */
+.webcam {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+/* ボタン */
+.capture-button,
+.close-button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.capture-button {
+    background: #28a745;
+    color: white;
+}
+
+.close-button {
+    background: #dc3545;
+    color: white;
+}
+
+.open-camera-button {
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.image-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.image-preview img {
+    width: 200px;
+    border-radius: 10px;
+}

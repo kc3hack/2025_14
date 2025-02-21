@@ -1,0 +1,139 @@
+.background {
+    background-image: url("./material/background.png");
+    background-size: cover;
+    /* 全体をカバー */
+    background-position: center;
+    /* 中央配置 */
+    width: 100vw;
+    /* ビューポート全幅 */
+    height: 100vh;
+    /* ビューポート全高 */
+
+}
+
+.Group1 {
+    /*横並び*/
+    display: flex;
+    position: relative;
+    left: 100px;
+    top: 50px;
+}
+
+.Group2 {
+    position: relative;
+
+    left: 900px;
+    top: calc(345.93px - 56px);
+
+    /*横並び*/
+    display: flex;
+
+    gap:80px;
+
+    width: 504px;
+    height: 84px;
+    flex-shrink: 0;
+}
+
+
+.Group1-2 {
+    position: relative;
+    top: 75px;
+}
+
+.text {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 52.8px;
+
+    width: 792px;
+    height: 88px;
+    flex-shrink: 0;
+
+}
+
+.outputImg {
+    width: 624.889px;
+    height: 417.894px;
+    flex-shrink: 0;
+    aspect-ratio: 624.89/417.89;
+}
+
+.conversation-box {
+    background-image: url("./material/conversation.svg");
+    width: 616px;
+    height: 272.969px;
+    flex-shrink: 0;
+}
+
+.conversation {
+    position: relative;
+    left: 20px;
+    top: 30px;
+
+    font-size: 20px;
+    word-wrap: break-word;
+    max-width: 580px;
+    /* 幅を設定して折り返しを強制 */
+}
+
+.avatar {
+    background-image: url("./material/3DAvatar.png");
+    display: flex;
+    width: 218.375px;
+    height: 218.375px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    background-repeat: no-repeat;
+    /* 画像の繰り返しを防ぐ */
+
+    position: relative;
+    right: 200px;
+}
+
+.img {
+    width: 624.889px;
+    height: 417.894px;
+    flex-shrink: 0;
+    aspect-ratio: 624.89/417.89;
+
+    position: relative;
+    left: 100px;
+    top: 100px;
+}
+
+.to-homescreen-icon,.to-registering-picturebook-icon{
+    background-repeat: no-repeat;
+    /* 画像の繰り返しを防ぐ */
+    background-position: center;
+    /* 背景画像を中央に配置 */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: var(--sds-size-space-300);
+    gap: var(--sds-size-space-200);
+
+    width: 234px;
+    height: 84px;
+
+    border-radius: 20px;
+    /* 角を大きく丸くする */
+}
+
+.to-homescreen-icon {
+    background-size: 100px;
+    background-color: transparent;
+    /* 背景色を透明に */
+    background-image: url("./material/toHomeScreen.svg");
+}
+
+.to-registering-picturebook-icon{
+    background-size: 200px;
+    background-color: black;
+    /* 背景色を黒に */
+    background-image: url("./material/toRegisteringPictureBookIcon.svg");
+}

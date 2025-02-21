@@ -3,17 +3,29 @@ import HomeScreen from "./HomeScreen/HomeScreen";
 import OutputScreen from "./OutputScreen/OutputScreen";
 import Login from "./LogIn/login";
 import './App.css';
-import { FaFontAwesomeLogoFull } from "react-icons/fa";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+      queries: { retry: false },
+      mutations: { retry: false }
+  }
+});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/OutputScreen" element={<OutputScreen />} />
-        <Route path="/HomeScreen" element={<HomeScreen />}/>
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/OutputScreen" element={<OutputScreen />} />
+          <Route path="/HomeScreen" element={<HomeScreen />} />
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer closeOnClick theme="colored" />
+    </QueryClientProvider>
   );
 }
 

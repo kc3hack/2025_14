@@ -25,6 +25,7 @@ function HomeScreen() {
       // レスポンスの処理
       setResponseData(response.data);
       console.log(response.data);
+
     })
     .catch((error) => {
       // エラーハンドリング

@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import os
 from gemini.think import read_image, read_text, daily_lucky_powder
-from models import Tag
+from models import Tag, image
 from datetime import datetime
 from db_instance import db
 import uuid
@@ -19,11 +19,11 @@ def process_uploaded_data():
             return "No selected file", 400
 
         # 許可する拡張子をリストに指定
-        allowed_extensions = ['png', 'jpg', 'jpeg', 'gif','bmp', 'webp'] #JPEG, PNG, GIF, BMP, WEBPの拡張子を許可
+        allowed_extensions = ['.png', '.jpg', '.jpeg', '.gif','.bmp', '.webp'] #JPEG, PNG, GIF, BMP, WEBPの拡張子を許可
 
         # ファイル名と拡張子を分離
         filename, file_extension = os.path.splitext(file.filename)
-        
+
         # 拡張子を小文字に変換して比較
         check_file_extension = file_extension.lower() #大文字の拡張子の場合でも弾かれないようにするため
 
@@ -39,10 +39,10 @@ def process_uploaded_data():
 
         # データベースでタグを探す
         datetime_obj = datetime.now()
-        existing_tag = Tag.query.filter_by(tag=tag_result).first()
+        existing_tag = Tag.query.filter_by(tag=tag_result).first() #
 
         if existing_tag:
-            return jsonify({"caption": result, "image_name": file_path, "tag": tag_result, "tag_id": existing_tag})
+            return jsonify({"caption": result, "image_name": file_path, "tag": tag_result, "tag_id": existing_tag.tag_id})
         else:
             new_tag = Tag(tag=tag_result, datetime=datetime_obj)
             db.session.add(new_tag)  # 新しいタグをデータベースに追加
@@ -60,7 +60,7 @@ def process_uploaded_data():
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
 
         if existing_tag:
-            return jsonify({"caption": result, "tag": tag_result, "tag_id": existing_tag})
+            return jsonify({"caption": result, "tag": tag_result, "tag_id": existing_tag.tag_id})
         else:
             datetime_obj = datetime.now()
             new_tag = Tag(tag=tag_result, datetime=datetime_obj)
@@ -72,5 +72,27 @@ def process_uploaded_data():
 
 @app.route("/daily_lucky_powder", methods=["GET"]) #占いを行う際に動作する
 def get_daily_lucky_powder():
-    result = daily_lucky_powder() #geminiからテキスト形式で返される
-    return jsonify({"caption": result})
+    result, use_tag_name = daily_lucky_powder() #geminiからテキスト形式で占い結果と、使用したタグの名前が返される
+
+    # データベースでタグを探す
+    existing_tag = Tag.query.filter_by(tag=use_tag_name).first() #use_tag_nameと一致するタグを探す
+    tag_id = existing_tag.tag_id #tag_idに占いに使用したタグのidを渡す
+
+    # IDで画像を検索
+    Image = image.query.get(tag_id)  # get()メソッドを使ってidで1つのレコードを取得
+
+    if existing_tag:
+        tag_id = existing_tag.tag_id #tag_idに占いに使用したタグのidを渡す
+
+        # IDで画像を検索
+        Image = image.query.get(tag_id)  # get()メソッドを使ってidで1つのレコードを取得
+
+        if Image:
+            # 画像が見つかった場合、その画像のパスを返す
+            return jsonify({"caption": result, "image_path": Image.path})
+        else:
+            # 画像が見つからなかった場合、エラーメッセージを返す
+            return jsonify({"error": "Image not found"}), 404
+    else:
+        # タグが見つからなかった場合、エラーメッセージを返す
+        return jsonify({"error": "Tag not found"}), 404

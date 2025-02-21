@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
+
+.page{
+    background-image: url("./image/back.png");
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.logo-image {
+    button {/*ボタンの詳細*/
+        border: 0rem;/*枠線なし*/
+        background-color: white;/*ボタンの色*/
+    }
+    display: flex;
+    justify-content: center;/* 水平方向の中央揃え */
+    padding: 1rem;/*余白*/
+}
+
+.text-input {/*入力欄*/
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;/*垂直方向の中央揃え*/
+    width: 40rem;
+    border-radius: 10px;/* 角を大きく丸くする */
+    font-size: 30px;/* フォントサイズを適切に設定 */
+    padding: 1rem;
+}
+
+.password-input{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;/*垂直方向の中央揃え*/
+    width: 40rem;
+    border-radius: 10px;/* 角を大きく丸くする */
+    font-size: 30px;/* フォントサイズを適切に設定 */
+    padding: 1rem;
+    position: relative;
+}
+
+.PasswordReveal{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+
+.signin-button {
+    button {
+        margin: 3rem 1rem 1rem 1rem;
+        background-color: black;
+        color: white;
+        font-family: Yuji Mai, serif;
+        font-size: 5rem;
+        width: 40rem;
+        height: 50;
+        border-radius: 10px;/* 角を大きく丸くする */
+    }
+    display:flex;
+    justify-content: center;
+}
+
+.toSignup {
+    font-family: Yuji Mai, serif;
+    font-size: 2rem;
+
+    a {
+        color: orangered;
+    }
+
+    display: flex;
+    justify-content: center;
+}

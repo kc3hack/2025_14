@@ -1,0 +1,4 @@
+.dockerignoer
+Dockerfile
+.gitiignore
+node_modules/

@@ -11,10 +11,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomeScreen />} />
+        <Route path="/" element={<Login />} />
         <Route path="/OutputScreen" element={<OutputScreen />} />
         <Route path="/PictureBook" element={<PictureBook />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/HomeScreen" element={<HomeScreen />} />
       </Routes>
     </BrowserRouter>
   );

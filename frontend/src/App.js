@@ -5,18 +5,30 @@ import Login from "./LogIn/login";
 import PictureBook from "./PictureBook/PictureBook";
 import SignUp from "./SignUp/signup";
 import './App.css';
-import { FaFontAwesomeLogoFull } from "react-icons/fa";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+      queries: { retry: false },
+      mutations: { retry: false }
+  }
+});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/OutputScreen" element={<OutputScreen />} />
-        <Route path="/PictureBook" element={<PictureBook />} />
-        <Route path="/Login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/OutputScreen" element={<OutputScreen />} />
+          <Route path="/HomeScreen" element={<HomeScreen />} />
+          <Route path="/PictureBook" element={<PictureBook />} />
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer closeOnClick theme="colored" />
+    </QueryClientProvider>
   );
 }
 

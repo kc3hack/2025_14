@@ -40,7 +40,7 @@ export default function SignIn() {
     <div className="login-page">
       {/* ロゴボタン */}
       <div className="login-logo-image">
-        <button onClick={() => clickedToPageBtn('HomeScreen')}>
+        <button onClick={() => clickedToPageBtn('/')}>
           <LogoImage></LogoImage>
         </button>
       </div>

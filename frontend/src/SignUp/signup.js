@@ -40,7 +40,7 @@ export default function SignIn() {
     <div className="sign-page">
       {/* ロゴボタン */}
       <div className="sign-logo-image">
-        <button onClick={() => clickedToPageBtn('HomeScreen')}>
+        <button onClick={() => clickedToPageBtn('/')}>
           <LogoImage></LogoImage>
         </button>
       </div>
@@ -87,7 +87,7 @@ export default function SignIn() {
         <a href="/"
           onClick={(e) => {
             e.preventDefault(); // デフォルトのリンク動作を防ぐ
-            clickedToPageBtn('/');
+            clickedToPageBtn('Login');
           }}
         >
           ログイン

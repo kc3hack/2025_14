@@ -16,6 +16,7 @@ def save(data):
     user_name = session['user_name']
     user = User.query.filter_by(user_name=user_name).first()
     user_id = user.user_id
+    print(user_id)
     image_path = data["image_path"]
     caption = data["caption"]
     tag_id = data["tag_id"]

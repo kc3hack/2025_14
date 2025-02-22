@@ -52,7 +52,7 @@ def process_uploaded_data():
         # データベースでタグを探す
         datetime_obj = datetime.now()
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
-        file_path = os.path.join(os.getenv('R2_PUBLIC_URL'), file_path)
+        file_path = os.path.join(os.getenv("R2_PUBLIC_URL"), file_path)
         print(result, file_path)
         if existing_tag:
             return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": existing_tag.tag_id})
@@ -68,17 +68,19 @@ def process_uploaded_data():
         text = data['text']
         result, tag_result = read_text(text)  # テキスト処理を行う
 
+        file_path = os.path.join(os.getenv("R2_PUBLIC_URL"), "uploads/no_image.png")
+
         # データベースでタグを探す
         existing_tag = Tag.query.filter_by(tag=tag_result).first()
 
         if existing_tag:
-            return jsonify({"caption": result, "tag": tag_result, "tag_id": existing_tag.tag_id})
+            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": existing_tag.tag_id})
         else:
             datetime_obj = datetime.now()
             new_tag = Tag(tag=tag_result, datetime=datetime_obj)
             db.session.add(new_tag)  # 新しいタグをデータベースに追加
             db.session.commit()  # コミットして保存
-            return jsonify({"caption": result, "tag": tag_result, "tag_id": new_tag.tag_id})
+            return jsonify({"caption": result, "image_path": file_path, "tag": tag_result, "tag_id": new_tag.tag_id})
 
     return "Invalid data provided", 400  # どちらでもない場合はエラーを返す
 

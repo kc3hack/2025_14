@@ -1,4 +1,30 @@
-.logo-image{
+/* signin.css */
+.container {
+    text-align: center;
+    background: url('./material/background.png') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 垂直方向の中央揃え */
+    align-items: center; /* 水平方向の中央揃え */
+  }
+  
+  .logo-image {
     display: flex;
     justify-content: center; /* 水平方向の中央揃え */
-}
+    margin-bottom: 20px; /* 要素間のスペースを追加 */
+  }
+  
+  .button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .button img {
+    width: 100%; /* 必要に応じてサイズを調整 */
+    height: auto;
+  }
+  

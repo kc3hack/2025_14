@@ -64,7 +64,6 @@ function OutputScreen() {
             });
     };
 
-
     return (
         <>
             <div className="background">
@@ -73,7 +72,13 @@ function OutputScreen() {
                         <div className="text">
                             類似する粉物料理は・・・
                         </div>
-                        <img className="outputImg" src={pictureURL || ""} alt="出力結果" />
+                        <img
+                            className="outputImg"
+                            src={pictureURL || ""}
+                            alt="出力結果"
+                            onLoad={() => console.log("画像が読み込まれました")}
+                            onError={() => console.error("画像の読み込みに失敗しました")}
+                        />
                     </div>
                     <div className="Group1-2">
                         <div className="conversation-box">

@@ -53,7 +53,7 @@ function Post({ userName, password }) {
   };
 
   return (
-    <div className="signin-button">
+    <div className="login-signin-button">
       <button id="signin" onClick={handleSubmit}>ログイン</button>
     </div>
   );

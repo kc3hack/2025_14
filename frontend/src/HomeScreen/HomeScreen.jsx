@@ -17,21 +17,11 @@ function HomeScreen() {
   // 格納されたテキストの配列を管理するuseState
   const [savedTexts, setSavedTexts] = useState("");
 
-  // データを送る
-  const sendData = (data) => {
-    axios.post("http://127.0.0.1:5000/process", { data })
-    .then((response) => {
-      // レスポンスの処理
-      setResponseData(response.data);
-      console.log(response.data);
+  /* 出力 */
+  const [responseData, setResponseData] = useState(null); //geminiから受け取ったデータを保存
 
-    })
-    .catch((error) => {
-      // エラーハンドリング
-      console.error("Error:", error);
-    });
-  }
-
+  /*画面遷移*/
+  const navigate = useNavigate();
 
   // カメラを起動
   const handleOpenCamera = () => {

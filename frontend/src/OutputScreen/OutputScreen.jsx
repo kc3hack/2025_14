@@ -54,6 +54,7 @@ function OutputScreen() {
             headers: {
                 "Content-Type": "application/json", // JSONとして送信
             },
+            withCredentials: true,
         })
             .then((response) => {
                 console.log("Response:", response.data);

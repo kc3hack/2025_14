@@ -26,12 +26,12 @@ function Post({ userName, password }) { //送信機能
     .then(response => {
         console.log("成功:", response.data); // ✅ ここが出るか？
         alert("ユーザ登録に成功しました");
-        clickedToPageBtn('HomeScreen');
+        clickedToPageBtn('/');
     })
     .catch(err => {
         console.error("エラー:", err.response ? err.response.data : err.message); // ✅ エラーの詳細
         alert("すでに存在するユーザ名かパスワードです");
-        clickedToPageBtn('SignUp');
+        clickedToPageBtn('../SignUp');
     });
 };
 

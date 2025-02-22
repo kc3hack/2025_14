@@ -17,7 +17,14 @@ function Post({ userName, password }) {
     console.log("送信ボタンが押されました！");
 
     if (!userName || !password) {
-      alert("ユーザ情報を入力してください");
+      toast.error("❌ ユーザ情報を入力してください", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
       return;
     }
 

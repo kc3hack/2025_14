@@ -8,7 +8,7 @@ def register(data):
     # jsonにuser_nameとpasswordが含まれているか確認
     if not data or "user_name" not in data or "password" not in data:
         return jsonify({"error": "Missing user_name or password"}), 400
-    
+
     print(data)
 
     user_name = data["user_name"]

@@ -37,7 +37,7 @@ function Post({ userName, password }) {
           pauseOnHover: true,
           draggable: true
         });
-        clickedToPageBtn('HomeScreen');
+        clickedToPageBtn('/');
     })
     .catch(err => {
         console.error("エラー:", err.response ? err.response.data : err.message);

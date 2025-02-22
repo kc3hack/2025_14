@@ -87,7 +87,7 @@ export default function SignIn() {
         <a href="/"
           onClick={(e) => {
             e.preventDefault(); // デフォルトのリンク動作を防ぐ
-            clickedToPageBtn('Login');
+            clickedToPageBtn('../Login');
           }}
         >
           ログイン

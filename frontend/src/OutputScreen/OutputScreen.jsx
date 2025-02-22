@@ -44,7 +44,7 @@ function OutputScreen() {
 
         // JSONオブジェクトを作成
         const jsonData = {
-            image_name: imagePath,  // imagePath を image_name に対応
+            image_path: imagePath,  // imagePath を image_name に対応
             caption: caption,
             tag_id: tagID
         };

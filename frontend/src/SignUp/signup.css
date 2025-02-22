@@ -13,11 +13,14 @@
     button {
         border: 0rem; /* 枠線なし */
         background: none;
+        cursor: pointer; /* 画像の上だけカーソルを変更 */
     }
-    cursor: pointer; /* 画像の上だけカーソルを変更 */
+
     display: flex;
     justify-content: center; /* 水平方向の中央揃え */
     margin-top: 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .sign-logo-image img {
@@ -31,6 +34,8 @@
     justify-content: center;
     align-items: center; /* 垂直方向の中央揃え */
     gap: 10px; /* 画像とテキストの間隔を指定 */
+    position: relative;
+    z-index: 1;
 }
 
 .sign-pro-image{
@@ -53,6 +58,7 @@
 
 .sign-text-input {/*入力欄*/
     position: relative;
+    z-index: 3;
     margin: auto;
     margin-bottom: 1rem;
     display: flex;

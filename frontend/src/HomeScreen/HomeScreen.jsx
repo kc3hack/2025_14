@@ -17,6 +17,12 @@ function HomeScreen() {
   // 格納されたテキストの配列を管理するuseState
   const [savedTexts, setSavedTexts] = useState("");
 
+  /* 出力 */
+  const [responseData, setResponseData] = useState(null); //geminiから受け取ったデータを保存
+
+  /*画面遷移*/
+  const navigate = useNavigate();
+
   // カメラを起動
   const handleOpenCamera = () => {
     setIsCameraOpen(true);

@@ -25,6 +25,7 @@ function App() {
           <Route path="/OutputScreen" element={<OutputScreen />} />
           <Route path="/HomeScreen" element={<HomeScreen />} />
           <Route path="/PictureBook" element={<PictureBook />} />
+          <Route path="/SignUp" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer closeOnClick theme="colored" />

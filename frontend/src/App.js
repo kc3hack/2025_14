@@ -21,9 +21,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<HomeScreen />} />
           <Route path="/OutputScreen" element={<OutputScreen />} />
-          <Route path="/HomeScreen" element={<HomeScreen />} />
+          <Route path="Login" element={<Login />} />
           <Route path="/PictureBook" element={<PictureBook />} />
           <Route path="/SignUp" element={<SignUp />} />
         </Routes>

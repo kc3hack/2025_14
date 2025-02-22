@@ -49,15 +49,15 @@ function OutputScreen() {
             tag_id: tagID
         };
 
-        // axiosでJSONを送信
+        // axiosでJSONを送信しつつ、クッキーを含める
         axios.post("http://127.0.0.1:5000/collection/save", jsonData, {
             headers: {
                 "Content-Type": "application/json", // JSONとして送信
             },
+            withCredentials: true, // クッキーを送信
         })
             .then((response) => {
                 console.log("Response:", response.data);
-                movePage("/");
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -122,8 +122,11 @@ function OutputScreen() {
                     ></button>
                     <button
                         className="to-registering-picturebook-icon"
-                        onClick={() => sendImageAndTextData(imgPath, textData, imgTagID)}
-                        aria-label="データを登録"
+                        onClick={() => {
+                            sendImageAndTextData(imgPath, textData, imgTagID);
+                            movePage("/");
+                        }}
+                        aria-label="データを登録後、ホームへ移動"
                     ></button>
                 </div>
             </div>

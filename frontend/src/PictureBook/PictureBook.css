@@ -1,11 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
+
+.title {
+    display: flex;
+    justify-content: center;  /* 横方向に中央揃え */
+    align-items: center;  /* 垂直方向に中央揃え */
+    height: 40vh;  /* 親要素の高さをビューポートに合わせる */
+}
+
+h1 {
+    font-family: Yuji Mai, serif;
+    font-size: 10rem;
+    margin: 0;  /* デフォルトのマージンを消す */
+}
+
 .background {
     background-image: url("./material/background.png");
-    background-size: cover;
-    /* 全体をカバー */
-    background-position: center;
-    /* 中央配置 */
-    width: 100vw;
-    /* ビューポート全幅 */
-    height: 100vh;
-    /* ビューポート全高 */
+    background-size: cover;  /* 全体をカバー */
+    background-position: center;  /* 中央配置 */
+    background-repeat: repeat-y;  /* 縦方向に繰り返し表示 */
+
+    width: 100vw;  /* ビューポート全幅 */
+    height: auto;  /* コンテンツの高さに合わせて調整 */
+    min-height: 100vh;  /* ビューポート全高を最小高さとして設定 */
+}
+
+.button-container-wrapper {
+    display: flex;
+    flex-wrap: wrap;  /* 複数行に折り返し */
+    justify-content: space-evenly;
+
+}
+
+.button-container {
+    width: 40vw;  /* 横2つ並べるために、2列に分ける */
+    margin-bottom: 10px;  /* ボタン間の縦のスペース */
+
+}
+
+.image-button {
+    width: 40vw;  /* ボタンをコンテナいっぱいに広げる */
+    height: 40vh;  /* ボタンの高さ */
+    background-size: cover;  /* 画像をボタンにフィットさせる */
+    background-position: center;  /* 画像が中央に来るように配置 */
+    border: none;  /* ボタンの枠線を消す */
+    cursor: pointer;  /* カーソルをポインターに */
+
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.to-home-button-parent {
+    display: flex;
+    justify-content: flex-end;  /* 子要素を右寄せ */
+}
+
+.to-home-button {
+    width: 40vw;  /* ボタンをコンテナいっぱいに広げる */
+    height: 40vh;  /* ボタンの高さ */
+    background-size: cover;  /* 画像をボタンにフィットさせる */
+    background-position: center;  /* 画像が中央に来るように配置 */
+    border: none;  /* ボタンの枠線を消す */
+    cursor: pointer;  /* カーソルをポインターに */
+
+    overflow: hidden;
+    border-radius: 10px;
+
+    background-color: transparent;
+    /* 背景色を透明に */
+}
+
+.caption-text {
+    color: white;
+    font-size: 18px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 文字が背景に埋もれないように影をつける */
 }

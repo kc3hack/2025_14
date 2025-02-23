@@ -47,7 +47,7 @@ function Post({ userName, password }) {
           pauseOnHover: true,
           draggable: true
         });
-        // fetch("http://127.0.0.1:5000/check-session", {
+        // fetch("http://127.0.0.1:5000/check_session", {
         //   credentials: "include"
         // })
         // .then(response => {

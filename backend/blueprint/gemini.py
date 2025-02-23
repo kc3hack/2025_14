@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_cors import CORS
 import os
 from gemini.think import read_image, read_text, daily_lucky_powder
 from models import Tag
@@ -9,6 +10,7 @@ from r2.r2_client import s3
 
 
 app = Blueprint('gemini', __name__)
+CORS(app, supports_credentials=True, origins=["http://localhost"])
 
 UPLOAD_FOLDER = 'pictures'
 

@@ -1,7 +1,9 @@
 from flask import Blueprint, redirect, url_for, request, jsonify, session
+from flask_cors import CORS
 from authentication import auth_register, auth_login, auth_reset_password, auth_delete_account
 
 auth = Blueprint("blueprint", __name__)
+CORS(auth, supports_credentials=True, origins=["http://localhost"])
 
 @auth.route("/")
 def home():
@@ -48,6 +50,10 @@ def delete_account():
         return jsonify({"error": "Request must be JSON"}, 400)
     return auth_delete_account.delete_account(request.get_json())
 
-@auth.route("/check-session", methods=["GET"])
+@auth.route("/check_session", methods=["GET"])
 def check_session():
     return jsonify({"c:user_name": session["user_name"]}), 200
+
+@auth.route("/session_test", methods=["GET"])
+def session_test():
+    return jsonify(dict(session))

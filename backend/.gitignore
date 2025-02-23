@@ -5,3 +5,4 @@ secret_key.py
 .env
 .dockerignore
 r2_secret_access_key.py
+flask_session

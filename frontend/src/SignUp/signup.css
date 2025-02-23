@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
+
+.sign-page{
+    background-image: url("./image/back.png");
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.sign-logo-image {
+    button {
+        border: 0rem; /* 枠線なし */
+        background: none;
+        cursor: pointer; /* 画像の上だけカーソルを変更 */
+    }
+
+    display: flex;
+    justify-content: center; /* 水平方向の中央揃え */
+    position: relative;
+    z-index: 2;
+}
+
+.sign-logo-image img {
+    width: 80%; /* 親要素に合わせてリサイズ */
+    height: auto; /* アスペクト比を維持 */
+    justify-content: center;
+}
+
+.sign-pro-container{
+    display: flex; /* 横並びにする */
+    justify-content: center;
+    align-items: center; /* 垂直方向の中央揃え */
+    gap: 10px; /* 画像とテキストの間隔を指定 */
+    position: relative;
+    z-index: 1;
+}
+
+.sign-pro-image{
+    display: flex;
+}
+
+.sign-pro-image img{
+    width: clamp(15%, 20%, 50%); /* 親要素に合わせてリサイズ */
+    height: clamp(50vh, auto, 60vh); /* アスペクト比を維持 */
+    transform: scale(2);
+    object-fit: contain; /* アスペクト比を維持して拡大 */
+}
+
+.sign-pro-text{
+    display: flex;
+    font-family: Yuji Mai, serif;
+    font-size: 2rem;
+    justify-content: center;
+}
+
+.sign-text-input {/*入力欄*/
+    position: relative;
+    z-index: 3;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;/*垂直方向の中央揃え*/
+    width: clamp(20rem,60%,60rem);
+    border-radius: 10px; /* 角を大きく丸くする */
+    font-size: 30px; /* フォントサイズを適切に設定 */
+    padding: clamp(0.5rem,2vw,1.25rem);
+}
+
+.sign-password-container{
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.sign-PasswordReveal{
+    position: absolute;
+    right: clamp(10%,20%,40%);
+    bottom: clamp(2rem,30%,50rem);
+    display: flex;
+    cursor: pointer;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+
+.sign-signin-button {
+    button {
+        margin: 1rem;
+        background-color: black;
+        color: white;
+        font-family: Yuji Mai, serif;
+        font-size: clamp(3rem, 3vw, 5rem);
+        width: clamp(40vw, 50vw, 60vw);
+        height: auto;
+        border-radius: 10px; /* 角を大きく丸くする */
+        cursor: pointer; /* 画像の上だけカーソルを変更 */
+        pointer-events: auto;
+    }
+    display:flex;
+    justify-content: center;
+}
+
+.sign-toSignup {
+    font-family: Yuji Mai, serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+
+    a {
+        color: orangered;
+    }
+
+    display: flex;
+    justify-content: center;
+}

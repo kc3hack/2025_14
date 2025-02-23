@@ -39,7 +39,6 @@ http://127.0.0.1:5000/collection/save
 ## json
 ```json
 {
-    "user_id" : "",
     "image_name" : "",
     "caption" : "",
     "tag_id" : ""
@@ -53,7 +52,7 @@ http://127.0.0.1:5000/collection/delete
 ## json
 ```json
 {
-    "image_name" : "",
+    "image_path" : "",
 }
 ```
 
@@ -126,7 +125,7 @@ http://127.0.0.1:5000/collection/get
 ## json
 ```json
 {
-    "user_id" : ""
+    
 }
 ```
 
@@ -139,7 +138,7 @@ http://127.0.0.1:3000/????
 {
     "result" : [
         {
-            "user_id": 1,
+            "user_name": 1,
             "image_name": "",
             "caption": "これは生ものです",
             "tag":

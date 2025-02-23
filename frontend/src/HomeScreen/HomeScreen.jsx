@@ -76,7 +76,7 @@ function HomeScreen() {
         .then((response) => {
           setResponseData(response.data);
           console.log("File Upload Response:", response.data);
-          movePageToBringData("OutputScreen", response.data, data);
+          movePageToBringData("../OutputScreen", response.data, data);
         })
         .catch((error) => {
           console.error("File Upload Error:", error);
@@ -121,7 +121,7 @@ function HomeScreen() {
           <div className="title-frame"></div>
           <button
             className="to-login-screen-button"
-            onClick={() => movePage("Login")}>
+            onClick={() => movePage("../Login")}>
           </button>
         </div>
         <div className="Group9">
@@ -171,7 +171,7 @@ function HomeScreen() {
 
         <button
           className="to-picture-book-button"
-          onClick={() => movePage("PictureBook")}>
+          onClick={() => movePage("../PictureBook")}>
         </button>
       </div>
     </>

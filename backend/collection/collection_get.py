@@ -4,11 +4,13 @@ from models import Image, Text, Tag, User
 
 def get(data):
 
-    if 'user_name' not in session:
-        return f'Logged in as {session["user_name"]}', 400
+    user_name = session.get("user_name")
+    print('-'*50)
+    print(user_name)
+    if user_name is None:
+        return f'User not Logged in as {user_name}', 400
 
     # ID情報を抽出する
-    user_name = session['user_name']
     user = User.query.filter_by(user_name=user_name).first()
 
     # DBのImageモデルからuser_idで絞り込んでデータを取得
@@ -41,4 +43,5 @@ def get(data):
         return jsonify({"error": "Not Enough Data"}), 500
 
     # 検索結果をjsonに変換して返す
+    print(result_list)
     return make_response(jsonify({"result": result_list}))

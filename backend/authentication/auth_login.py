@@ -16,4 +16,5 @@ def login(data):
         return jsonify({"error": "Invalid credentials"}), 401
 
     session["user_name"] = user_name
+    print(session["user_name"])
     return jsonify({"status": "success"}), 200

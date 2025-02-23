@@ -12,15 +12,19 @@ function PictureBook() {
     useEffect(() => {
         // ページ遷移が発火したタイミングで処理を実行
         console.log('遷移先ページ:', location.pathname);
+        console.log('session:', document.cookie);
 
         // 空送信したい場合
         const sendData = () => {
             console.log("空のJsonを送信");
 
-            axios.post("http://127.0.0.1:5000/collection/get", {}, {
+            axios.post("http://127.0.0.1:5000/collection/get", {
+                text : "空のJsonを送信"
+            }, {
                 headers: {
                     "Content-Type": "application/json", // JSON形式のデータを送る
                 },
+                withCredentials: true, // クッキーを送信
             })
                 .then((response) => {
                     // response.data.result から必要な部分（caption と image_name）を抽出

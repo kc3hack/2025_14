@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   backend:
-    build: .
-    ports:
-      - "5000:5000"
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file:
       - .env

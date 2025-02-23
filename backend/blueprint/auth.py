@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, url_for, request, jsonify, session, make_response
+from flask_cors import CORS
 from authentication import auth_reset_password, auth_delete_account
 from flask_cors import cross_origin
 from werkzeug.security import generate_password_hash, check_password_hash

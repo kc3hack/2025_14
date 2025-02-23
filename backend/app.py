@@ -19,12 +19,11 @@ def create_app(config_key):
     app.config["SESSION_COOKIE_HTTPONLY"] = True
     # app.config["SESSION_COOKIE_SAMESITE"] = 'Lax'
     # app.config["SESSION_COOKIE_DOMAIN"] = None
-    app.config["SESSION_COOKIE_DOMAIN"] = "localhost"
-
+    app.config["SESSION_COOKIE_DOMAIN"] = "127.0.0.1:3000"
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
     Session(app)
     db.init_app(app)
     Migrate(app, db)
-    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
     from blueprint import auth, gemini
     from blueprint import collection

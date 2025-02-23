@@ -5,7 +5,7 @@ from models import User
 def login(data):
     # jsonにuser_nameとpasswordが含まれているか確認
     if not data or "user_name" not in data or "password" not in data:
-        return jsonify({"error": "Missing user_name or password"}), 400
+        return make_response(jsonify({"error": "Missing user_name or password"}), 400)
 
     user_name = data["user_name"]
     password = data["password"]
@@ -13,10 +13,10 @@ def login(data):
     user = User.query.filter_by(user_name=user_name).first()
     # ユーザーが存在しないかパスワードが間違っている場合
     if not user or not check_password_hash(user.password_hash, password):
-        return jsonify({"error": "Invalid credentials"}), 401
+        return make_response(jsonify({"error": "Invalid credentials"}), 401)
 
     if "user_name" in session:
-        return jsonify({"error": "Already logged in"}), 400
+        return make_response(jsonify({"error": "Already logged in"}), 400)
 
     session["user_name"] = user_name
     response = jsonify({"status": "success"})

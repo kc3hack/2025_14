@@ -30,53 +30,55 @@ function PictureBook() {
 
     const location = useLocation(); //遷移時の情報を取得する
     useEffect(() => {
-        //     // ページ遷移が発火したタイミングで処理を実行
-        //     console.log('遷移先ページ:', location.pathname);
-        //     console.log('session:', document.cookie);
+            // // ページ遷移が発火したタイミングで処理を実行
+            // console.log('遷移先ページ:', location.pathname);
+            // console.log('session:', document.cookie);
 
-        //     const sendData = () => {
-        //         console.log("空のJsonを送信");
+            // const sendData = () => {
+            //     console.log("空のJsonを送信");
 
-        //         axios.post("http://127.0.0.1:5000/collection/get", {
-        //             text: "空のJsonを送信"
-        //         }, {
-        //             headers: {
-        //                 "Content-Type": "application/json", // リクエストがJSONデータであることを伝える
-        //                 "Accept": "application/json", // サーバーにJSON形式のレスポンスを期待
-        //             },
-        //             withCredentials: true, // クッキーを送信
-        //         })
-        //             .then((response) => {
-        //                 console.log(response.data);
+            //     axios.post("http://127.0.0.1:5000/collection/get", {
+            //         text: "空のJsonを送信"
+            //     }, {
+            //         headers: {
+            //             "Content-Type": "application/json", // リクエストがJSONデータであることを伝える
+            //             "Accept": "application/json", // サーバーにJSON形式のレスポンスを期待
+            //         },
+            //         withCredentials: true, // クッキーを送信
+            //     })
+            //         .then((response) => {
+            //             console.log(response.data);
 
-        //                 // `result` が存在するか確認
-        //                 if (response.data && Array.isArray(response.data.result)) {
-        //                     // 必要なデータを抽出してstateに格納
-        //                     const extractedData = response.data.result.map(item => ({
-        //                         caption: item.caption || "No caption", // captionがない場合のデフォルト値
-        //                         image_name: item.image_name || "default_image.png", // image_nameがない場合のデフォルト値
-        //                     }));
+            //             // `result` が存在するか確認
+            //             if (response.data && Array.isArray(response.data.result)) {
+            //                 // 必要なデータを抽出してstateに格納
+            //                 const extractedData = response.data.result.map(item => ({
+            //                     caption: item.caption || "No caption", // captionがない場合のデフォルト値
+            //                     image_name: item.image_name || "default_image.png", // image_nameがない場合のデフォルト値
+            //                     tag: item.tag || "No tag",  // tagがない場合のデフォルト値
 
-        //                     setDisplayObjects(extractedData);
-        //                     console.log("Extracted Data:", extractedData);
-        //                 } else {
-        //                     console.error("Invalid response structure:", response.data);
-        //                 }
-        //             })
-        //             .catch((error) => {
-        //                 if (error.response) {
-        //                     // サーバーがレスポンスを返した場合
-        //                     console.error("Response Error:", error.response);
-        //                 } else if (error.request) {
-        //                     // リクエストは送信されたが、サーバーからのレスポンスがなかった場合
-        //                     console.error("Request Error:", error.request);
-        //                 } else {
-        //                     // その他のエラー
-        //                     console.error("Error:", error.message);
-        //                 }
-        //             });
-        //     };
-        //     sendData();  // 空のデータを送信
+            //                 }));
+
+            //                 setDisplayObjects(extractedData);
+            //                 console.log("Extracted Data:", extractedData);
+            //             } else {
+            //                 console.error("Invalid response structure:", response.data);
+            //             }
+            //         })
+            //         .catch((error) => {
+            //             if (error.response) {
+            //                 // サーバーがレスポンスを返した場合
+            //                 console.error("Response Error:", error.response);
+            //             } else if (error.request) {
+            //                 // リクエストは送信されたが、サーバーからのレスポンスがなかった場合
+            //                 console.error("Request Error:", error.request);
+            //             } else {
+            //                 // その他のエラー
+            //                 console.error("Error:", error.message);
+            //             }
+            //         });
+            // };
+            // sendData();  // 空のデータを送信
 
         // テストデータを直接セット
         const testData = [
@@ -126,7 +128,7 @@ function PictureBook() {
 
     }, [location]);
 
-    const handleButtonClick = (caption) => {
+    const handleButtonClick = (img,caption) => {
         alert(`ボタンがクリックされました: ${caption}`);
     };
 
@@ -145,7 +147,7 @@ function PictureBook() {
                                     <button
                                         className="image-button"
                                         style={{ backgroundImage: `url(${item.image_name})` }}
-                                        onClick={() => handleButtonClick(item.caption)}  // クリック時にアラート表示
+                                        onClick={() => handleButtonClick(item.image_name,item.caption)}  // クリック時にアラート表示
                                     />
                                 </div>
                             ))}

@@ -98,7 +98,7 @@ def get_daily_lucky_powder():
     result, use_list_name = daily_lucky_powder(use_list) #geminiからテキスト形式で占い結果と、使用した粉物の名前が返される
     use_list_name = use_list_name.rstrip('\n')
 
-    print(use_list_name, use_dict[use_list_name])
+    # print(use_list_name, use_dict[use_list_name])
     
     try:
         # Cloudflare R2 から画像を取得

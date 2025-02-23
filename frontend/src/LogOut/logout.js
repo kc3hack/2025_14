@@ -6,16 +6,16 @@ import "./logout.css";
 
 function LogoImage() { //ロゴ画像
     return (
-        <div className="login-logo-image">
+        <div className="logout-logo-image">
             <img src={Logo} alt="Logo" />
         </div>);
 }
 
 function ProImage() { //職人画像
     return (
-        <div className="login-pro-container">
-            <img src={Pro} alt="Pro" className="login-pro-image" />
-            <span className="login-pro-text">また遊びに来てな！</span>
+        <div className="logout-pro-container">
+            <img src={Pro} alt="Pro" className="logout-pro-image" />
+            <span className="logout-pro-text">また遊びに来てな！</span>
         </div>);
 }
 
@@ -32,9 +32,8 @@ export default function Logout() {
                     <LogoImage></LogoImage>
                 </button>
             </div>
-
             {/* 職人画像 */}
-            <div className="login-pro-image">
+            <div className="logout-pro-image">
                 <ProImage></ProImage>
             </div>
 

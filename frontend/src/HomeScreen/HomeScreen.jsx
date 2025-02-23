@@ -111,7 +111,7 @@ function HomeScreen() {
   //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
   const movePageToBringData = (pageName, data, imgData) => {
     navigate(pageName, {
-      state: { data, imgData},
+      state: { data, imgData },
     });
   }
 
@@ -130,6 +130,11 @@ function HomeScreen() {
           <button
             className="to-login-screen-button"
             onClick={() => movePage("../Login")}>
+          </button>
+          <button
+            className="to-logout-btn"
+            onClick={() => movePage("../Logout")}>
+              <p>ログアウトへ</p>
           </button>
         </div>
         <div className="Group9">

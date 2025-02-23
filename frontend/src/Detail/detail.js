@@ -1,30 +1,33 @@
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 // import axios from "axios";
-import Sample from "./image/PXL.jpg";
+import Sample from "./image/galetto.jpg";
 import "./detail.css"
 
-function Detail({ image_path = Sample, caption = "No", tag = "No" }) {
-
+function Detail() {
+    const location = useLocation();
+    const { img, caption, tag } = location.state || {}; // 受け取ったデータ
     const [isPortrait, setIsPortrait] = useState(false); //画像のアスペクト比を計算
 
     useEffect(() => {
-        const img = new Image();
-        img.src = image_path;
-        img.onload = () => {
+        if (!img) return;
+        const image = new Image();
+        image.src = img;
+        image.onload = () => {
             // 画像が読み込まれた後にアスペクト比を計算
-            if (img.height > img.width) {
+            if (image.height > image.width) {
                 setIsPortrait(true); // 縦長画像
             } else {
                 setIsPortrait(false); // 横長画像
             }
         };
-    }, [image_path]);
+    }, [img]);
 
 
     return (
         <div className="detail-page">
             <div className={`detail-image ${isPortrait ? 'img-portrait' : 'img-landscape'}`}>
-                <img src={Sample} alt="Detail" />
+                <img src={img} alt="Detail" />
             </div>
 
             <div className="detail-text">

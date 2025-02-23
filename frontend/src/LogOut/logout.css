@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
+
+.logout-page {
+    background-image: url("./image/back.png");
+    background-size: cover;
+    background-position: bottom center;
+    width: 100%;
+    position: relative;
+    min-height: 100vh; /* 画面の高さに合わせて最小値を100vhに設定 */
+}
+
+.logout-logo-image {
+    button {
+        border: 0rem; /* 枠線なし */
+        background: none;
+        cursor: pointer; /* 画像の上だけカーソルを変更 */
+    }
+
+    display: flex;
+    justify-content: center; /* 水平方向の中央揃え */
+    z-index: 2;
+    padding-top: 1vh;
+}
+
+.logout-logo-image img {
+    width: 80%; /* 親要素に合わせてリサイズ */
+    height: auto; /* アスペクト比を維持 */
+    justify-content: center;
+}
+
+.logout-pro-container {
+    display: flex; /* 横並びにする */
+    justify-content: center;
+    align-items: center; /* 垂直方向の中央揃え */
+    gap: 10px; /* 画像とテキストの間隔を指定 */
+    position: relative;
+    z-index: 1;
+    
+}
+
+.logout-pro-image {
+    display: flex;
+}
+
+.logout-pro-image img {
+    width: clamp(15%, 20%, 50%); /* 親要素に合わせてリサイズ */
+    height: clamp(50vh, auto, 60vh); /* アスペクト比を維持 */
+    transform: scale(2);
+    object-fit: contain; /* アスペクト比を維持して拡大 */
+}
+
+.logout-pro-text {
+    display: flex;
+    font-family: Yuji Mai, serif;
+    font-size: 2rem;
+    justify-content: center;
+}

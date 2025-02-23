@@ -1,12 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import "./login.css";
 
 function Post({ userName, password }) {
   const navigate = useNavigate();
-  const [popupMessage, setPopupMessage] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
 
   const clickedToPageBtn = (pageName) => {
     navigate(pageName);

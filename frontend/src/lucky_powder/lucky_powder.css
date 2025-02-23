@@ -20,17 +20,16 @@
   border: none;
 }
 
-.button {
+.Button {
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
-  position: absolute; /* 絶対位置を設定 */
-  bottom: 20px; /* 下からの距離を指定 */
-  right: 20px; /* 右からの距離を指定 */
+  align-items: center;
+  justify-content: center;
 }
 
-.button img {
+.Button img {
   width: 100%; /* 必要に応じてサイズを調整 */
   height: auto;
 }

@@ -13,7 +13,7 @@ function FortuneButton({ fetchLuckyPowder }) {
   };
 
   return (
-    <button className="button" onClick={handleClick}>
+    <button className="Button" onClick={handleClick}>
       <img src={Button} alt="Button" />
     </button>
   );

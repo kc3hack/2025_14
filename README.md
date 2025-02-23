@@ -56,10 +56,10 @@ JavaScriptを初めて扱うメンバーが多く、Reactの記述に苦戦し�
 <!-- ### その他 -->
 
 ## 使用技術
-フロントエンド:React
-バックエンド:Gemini,Flask
-データベース:SQLAlchemy
-その他:Figma,Github,Docker
+- **フロントエンド:** React  
+- **バックエンド:** Gemini, Flask  
+- **データベース:** SQLAlchemy  
+- **その他:** Figma, GitHub, Docker
 <!-- 使用技術を入力してください -->
 
 <!--

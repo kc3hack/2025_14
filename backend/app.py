@@ -13,11 +13,14 @@ def create_app(config_key):
     app.config.from_object(config[config_key])
     app.config["SECRET_KEY"] = os.getenv("AUTH_SECRET_KEY")
     app.config["SESSION_TYPE"] = "filesystem"
-    app.config["SESSION_PERMANENT"] = timedelta(days=7)
+    app.config["SESSION_PERMANENT"] = True
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=7)
+
     app.config["SESSION_COOKIE_HTTPONLY"] = True
     # app.config["SESSION_COOKIE_SAMESITE"] = 'Lax'
-    app.config["SESSION_COOKIE_HTTPONLY"] = False
-    app.config["SESSION_COOKIE_DOMAIN"] = None
+    # app.config["SESSION_COOKIE_DOMAIN"] = None
+    app.config["SESSION_COOKIE_DOMAIN"] = "localhost"
+
     Session(app)
     db.init_app(app)
     Migrate(app, db)

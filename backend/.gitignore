@@ -6,3 +6,4 @@ secret_key.py
 .dockerignore
 r2_secret_access_key.py
 file_session
+flask_session

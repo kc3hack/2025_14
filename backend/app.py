@@ -19,6 +19,7 @@ def create_app(config_key):
     app.config["SESSION_COOKIE_HTTPONLY"] = True
     # app.config["SESSION_COOKIE_SAMESITE"] = 'None'
     app.config["SESSION_COOKIE_DOMAIN"] = "localhost"
+
     Session(app)
     db.init_app(app)
     Migrate(app, db)

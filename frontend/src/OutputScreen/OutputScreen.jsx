@@ -38,26 +38,49 @@ function OutputScreen() {
         navigate(pageName);
     }
 
-    // データを送る
-    const sendData = (imagePath, caption, tagID) => {
+    // 画像やテキストデータなどを送る
+    const sendImageAndTextData = (imagePath, caption, tagID) => {
         console.log("ファイルを送信します");
 
         // JSONオブジェクトを作成
         const jsonData = {
-            image_name: imagePath,  // imagePath を image_name に対応
+            image_path: imagePath,  // imagePath を image_name に対応
             caption: caption,
             tag_id: tagID
         };
 
-        // axiosでJSONを送信
+        // axiosでJSONを送信しつつ、クッキーを含める
         axios.post("http://127.0.0.1:5000/collection/save", jsonData, {
+            headers: {
+                "Content-Type": "application/json", // JSONとして送信
+            },
+            withCredentials: true, // クッキーを送信
+        })
+            .then((response) => {
+                console.log("Response:", response.data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    };
+
+    // 画像を削除するようJsonを送る
+    const sendDeleteData = (imagePath) => {
+        console.log("ファイルを送信します");
+
+        // JSONオブジェクトを作成
+        const jsonData = {
+            image_path: imagePath,  // imagePath を image_name に対応
+        };
+
+        // axiosでJSONを送信
+        axios.post("http://127.0.0.1:5000/collection/delete", jsonData, {
             headers: {
                 "Content-Type": "application/json", // JSONとして送信
             },
         })
             .then((response) => {
-                console.log("Response:", response.data);
-                movePage("/");
+                console.log("通信成功");
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -90,13 +113,20 @@ function OutputScreen() {
                 <div className="Group2">
                     <button
                         className="to-homescreen-icon"
-                        onClick={() => movePage("/")}
+                        onClick={() => {
+                            sendDeleteData(imgPath);
+                            console.log("削除処理実行");
+                            movePage("/");
+                        }}
                         aria-label="ホームへ移動"
                     ></button>
                     <button
                         className="to-registering-picturebook-icon"
-                        onClick={() => sendData(imgPath, textData, imgTagID)}
-                        aria-label="データを登録"
+                        onClick={() => {
+                            sendImageAndTextData(imgPath, textData, imgTagID);
+                            movePage("/");
+                        }}
+                        aria-label="データを登録後、ホームへ移動"
                     ></button>
                 </div>
             </div>

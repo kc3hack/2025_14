@@ -39,7 +39,6 @@ http://127.0.0.1:5000/collection/save
 ## json
 ```json
 {
-    "user_id" : "",
     "image_name" : "",
     "caption" : "",
     "tag_id" : ""
@@ -53,7 +52,7 @@ http://127.0.0.1:5000/collection/delete
 ## json
 ```json
 {
-    "image_name" : "",
+    "image_path" : "",
 }
 ```
 

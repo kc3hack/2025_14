@@ -31,13 +31,13 @@ function Post({ userName, password }) {
       body: JSON.stringify(data),
       credentials: "include"
     })
-    .then(response => {
-      if (!response.ok) {
-        return response.json().then(err => { throw err; });
-      }
-      return response.json();
-    })
-    .then(responseData => {
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(err => { throw err; });
+        }
+        return response.json();
+      })
+      .then(responseData => {
         console.log("成功:", responseData);
         toast.success(" ログイン成功", {
           position: "top-right",
@@ -74,7 +74,28 @@ function Post({ userName, password }) {
           pauseOnHover: true,
           draggable: true
         });
-    });
+      });
+
+    fetch("http://127.0.0.1:5000/check-session", {
+      credentials: "include"
+    })
+      .then(response => {
+        if (!response.ok) {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            return response.json().then(err => { throw err; });
+          } else {
+            throw new Error("サーバーからJSON以外のレスポンスが返されました");
+          }
+        }
+        return response.json();
+      })
+      .then(responseData => {
+        console.log("ログイン確認結果:", responseData);
+      })
+      .catch(error => {
+        console.error("ログイン確認エラー:", error);
+      });
   };
 
   return (

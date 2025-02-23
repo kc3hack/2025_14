@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -22,6 +22,9 @@ function HomeScreen() {
 
   /*画面遷移*/
   const navigate = useNavigate();
+
+  /*ファイルInputオブジェクトを格納*/
+  const fileInputRef = useRef(null);
 
   // カメラを起動
   const handleOpenCamera = () => {
@@ -59,6 +62,11 @@ function HomeScreen() {
       setInputElement(""); // 入力フィールドをクリア
     }
   };
+
+  //Cookiesがあるかどうか
+  useEffect(() => {
+    console.log("Current Cookies:", document.cookie);
+  }, []);
 
   // データを送る
   const sendData = (data) => {
@@ -109,7 +117,7 @@ function HomeScreen() {
 
   //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
   const movePage = (pageName) => {
-    console.log("図鑑画面に移動します");
+    console.log(`${pageName} に移動します`);
     navigate(pageName);
   }
 
@@ -145,13 +153,21 @@ function HomeScreen() {
 
           <input
             type="file"
+            ref={fileInputRef}
             onChange={handleFileSelect}
             style={{ display: "none" }}
             id="fileInput"
           />
           <button
             className="image-icon"
-            onClick={() => document.getElementById("fileInput").click()}>
+            onClick={() => {
+              console.log("fileInputRef.current:", fileInputRef.current);
+              if (fileInputRef.current) {
+                fileInputRef.current.click();
+              } else {
+                console.error("fileInputRef が null です");
+              }
+            }}>
           </button>
 
 

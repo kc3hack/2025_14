@@ -6,11 +6,26 @@ const CameraModal = ({ onClose, onCapture }) => {
     const webcamRef = useRef(null);
 
     const capture = () => {
-        // const imageSrc = webcamRef.current?.getScreenshot();
+        const imageSrc = webcamRef.current?.getScreenshot();
 
-        const imageSrc = webcamRef.current.toBlob();
         if (imageSrc) {
-            onCapture(imageSrc);
+            // base64からBlobに変換
+            const byteString = atob(imageSrc.split(',')[1]);
+            const mimeString = imageSrc.split(',')[0].split(':')[1].split(';')[0];
+
+            const arrayBuffer = new ArrayBuffer(byteString.length);
+            const uint8Array = new Uint8Array(arrayBuffer);
+
+            for (let i = 0; i < byteString.length; i++) {
+                uint8Array[i] = byteString.charCodeAt(i);
+            }
+
+            const blob = new Blob([uint8Array], { type: mimeString });
+
+            // BlobをFileに変換（任意のファイル名を指定）
+            const file = new File([blob], "captured_image.jpg", { type: mimeString });
+
+            onCapture(file);
         }
     };
 

@@ -84,43 +84,53 @@ function PictureBook() {
         const testData = [
             {
                 caption: "これはサンプル画像1です",
-                image_name: sampleImage
+                image_name: sampleImage,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像2です",
-                image_name: sampleImage2
+                image_name: sampleImage2,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像3です",
-                image_name: sampleImage3
+                image_name: sampleImage3,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像4です",
-                image_name: sampleImage4
+                image_name: sampleImage4,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像5です",
-                image_name: sampleImage5
+                image_name: sampleImage5,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像6です",
-                image_name: sampleImage6
+                image_name: sampleImage6,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像7です",
-                image_name: sampleImage7
+                image_name: sampleImage7,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像8です",
-                image_name: sampleImage8
+                image_name: sampleImage8,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像9です",
-                image_name: sampleImage9
+                image_name: sampleImage9,
+                tag:"そば粉のガレット"
             },
             {
                 caption: "これはサンプル画像10です",
-                image_name: sampleImage10
+                image_name: sampleImage10,
+                tag:"そば粉のガレット"
             },
         ];
 
@@ -128,8 +138,9 @@ function PictureBook() {
 
     }, [location]);
 
-    const handleButtonClick = (img,caption) => {
+    const handleButtonClick = (img,caption,tag) => {
         alert(`ボタンがクリックされました: ${caption}`);
+        navigate("/detail", { state: { img, caption, tag } }); // 画面遷移時にデータを送る
     };
 
     return (
@@ -147,7 +158,7 @@ function PictureBook() {
                                     <button
                                         className="image-button"
                                         style={{ backgroundImage: `url(${item.image_name})` }}
-                                        onClick={() => handleButtonClick(item.image_name,item.caption)}  // クリック時にアラート表示
+                                        onClick={() => handleButtonClick(item.image_name,item.caption,item.tag)}  // クリック時にアラート表示
                                     />
                                 </div>
                             ))}

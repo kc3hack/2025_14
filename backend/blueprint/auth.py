@@ -1,5 +1,5 @@
-from flask import Blueprint, redirect, url_for, request, jsonify, session
-from flask_cors import CORS
+from flask import Blueprint, redirect, url_for, request, jsonify, session, make_response
+from flask_cors import CORS, cross_origin
 from authentication import auth_register, auth_login, auth_reset_password, auth_delete_account
 
 auth = Blueprint("blueprint", __name__)
@@ -51,8 +51,9 @@ def delete_account():
     return auth_delete_account.delete_account(request.get_json())
 
 @auth.route("/check_session", methods=["GET"])
+@cross_origin(origins=["http://localhost:3000"])
 def check_session():
-    return jsonify({"c:user_name": session["user_name"]}), 200
+    return make_response(jsonify({"c:user_name": session["user_name"]}), 200)
 
 @auth.route("/session_test", methods=["GET"])
 def session_test():

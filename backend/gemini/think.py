@@ -1,3 +1,11 @@
+import requests
+import json
+import hmac
+import hashlib
+import base64
+import time
+from gemini.api_key import apiKey
+from models import Tag
 import io
 import os
 
@@ -45,8 +53,12 @@ def read_text(text): #テキストをgeminiに渡す関数
 
     return response.text, tagging_result_text(response.text) #geminiの出力結果とタグ付けされた結果をテキストで返す
 
-def daily_lucky_powder(): #「今日のラッキー粉物」関数
+def daily_lucky_powder(use_list): #「今日のラッキー粉物」関数
     client = genai.Client(api_key=key)  # api_key.pyに保存したapiキーを呼び出す
+
+    # タグをカンマ区切りの文字列に変換
+    judge_list = use_list
+    tags_string = ', '.join(use_list)
 
     prompt = "「今日のラッキー粉物」をしてください。その際、次に示す規則を守って返事をしてください。\
             1. 100文字以内で全ての返答を終えてください\
@@ -54,13 +66,28 @@ def daily_lucky_powder(): #「今日のラッキー粉物」関数
             3. 血液型などは、どうでもいいです\
             4. 「今日のラッキー粉物はooです」から話し始めてください\
             5. 論理的におかしくない、もっともらしい説明をしてください\
+            6. 渡されたリストの中からテーマとする粉物を1つ選択してください\
             "
 
     response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents=[prompt]) #geminiにプロンプトを渡す
+        contents=[prompt, tags_string]) #geminiにプロンプトを渡す
 
-    return response.text #geminiの出力結果をテキストで返す
+    return response.text, judge_daily_lucky_powder(response.text, judge_list) #geminiの出力結果と、出力に利用した粉物の名前を返す
+
+def judge_daily_lucky_powder(result_text, judge_list): #「今日のラッキー粉物」関数で使用した粉物を返す
+    client = genai.Client(api_key=apiKey)  # api_key.pyに保存したapiキーを呼び出す
+
+    prompt = "次に示すリストの中身について、テキストと一致するものを出力してください。その際、次に示す規則を守って返事をしてください。\
+            1. リストの中身から選んで出力してください\
+            2. 必ずリストの単語のみを出力してください\
+            "
+
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=[prompt, result_text, judge_list]) #geminiにプロンプトを渡す
+
+    return response.text #daily_lucky_powderで使用したリストの粉物を返す
 
 def tagging_result_text(result_text): #geminiの出力結果をもとにタグ付けを行う関数
     client = genai.Client(api_key=key)  # api_key.pyに保存したapiキーを呼び出す
@@ -76,3 +103,4 @@ def tagging_result_text(result_text): #geminiの出力結果をもとにタグ�
         contents=[prompt, result_text]) #プロンプトとテキストをgeminiに渡す
 
     return response.text #タグ付けされた結果をテキストで返す
+

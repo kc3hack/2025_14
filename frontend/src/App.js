@@ -26,7 +26,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LuckyPowder />} />
+          <Route path="/" element={<HomeScreen />} />
           <Route path="/judge" element={<LuckyPowderJudge />} />
           {/* <Route path="/" element={<HomeScreen />} /> */}
           <Route path="/OutputScreen" element={<OutputScreen />} />

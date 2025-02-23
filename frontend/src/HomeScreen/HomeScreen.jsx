@@ -189,11 +189,16 @@ function HomeScreen() {
           </button>
         </div>
 
-
-        <button
-          className="to-picture-book-button"
-          onClick={() => movePage("../PictureBook")}>
-        </button>
+        <div className="buttons">
+          <button
+            className="to-fortune-telling-button"
+            onClick={() => movePage("/Logout")}>
+          </button>
+          <button
+            className="to-picture-book-button"
+            onClick={() => movePage("/PictureBook")}>
+          </button>
+        </div>
       </div>
     </>
   )

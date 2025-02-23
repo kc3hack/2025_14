@@ -31,6 +31,7 @@ function App() {
           <Route path="/PictureBook" element={<PictureBook />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/Detail" element={<Detail />} />
+          <Route path="/Logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer closeOnClick theme="colored" />

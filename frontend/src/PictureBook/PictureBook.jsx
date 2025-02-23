@@ -15,28 +15,43 @@ function PictureBook() {
 
         // 空送信したい場合
         const sendData = () => {
-            console.log("空のJsonを送信");
+            const jsonData = {
+                // 送信するデータをここに記述
+                key1: "value1",
+                key2: "value2",
+                // 追加するデータに応じて
+            };
 
-            axios.post("http://127.0.0.1:5000/collection/get", {}, {
+
+            axios.post("http://127.0.0.1:5000/collection/get", jsonData, {
                 headers: {
-                    "Content-Type": "application/json", // JSON形式のデータを送る
+                    "Content-Type": "application/json", // リクエストがJSONデータであることを伝える
+                    "Accept": "application/json", // サーバーにJSON形式のレスポンスを期待
                 },
+                withCredentials: true, // クッキーを送信
             })
-                .then((response) => {
-                    // response.data.result から必要な部分（caption と image_name）を抽出
-                    const extractedData = response.data.result.map(item => ({
-                        caption: item.caption,
-                        image_name: item.image_name,
-                    }));
-
-                    // 抽出したデータを useState の配列に格納
-                    setDisplayObjects(extractedData);
-
-                    console.log("Extracted Data:", extractedData);
-                })
-                .catch((error) => {
-                    console.error("File Upload Error:", error);
-                });
+            .then((response) => {
+                console.log(response.data);
+                // 必要なデータを抽出してstateに格納
+                const extractedData = response.data.result.map(item => ({
+                    caption: item.caption,
+                    image_name: item.image_name,
+                }));
+                setDisplayObjects(extractedData);
+                console.log("Extracted Data:", extractedData);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    // サーバーがレスポンスを返した場合
+                    console.error("Response Error:", error.response);
+                } else if (error.request) {
+                    // リクエストは送信されたが、サーバーからのレスポンスがなかった場合
+                    console.error("Request Error:", error.request);
+                } else {
+                    // その他のエラー
+                    console.error("Error:", error.message);
+                }
+            });
         };
 
         sendData();  // 空のデータを送信

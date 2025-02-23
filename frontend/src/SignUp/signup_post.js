@@ -20,8 +20,9 @@ function Post({ userName, password }) { //送信機能
     const data = { user_name: userName, password: password };
     console.log("送信データ:", data); // ✅ データを確認
 
-    axios.post("http://127.0.0.1:5000/register", data, {
-        headers: { 'Content-Type': 'application/json' }
+    axios.post("https://backend-backend-latest.onrender.com/register", data, {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
     })
     .then(response => {
         console.log("成功:", response.data); // ✅ ここが出るか？

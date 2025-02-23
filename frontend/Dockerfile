@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:latest
 
 # 🔹 ビルド用ステージ
-FROM --platform=$BUILDPLATFORM node:22.12.0-bullseye-slim AS builder
+FROM --platform=linux/amd64 node:22.12.0-bullseye-slim AS builder
 
 # 必要なパッケージをインストール（最小限に抑える）
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -24,7 +24,7 @@ RUN npm ci
 COPY . .
 
 # ビルド（もし必要なら）
-RUN npm run build
+# RUN npm run build
 
 # ポートを公開（Render の `PORT` に対応）
 EXPOSE $PORT

@@ -22,7 +22,7 @@ function Post({ userName, password }) {
     const data = { user_name: userName, password: password };
     console.log("送信データ:", data); //データを確認
 
-    fetch("http://127.0.0.1:5000/login", {
+    fetch("https://backend-backend-latest.onrender.com/login", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ function Post({ userName, password }) {
         });
       });
 
-    fetch("http://127.0.0.1:5000/check-session", {
+    fetch("https://backend-backend-latest.onrender.com/check-session", {
       credentials: "include"
     })
       .then(response => {

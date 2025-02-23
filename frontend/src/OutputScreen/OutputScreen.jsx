@@ -50,7 +50,7 @@ function OutputScreen() {
         };
 
         // axiosでJSONを送信しつつ、クッキーを含める
-        axios.post("http://127.0.0.1:5000/collection/save", jsonData, {
+        axios.post("https://backend-backend-latest.onrender.com/collection/save", jsonData, {
             headers: {
                 "Content-Type": "application/json", // JSONとして送信
             },
@@ -74,10 +74,11 @@ function OutputScreen() {
         };
 
         // axiosでJSONを送信
-        axios.post("http://127.0.0.1:5000/collection/delete", jsonData, {
+        axios.post("https://backend-backend-latest.onrender.com/collection/delete", jsonData, {
             headers: {
                 "Content-Type": "application/json", // JSONとして送信
             },
+            withCredentials: true
         })
             .then((response) => {
                 console.log("通信成功");

@@ -23,7 +23,7 @@ function ProImage() { //職人画像
 }
 
 
-export default function SignIn() {
+export default function LogIn() {
   const [userName, setInputUserName] = useState(""); //テキストボックス内のユーザ名
   const [password, setInputPassword] = useState(""); //テキストボックス内のパスワード
   const [isRevealPassword, setIsRevealPassword] = useState(false); //伏せ字

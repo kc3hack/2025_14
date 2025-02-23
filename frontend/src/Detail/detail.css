@@ -1,8 +1,162 @@
-.detail-page{
+.detail-page {
     background-image: url("./image/back.png");
     background-size: cover;
     background-position: center;
     width: 100vw;
     height: 100vh;
     position: relative;
+}
+
+.detail-image {
+    display: flex;
+    /* アイテムを縦方向に中央揃え */
+    align-items: center;
+    /* アイテムを横方向に中央揃え */
+    justify-content: center;
+    padding: 2vw;
+}
+
+.detail-text {
+    display: flex;
+    flex-direction: column;
+    /* 縦並びにする */
+    border: 1rem;
+    border-radius: 10px;
+    background-color: rgb(190, 190, 190);
+    margin:1%;
+    padding: 1%;
+    position:absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.detail-tag,
+.detail-cap {
+    font-size: 2rem;
+    font-family: Yuji Mai, serif;
+    width: 100%;
+    margin: 0;
+}
+
+.detail-tag h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin: 0;
+}
+
+.detail-tag p {
+    font-size: clamp(1rem, 2vw, 2rem);
+    margin: 0;
+}
+
+.detail-cap h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin: 0;
+}
+
+.detail-cap p {
+    font-size: clamp(1rem, 2vw, 1.8rem);
+    margin: 0;
+}
+
+/* 必要ならテキストを縮小して収める */
+.detail-text p,
+.detail-text h1 {
+    max-width: 100%;
+    word-wrap: break-word;
+    /* 単語の途中で改行 */
+    white-space: normal;
+    /* 自動折り返し */
+}
+
+.detail-backBtn {
+    display: flex;
+    border: none;
+    justify-content: center;
+}
+
+.detail-backBtn button{
+    cursor: pointer;
+    background-color: black;
+    border-radius: 20px;
+}
+
+.detail-backBtn p {
+    font-size: clamp(1rem, 10vw, 2rem);
+    color: white;
+    font-family: Yuji Mai, serif;
+    margin: 0;
+    background:none;
+}
+
+
+
+@media (orientation: portrait) {
+
+    /* 縦長画面の場合 */
+    /* 横長画像*/
+    .detail-image.img-landscape img {
+        /* 画像の横幅をビューポート幅に合わせる */
+        width: clamp(60vw, 70vw, 90vw);
+        /* 高さは自動調整 */
+        height: auto;
+        padding-top: 5vh;
+
+    }
+
+    /* 縦長画像*/
+    .detail-image.img-portrait img {
+        /* 横幅は自動調整 */
+        width: auto;
+        /* 画像の高さをビューポート幅に合わせる */
+        height: clamp(20vh, 40vh, 60vh);
+
+    }
+
+    .detail-text{
+        width: 90vw;
+        height: 35vh;
+    }
+
+    .detail-backBtn {
+        position: absolute;
+        width: clamp(10vw,30%);
+        height: 10vh;
+        bottom: 8%;
+        left: 5%;
+    }
+}
+
+@media (orientation: landscape) {
+
+    /* 横長画面の場合*/
+    /* 横長画像*/
+    .detail-image.img-landscape img {
+        /* 画像の横幅をビューポート幅に合わせる */
+        width: clamp(40vw, 45vw, 60vw);
+        /* 高さは自動調整 */
+        height: auto;
+
+    }
+
+    /* 縦長画像*/
+    .detail-image.img-portrait img {
+        /* 横幅は自動調整 */
+        width: auto;
+        /* 画像の高さをビューポート幅に合わせる */
+        height: clamp(20vh, 50vh, 60vh);
+    }
+
+    .detail-backBtn {
+        position: absolute;
+        width: clamp(10vw,25%);
+        height: 10vh;
+        top: 10%;
+        left: 5%;
+    }
+
+    .detail-text{
+        width: 90vw;
+        height: 30vh;
+    }
+
 }

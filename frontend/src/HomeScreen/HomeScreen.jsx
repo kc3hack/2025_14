@@ -2,8 +2,32 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
+import Crystale from "./material/crystale.png";
+import Send from "./material/sendIcon.png";
+import Book from "./material/toPictureBook.png";
 import './HomeScreen.css';
 import CameraModal from './CameraModal';
+
+function SendImage() { //ロゴ画像
+  return (
+      <div>
+          <img src={Send} alt="send" />
+      </div>);
+}
+
+function CrystaleImage() { //ロゴ画像
+    return (
+        <div>
+            <img src={Crystale} alt="clys" />
+        </div>);
+}
+
+function BookImage() { //ロゴ画像
+  return (
+      <div>
+          <img src={Book} alt="book" />
+      </div>);
+}
 
 function HomeScreen() {
   /* 入力 */
@@ -133,7 +157,7 @@ function HomeScreen() {
           </button>
           <button
             className="to-logout-btn"
-            onClick={() => movePage("../Logout")}>
+            onClick={() => movePage("../CheckLogout")}>
               <p>ログアウトへ</p>
           </button>
         </div>
@@ -193,10 +217,12 @@ function HomeScreen() {
           <button
             className="to-fortune-telling-button"
             onClick={() => movePage("/Logout")}>
+              <CrystaleImage></CrystaleImage>
           </button>
           <button
             className="to-picture-book-button"
             onClick={() => movePage("/PictureBook")}>
+              <BookImage></BookImage>
           </button>
         </div>
       </div>

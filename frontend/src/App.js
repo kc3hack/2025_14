@@ -5,7 +5,8 @@ import Login from "./LogIn/login";
 import PictureBook from "./PictureBook/PictureBook";
 import SignUp from "./SignUp/signup";
 import Detail from "./Detail/detail";
-import Logout from "./LogOut/checkLogout";
+import CheckLogout from "./LogOut/checkLogout";
+import Logout from "./LogOut/logout";
 import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer } from 'react-toastify';
@@ -27,6 +28,7 @@ function App() {
           <Route path="/HomeScreen" element={<HomeScreen />} />
           <Route path="/OutputScreen" element={<OutputScreen />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/CheckLogout" element={<CheckLogout />} />
           <Route path="/Logout" element={<Logout />} />
           <Route path="/PictureBook" element={<PictureBook />} />
           <Route path="/SignUp" element={<SignUp />} />

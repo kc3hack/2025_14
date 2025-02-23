@@ -28,7 +28,7 @@ export default function Logout() {
         <div className="logout-page">
             {/* ロゴボタン */}
             <div className="logout-logo-image">
-                <button onClick={() => clickedToPageBtn('HomeScreen')}>
+                <button onClick={() => clickedToPageBtn('/')}>
                     <LogoImage></LogoImage>
                 </button>
             </div>

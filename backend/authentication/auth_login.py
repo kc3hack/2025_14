@@ -1,4 +1,4 @@
-from flask import jsonify, session
+from flask import jsonify, session, make_response
 from werkzeug.security import check_password_hash
 from models import User
 
@@ -15,6 +15,11 @@ def login(data):
     if not user or not check_password_hash(user.password_hash, password):
         return jsonify({"error": "Invalid credentials"}), 401
 
+    if "user_name" in session:
+        return jsonify({"error": "Already logged in"}), 400
+
     session["user_name"] = user_name
-    print(session["user_name"])
-    return jsonify({"status": "success"}), 200
+    response = jsonify({"status": "success"})
+    response.status_code = 200
+    # response.set_cookie("user_name", user_name)
+    return make_response(response)

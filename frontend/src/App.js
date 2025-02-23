@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeScreen from "./HomeScreen/HomeScreen";
 import OutputScreen from "./OutputScreen/OutputScreen";
+import LuckyPowder from "./lucky_powder/lucky_powder";
+import LuckyPowderJudge from "./lucky_powder_judge/lucky_powder_judge";
 import Login from "./LogIn/login";
 import PictureBook from "./PictureBook/PictureBook";
 import SignUp from "./SignUp/signup";
@@ -23,8 +25,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/HomeScreen" element={<HomeScreen />} />
+          <Route path="/" element={<LuckyPowder />} />
+          <Route path="/judge" element={<LuckyPowderJudge />} />
+          {/* <Route path="/" element={<HomeScreen />} /> */}
           <Route path="/OutputScreen" element={<OutputScreen />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/PictureBook" element={<PictureBook />} />

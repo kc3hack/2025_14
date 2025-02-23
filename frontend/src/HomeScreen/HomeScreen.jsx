@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -63,6 +63,11 @@ function HomeScreen() {
     }
   };
 
+  //Cookiesがあるかどうか
+  useEffect(() => {
+    console.log("Current Cookies:", document.cookie);
+  }, []);
+
   // データを送る
   const sendData = (data) => {
     console.log(data);
@@ -112,7 +117,7 @@ function HomeScreen() {
 
   //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
   const movePage = (pageName) => {
-    console.log("図鑑画面に移動します");
+    console.log(`${pageName} に移動します`);
     navigate(pageName);
   }
 

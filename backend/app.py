@@ -3,6 +3,8 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from config import config
 from db_instance import db
+from datetime import timedelta
+
 import os
 
 def create_app(config_key):
@@ -11,7 +13,13 @@ def create_app(config_key):
     app.config.from_object(config[config_key])
     db.init_app(app)
     Migrate(app, db)
-    CORS(app)
+    app.config["SECRET_KEY"] = os.getenv("AUTH_SECRET_KEY")
+    app.config["SESSION_TYPE"] = "filesystem"
+    app.config["SESSION_PERMANENT"] = timedelta(days=7)
+    app.config["SESSION_COOKIE_HTTPONLY"] = True
+    app.config["SESSION_COOKIE_SAMESITE"] = 'Lax'
+    app.config["SESSION_COOKIE_HTTPONLY"] = False
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
     from blueprint import auth,gemini
     from blueprint import collection

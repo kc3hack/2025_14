@@ -29,6 +29,8 @@ function Post({ userName, password }) {
     })
     .then(response => {
         console.log("成功:", response.data);
+        console.log("Current Cookies:", document.cookie);
+
         toast.success("🎉 ログイン成功", {
           position: "top-right",
           autoClose: 2000,

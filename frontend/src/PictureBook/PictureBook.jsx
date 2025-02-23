@@ -21,8 +21,6 @@ function PictureBook() {
                 key2: "value2",
                 // 追加するデータに応じて
             };
-
-
             axios.post("http://127.0.0.1:5000/collection/get", jsonData, {
                 headers: {
                     "Content-Type": "application/json", // リクエストがJSONデータであることを伝える

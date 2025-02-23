@@ -87,6 +87,8 @@
     display: flex;
     cursor: pointer;
     font-size: clamp(1.5rem, 5vw, 3rem);
+
+    z-index: 4;
 }
 
 

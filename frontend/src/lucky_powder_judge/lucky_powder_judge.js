@@ -1,63 +1,76 @@
-import React from "react";
-import Button from "./material/home_button.png";
-import avatar from "./material/avatar.png";
-import text from "./material/text.png";
-import picture from "./material/ex_picture.png";
-import bubble from "./material/bubble.png";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./lucky_powder_judge.css";
+import testPictureURL from "./testdata/a1.png"
 
-function FortuneButton() {
-  const handleClick = () => {
-    alert('Button clicked!');
-  };
+// json: caption, tag, tag_id
+function LuckyPowderJudge() {
+    const [pictureURL, setPictureURL] = useState("");
+    const [textData, setTextData] = useState("");
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { data } = location.state || {};
 
-  return (
-    <button className="button" onClick={handleClick}>
-      <img src={Button} alt="Button" />
-    </button>
-  );
+    // Jsonからデータを抽出
+    const explainData = data?.caption || "";
+    const imgPath = data?.image_path || "";
+    
+    //TestData
+    const [testTextData, setTestTextData] = useState("aohsiansocxansaisxanbickxsabxcukdbcxdikcdnldcobkwdbcw");
+
+    useEffect(() => {
+        if (explainData) {
+            setTextData(explainData || "");
+        }
+    }, [explainData]);
+
+    useEffect(() => {
+        if (imgPath && imgPath.trim() !== "") {
+            setPictureURL(imgPath);
+        }
+    }, [imgPath]);
+
+    /* 画面遷移 */
+    const movePage = (pageName) => {
+        navigate(pageName);
+    };
+
+    return (
+        <>
+            <div className="background">
+                <div className="group1">
+                    <div className="group1-1">
+                        <div className="Text">
+                            類似する粉物料理は・・・
+                        </div>
+                        <img
+                            className="OutputImg"
+                            src={testPictureURL|| ""}
+                            alt="出力結果"
+                            onLoad={() => console.log("画像が読み込まれました")}
+                            onError={() => console.error("画像の読み込みに失敗しました")}
+                        />
+                    </div>
+                    <div className="group1-2">
+                        <div className="Conversation-box">
+                            <p className="Conversation">{testTextData || "データなし"}</p>
+                        </div>
+                        <div className="Avatar"></div>
+                    </div>
+                </div>
+                <div className="group2">
+                    <button
+                        className="To-homescreen-icon"
+                        onClick={() => {
+                            console.log("ホームへ移動");
+                            movePage("/");
+                        }}
+                        aria-label="ホームへ移動"
+                    ></button>
+                </div>
+            </div>
+        </>
+    );
 }
 
-function AvatarImage() {
-  return (
-    <div className="avatar-image">
-      <img src={avatar} alt="avatar" />
-    </div>
-  );
-}
-
-function TextImage() {
-  return (
-    <div className="text-image">
-      <img src={text} alt="text" />
-    </div>
-  );
-}
-
-function PictureImage() {
-  return (
-    <div className="picture-image">
-      <img src={picture} alt="picture" />
-    </div>
-  );
-}
-
-function BubbleImage() {
-  return (
-    <div className="bubble-image">
-      <img src={bubble} alt="bubble" />
-    </div>
-  );
-}
-
-export default function SignIn() {
-  return (
-    <div className="container">
-      <TextImage />
-      <PictureImage />
-      <BubbleImage />
-      <AvatarImage />
-      <FortuneButton />
-    </div>
-  );
-}
+export default LuckyPowderJudge;

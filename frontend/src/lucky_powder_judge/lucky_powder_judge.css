@@ -1,73 +1,171 @@
-/* lucky_powder_judge.css */
-.container {
-    text-align: center;
-    background: url('./material/background.png') no-repeat center center;
-    background-size: cover;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative; /* 子要素の絶対位置を設定するために追加 */
-  }
-  
-  .logo-image {
-    display: flex;
-    justify-content: center; /* 水平方向の中央揃え */
-    margin-bottom: 20px; /* 要素間のスペースを追加 */
-  }
-  
-  .button {
-    border: none;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-    position: absolute; /* 絶対位置を設定 */
-    bottom: 20px; /* 下からの距離を指定 */
-    right: 20px; /* 右からの距離を指定 */
-  }
-  
-  .button img {
-    width: 100%; /* 必要に応じてサイズを調整 */
-    height: auto;
-  }
-  
-  .text-image {
-    position: absolute;
-    top: 20px; /* 上からの距離を指定 */
-    left: 20px; /* 左からの距離を指定 */
-  }
-  
-  .picture-image {
-    position: absolute;
-    top: 100px; /* 必要に応じて調整 */
-    left: 20px; /* 左からの距離を指定 */
-  }
-  
-  .bubble-image {
-    position: absolute;
-    top: 100px; /* 必要に応じて調整 */
-    left: 760px; /* pictureの右に配置 */
-  }
-  
-  .avatar-image {
-    position: absolute;
-    top: 380px; /* bubbleの下に配置 */
-    left: 800px; /* 水平位置をbubbleに合わせる */
-  }
+.background {
+  background-image: url("./material/background.png");
+  background-size: cover;
+  /* 全体をカバー */
+  background-position: center;
+  /* 中央配置 */
+  width: 100vw;
+  /* ビューポート全幅 */
+  height: 100vh;
+  /* ビューポート全高 */
 
-  /* .bubble-image {
-    position: relative;
-  } */
-  
-  .bubble-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 16px;
-    color: #000;
-    text-align: center;
-  }
-  
-  
+}
 
+.group1 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  flex-direction: row;
+  align-items: stretch;
+  /* 高さを統一 */
+}
+
+.group2 {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: flex-end; /* 横方向（右寄せ） */
+
+  position: relative;  /* 位置を相対的に指定 */
+  top: 10vh;
+  right: 5vw;
   
+  gap:5vw;
+}
+
+.group1-1,
+.group1-2 {
+  display: flex;
+  flex-direction: column;
+  /* 縦並び */
+  width: 50%;
+  /* 親の幅の50% */
+  height: 100%;
+  /* 親の高さと一致させる */
+}
+
+
+.group1-1 {
+  align-items: flex-start;
+  /* 左寄せ */
+  left: 5vw;
+}
+
+.group1-2 {
+  align-items: flex-start;
+  /* 左寄せ */
+}
+
+.Text {
+  display: flex;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 3vw;
+
+  width: 100%;
+  height: 30%;
+  flex-shrink: 0;
+}
+
+.OutputImg {
+  display: flex;
+  /* 親要素が縮小したときに縮む */
+  width: 80%;
+  background-size: contain;
+  margin-right: auto;
+  /* 画像を左に寄せる */
+}
+
+.Conversation-box {
+  display: flex;
+  flex-direction: column;
+  /* 子要素を縦並びに */
+  justify-content: flex-start;  /* 上端に配置 */
+  align-items: center;
+  /* 左寄せ */
+
+  background-position: center;  /* 画像を中央に配置 */
+
+  background-image: url("./material/bubble.png");
+  width: 35vw;
+  height: calc(35vw / 2);
+  /* 縦横比2:1に設定 */
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* 画像が枠を埋めるように拡大/縮小 */
+
+  margin-top: 7.5vh; /* 下にずらす */
+}
+
+.Conversation {
+  font-size: 1.2vw;
+  word-wrap: break-word;
+  max-width: 30vw;
+
+  /* 左寄せ */
+  margin-top: 0;
+  padding-top: 2vw;
+  /* 左側に余白を追加 */
+}
+
+.Avatar {
+  background-image: url("./material/avatar.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  width: 20vw;
+  height: calc(20vw / 2);
+  background-size: contain;
+
+  background-repeat: no-repeat;
+  /* 画像の繰り返しを防ぐ */
+}
+
+.Img {
+  width: 624.889px;
+  height: 417.894px;
+  flex-shrink: 0;
+  aspect-ratio: 624.89/417.89;
+
+  position: relative;
+  left: 100px;
+  top: 100px;
+}
+
+.To-homescreen-icon,
+.To-registering-picturebook-icon {
+  background-repeat: no-repeat;
+  /* 画像の繰り返しを防ぐ */
+  background-position: center;
+  /* 背景画像を中央に配置 */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: var(--sds-size-space-300);
+  gap: var(--sds-size-space-200);
+
+  width: 20vw;
+  height: 15vh;
+
+  border-radius: 20px;
+  /* 角を大きく丸くする */
+}
+
+.To-homescreen-icon {
+  background-size: contain;
+  background-color: transparent;
+  /* 背景色を透明に */
+  background-image: url("./material/home_button.png");
+  outline: none;
+  border: none;
+  width: 30vw;
+  height: 20vh;
+}
+
+

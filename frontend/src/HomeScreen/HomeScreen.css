@@ -44,13 +44,13 @@
   display: flex;
   position: absolute;
   right: 5vw;
-  top: 5vw;
+  top: 1vw;
   background-repeat: no-repeat;
   background-image: url('./material/GenericAvatar.png');
   background-position: center;
   background-size: contain;
 
-  width: 10vw; /* 画面幅に応じて変わる */
+  width: 9vw; /* 画面幅に応じて変わる */
   max-width: 150px; /* 最大サイズを制限 */
   height: auto; /* アスペクト比を維持 */
   aspect-ratio: 1/1; /* 正方形ならこれ */
@@ -182,7 +182,6 @@
   border-radius: 10px;
 }
 
-
 .text-input {
   justify-content: center;
   display: flex;
@@ -219,15 +218,36 @@
   border: none;
 }
 
+.buttons {
+  width: 100vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* 中央に配置 */
+  gap: 20vw; /* ボタン間の隙間を調整 */
+}
+
+.to-fortune-telling-button {
+  display: flex;
+  background-repeat: no-repeat;
+  background-image: url('./material/crystale.png');
+  background-position: center;
+  background-size: contain;
+  width: 40vw; /* 幅を40%に指定 */
+  height: 20vh;
+  flex-shrink: 0;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
 .to-picture-book-button {
   display: flex;
   background-repeat: no-repeat;
-  /* 画像の繰り返しを防ぐ */
   background-image: url('./material/toPictureBook.png');
   background-position: center;
   background-size: contain;
-  width: 20%;
-  height: 15%;
+  width: 40vw; /* 幅を40%に指定 */
+  height: 20vh;
   flex-shrink: 0;
-  margin-left: 80vw;
 }

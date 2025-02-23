@@ -25,13 +25,15 @@
     display: flex;
     flex-direction: row;
 
-    justify-content: flex-end; /* 横方向（右寄せ） */
+    justify-content: flex-end;
+    /* 横方向（右寄せ） */
 
-    position: relative;  /* 位置を相対的に指定 */
+    position: relative;
+    /* 位置を相対的に指定 */
     top: 10vh;
     right: 5vw;
-    
-    gap:5vw;
+
+    gap: 5vw;
 }
 
 .Group1-1,
@@ -79,13 +81,15 @@
 
 .conversation-box {
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
     /* 子要素を縦並びに */
-    justify-content: flex-start;  /* 上端に配置 */
+    justify-content: flex-start;
+    /* 上端に配置 */
     align-items: center;
     /* 左寄せ */
 
-    background-position: center;  /* 画像を中央に配置 */
+    background-position: center;
+    /* 画像を中央に配置 */
 
     background-image: url("./material/conversation.svg");
     width: 35vw;
@@ -96,7 +100,8 @@
     background-size: contain;
     /* 画像が枠を埋めるように拡大/縮小 */
 
-    margin-top: 7.5vh; /* 下にずらす */
+    margin-top: 7.5vh;
+    /* 下にずらす */
 }
 
 .conversation {

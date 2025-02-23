@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "./material/fortune.png";
 import avatar from "./material/avatar.png";
 import text from "./material/lucky.png";
 import "./lucky_powder.css";
 
-function FortuneButton({ fetchLuckyPowder }) {
+function FortuneButton({ fetchLuckyPowder, Movepage }) {
   const handleClick = () => {
     alert('Button clicked!');
+    Movepage("../judge");
     fetchLuckyPowder();
   };
 
@@ -35,7 +36,7 @@ function TextImage() {
   );
 }
 
-export default function LuckyPowder() {
+function LuckyPowder() {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
 
@@ -43,10 +44,15 @@ export default function LuckyPowder() {
     try {
       const response = await axios.get("http://localhost:5000/daily_lucky_powder");
       setData(response.data);
-      navigate('/judge', { state: { data: response.data } });
+      navigate('../judge', { state: { data: response.data } });
     } catch (error) {
       console.error("Error fetching the lucky powder data:", error);
     }
+  };
+
+  const Movepage = (pageName) => {
+    console.log(`${pageName} に移動します`);
+    navigate(pageName);
   };
 
   useEffect(() => {
@@ -58,7 +64,7 @@ export default function LuckyPowder() {
     <div className="container">
       <TextImage />
       <AvatarImage />
-      <FortuneButton fetchLuckyPowder={fetchLuckyPowder} />
+      <FortuneButton fetchLuckyPowder={fetchLuckyPowder} Movepage={Movepage} />
       {data && (
         <div className="result">
           <p>{data.caption}</p>
@@ -68,3 +74,5 @@ export default function LuckyPowder() {
     </div>
   );
 }
+
+export default LuckyPowder;

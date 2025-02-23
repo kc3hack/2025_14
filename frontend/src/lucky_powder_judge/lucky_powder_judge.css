@@ -53,4 +53,19 @@
     top: 380px; /* bubbleの下に配置 */
     left: 800px; /* 水平位置をbubbleに合わせる */
   }
+
+  /* .bubble-image {
+    position: relative;
+  } */
+  
+  .bubble-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+  }
+  
   

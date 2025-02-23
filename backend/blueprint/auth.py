@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, request, session, jsonify
+from flask import Blueprint, redirect, url_for, request, jsonify, session
 from authentication import auth_register, auth_login, auth_reset_password, auth_delete_account
 
 auth = Blueprint("blueprint", __name__)
@@ -47,3 +47,7 @@ def delete_account():
     if not request.is_json:
         return jsonify({"error": "Request must be JSON"}, 400)
     return auth_delete_account.delete_account(request.get_json())
+
+@auth.route("/check-session", methods=["GET"])
+def check_session():
+    return jsonify({"c:user_name": session["user_name"]}), 200

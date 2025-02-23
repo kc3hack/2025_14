@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import os
 from gemini.think import read_image, read_text, daily_lucky_powder
-from models import Tag
+from models import Tag, Image
 from datetime import datetime
 from db_instance import db
 import uuid
@@ -22,7 +22,7 @@ def process_uploaded_data():
             return "No selected file", 400
 
         # 許可する拡張子をリストに指定
-        allowed_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'] #JPEG, PNG, GIF, BMP, WEBPの拡張子を許可
+        allowed_extensions = ['.png', '.jpg', '.jpeg', '.gif','.bmp', '.webp'] #JPEG, PNG, GIF, BMP, WEBPの拡張子を許可
 
         # ファイル名と拡張子を分離
         _, file_extension = os.path.splitext(file.filename)
@@ -86,5 +86,27 @@ def process_uploaded_data():
 
 @app.route("/daily_lucky_powder", methods=["GET"]) #占いを行う際に動作する
 def get_daily_lucky_powder():
-    result = daily_lucky_powder() #geminiからテキスト形式で返される
-    return jsonify({"caption": result})
+    use_list = ['お好み焼き', 'たこ焼き', 'うどん', 'そば', 'たい焼き', 'ガレット'] #占いの対象になる粉物をリスト化
+    use_dict = {
+        "お好み焼き": "okonomiyaki.png",
+        "たこ焼き": "takoyaki.png",
+        "うどん": "udon.png",
+        "そば": "soba.png",
+        "たい焼き": "taiyaki.png",
+        "ガレット": "garetto.png"
+    } #辞書に画像のパスを登録
+
+    result, use_list_name = daily_lucky_powder(use_list) #geminiからテキスト形式で占い結果と、使用した粉物の名前が返される
+    use_list_name = use_list_name.rstrip('\n')
+
+    # print(use_list_name, use_dict[use_list_name])
+    
+    try:
+        # Cloudflare R2 から画像を取得
+        file_obj = s3.get_object(Bucket=R2_BUCKET_NAME, Key=use_dict[use_list_name])
+        file_content = file_obj["Body"].read()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+    return jsonify({"caption": result, "image_path": use_dict[use_list_name]})
+

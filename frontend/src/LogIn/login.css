@@ -10,16 +10,20 @@
 }
 
 .login-logo-image {
-    button {
-        border: 0rem; /* 枠線なし */
-        background: none;
-        cursor: pointer; /* 画像の上だけカーソルを変更 */
-    }
-
     display: flex;
-    justify-content: center; /* 水平方向の中央揃え */
+    /* 水平方向の中央揃え */
+    justify-content: center;
     position: relative;
     z-index: 2;
+    padding-top: 1vh;
+}
+
+.login-logo-image button {
+    /* 枠線なし */
+    border: 0rem;
+    background: none;
+    /* 画像の上だけカーソルを変更 */
+    cursor: pointer;
 }
 
 .login-logo-image img {

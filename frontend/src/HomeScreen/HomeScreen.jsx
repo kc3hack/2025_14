@@ -2,8 +2,32 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
+import Crystale from "./material/crystale.png";
+import Send from "./material/sendIcon.png";
+import Book from "./material/toPictureBook.png";
 import './HomeScreen.css';
 import CameraModal from './CameraModal';
+
+function SendImage() { //ロゴ画像
+  return (
+      <div>
+          <img src={Send} alt="send" />
+      </div>);
+}
+
+function CrystaleImage() { //ロゴ画像
+    return (
+        <div>
+            <img src={Crystale} alt="clys" />
+        </div>);
+}
+
+function BookImage() { //ロゴ画像
+  return (
+      <div>
+          <img src={Book} alt="book" />
+      </div>);
+}
 
 function HomeScreen() {
   /* 入力 */
@@ -113,7 +137,7 @@ function HomeScreen() {
   //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
   const movePageToBringData = (pageName, data, imgData) => {
     navigate(pageName, {
-      state: { data, imgData},
+      state: { data, imgData },
     });
   }
 
@@ -132,6 +156,11 @@ function HomeScreen() {
           <button
             className="to-login-screen-button"
             onClick={() => movePage("../Login")}>
+          </button>
+          <button
+            className="to-logout-btn"
+            onClick={() => movePage("../CheckLogout")}>
+              <p>ログアウトへ</p>
           </button>
         </div>
         <div className="Group9">
@@ -183,14 +212,22 @@ function HomeScreen() {
           <button
             className="send-icon"
             onClick={handleSaveText}>
+              <SendImage></SendImage>
           </button>
         </div>
 
-
-        <button
-          className="to-picture-book-button"
-          onClick={() => movePage("../PictureBook")}>
-        </button>
+        <div className="buttons">
+          <button
+            className="to-fortune-telling-button"
+            onClick={() => movePage("/Fortune")}>
+              <CrystaleImage></CrystaleImage>
+          </button>
+          <button
+            className="to-picture-book-button"
+            onClick={() => movePage("/PictureBook")}>
+              <BookImage></BookImage>
+          </button>
+        </div>
       </div>
     </>
   )

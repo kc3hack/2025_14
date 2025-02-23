@@ -210,13 +210,14 @@ function HomeScreen() {
           <button
             className="send-icon"
             onClick={handleSaveText}>
+              <SendImage></SendImage>
           </button>
         </div>
 
         <div className="buttons">
           <button
             className="to-fortune-telling-button"
-            onClick={() => movePage("/Logout")}>
+            onClick={() => movePage("/Fortune")}>
               <CrystaleImage></CrystaleImage>
           </button>
           <button

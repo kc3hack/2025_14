@@ -17,9 +17,9 @@ def create_app(config_key):
     app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=7)
 
     app.config["SESSION_COOKIE_HTTPONLY"] = True
-    # app.config["SESSION_COOKIE_SAMESITE"] = 'Lax'
-    # app.config["SESSION_COOKIE_DOMAIN"] = None
-    app.config["SESSION_COOKIE_DOMAIN"] = "localhost"
+    app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
+    app.config["SESSION_COOKIE_DOMAIN"] = "127.0.0.1:3000"
 
     Session(app)
     db.init_app(app)

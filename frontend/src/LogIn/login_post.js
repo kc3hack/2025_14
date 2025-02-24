@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { createCookieSessionStorage, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 import "./login.css";
 
 function Post({ userName, password }) {
@@ -37,6 +38,9 @@ function Post({ userName, password }) {
         return response.json();
       })
       .then(responseData => {
+        Cookies.set("user_id", responseData.user_id, { expires: 1, path: '/' });
+
+        console.log("Cookie に保存された user_id:", Cookies.get("user_id"));
         console.log("成功:", responseData);
         toast.success(" ログイン成功", {
           position: "top-right",

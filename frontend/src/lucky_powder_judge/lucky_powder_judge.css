@@ -1,166 +1,127 @@
-.background {
+/* backgroundの設定 */
+.background-a {
   background-image: url("./material/background.png");
-  background-size: cover;
-  /* 全体をカバー */
-  background-position: center;
-  /* 中央配置 */
-  width: 100vw;
-  /* ビューポート全幅 */
-  height: 100vh;
-  /* ビューポート全高 */
+  background-size: cover;  /* 全体をカバー */
+  background-position: center;  /* 中央配置 */
+  background-repeat: repeat-y;  /* 縦方向に繰り返し表示 */
 
+  width: 100vw;  /* ビューポート全幅 */
+  height: auto;  /* コンテンツの高さに合わせて調整 */
+  min-height: 100vh;  /* ビューポート全高を最小高さとして設定 */
 }
 
+/* グループ1の設定 */
 .group1 {
   display: flex;
   width: 100%;
   height: 100%;
-
   flex-direction: row;
   align-items: stretch;
-  /* 高さを統一 */
 }
 
+/* グループ2の設定 */
 .group2 {
   display: flex;
   flex-direction: row;
-
-  justify-content: flex-end; /* 横方向（右寄せ） */
-
-  position: relative;  /* 位置を相対的に指定 */
+  justify-content: flex-end;
+  position: relative;
   top: 10vh;
   right: 5vw;
-  
-  gap:5vw;
+  gap: 5vw;
 }
 
+/* グループ1-1とグループ1-2の設定 */
 .group1-1,
 .group1-2 {
   display: flex;
   flex-direction: column;
-  /* 縦並び */
   width: 50%;
-  /* 親の幅の50% */
   height: 100%;
-  /* 親の高さと一致させる */
 }
 
-
+/* それぞれのグループの詳細な設定 */
 .group1-1 {
   align-items: flex-start;
-  /* 左寄せ */
   left: 5vw;
 }
 
 .group1-2 {
   align-items: flex-start;
-  /* 左寄せ */
 }
 
+/* テキストの設定 */
 .Text {
   display: flex;
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 3vw;
-
   width: 100%;
   height: 30%;
   flex-shrink: 0;
 }
 
+/* 画像の設定 */
 .OutputImg {
   display: flex;
-  /* 親要素が縮小したときに縮む */
   width: 80%;
   background-size: contain;
   margin-right: auto;
-  /* 画像を左に寄せる */
 }
 
+/* 会話のボックス */
 .Conversation-box {
   display: flex;
   flex-direction: column;
-  /* 子要素を縦並びに */
-  justify-content: flex-start;  /* 上端に配置 */
+  justify-content: flex-start;
   align-items: center;
-  /* 左寄せ */
-
-  background-position: center;  /* 画像を中央に配置 */
-
+  background-position: center;
   background-image: url("./material/bubble.png");
   width: 35vw;
   height: calc(35vw / 2);
-  /* 縦横比2:1に設定 */
-
   background-repeat: no-repeat;
   background-size: contain;
-  /* 画像が枠を埋めるように拡大/縮小 */
-
-  margin-top: 7.5vh; /* 下にずらす */
+  margin-top: 7.5vh;
 }
 
+/* 会話のテキスト */
 .Conversation {
   font-size: 1.2vw;
   word-wrap: break-word;
   max-width: 30vw;
-
-  /* 左寄せ */
   margin-top: 0;
   padding-top: 2vw;
-  /* 左側に余白を追加 */
 }
 
+/* アバター画像の設定 */
 .Avatar {
   background-image: url("./material/avatar.png");
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-
   width: 20vw;
   height: calc(20vw / 2);
   background-size: contain;
-
   background-repeat: no-repeat;
-  /* 画像の繰り返しを防ぐ */
 }
 
-.Img {
-  width: 624.889px;
-  height: 417.894px;
-  flex-shrink: 0;
-  aspect-ratio: 624.89/417.89;
-
-  position: relative;
-  left: 100px;
-  top: 100px;
-}
-
-.To-homescreen-icon,
-.To-registering-picturebook-icon {
+/* アイコンのボタン設定 */
+.To-homescreen-icon {
   background-repeat: no-repeat;
-  /* 画像の繰り返しを防ぐ */
   background-position: center;
-  /* 背景画像を中央に配置 */
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: var(--sds-size-space-300);
   gap: var(--sds-size-space-200);
-
   width: 20vw;
   height: 15vh;
-
   border-radius: 20px;
-  /* 角を大きく丸くする */
 }
 
 .To-homescreen-icon {
   background-size: contain;
   background-color: transparent;
-  /* 背景色を透明に */
   background-image: url("./material/home_button.png");
   outline: none;
   border: none;
@@ -168,4 +129,117 @@
   height: 20vh;
 }
 
+/* レスポンシブデザイン（モバイル、タブレット、PCのサイズ別） */
 
+/* スマートフォン向け (max-width: 600px) */
+@media (max-width: 600px) {
+  .group1 {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .group1-1,
+  .group1-2 {
+    width: 100%; /* 幅を100%に */
+  }
+
+  .Text {
+    font-size: 6vw; /* フォントサイズを画面幅に応じて調整 */
+  }
+
+  .OutputImg {
+    width: 90%; /* 画像サイズを調整 */
+  }
+
+  .Conversation-box {
+    width: 80vw;
+    height: calc(80vw / 2); /* 高さを縦横比に基づいて調整 */
+  }
+
+  .Avatar {
+    width: 40vw;
+    height: calc(40vw / 2);
+  }
+
+  .To-homescreen-icon {
+    width: 50vw; /* アイコンボタンの幅を広げる */
+    height: 15vh;
+    margin-top: -25vh; /* 上に移動（元の位置から少し上に） */
+  }
+
+  .Conversation {
+    font-size: 4vw; /* 会話のフォントサイズを大きく */
+  }
+}
+
+/* タブレット向け (600px〜900px) */
+@media (min-width: 600px) and (max-width: 900px) {
+  .group1 {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .group1-1,
+  .group1-2 {
+    width: 45%;
+  }
+
+  .Text {
+    font-size: 4vw;
+  }
+
+  .OutputImg {
+    width: 85%;
+  }
+
+  .Conversation-box {
+    width: 70vw;
+    height: calc(70vw / 2);
+  }
+
+  .Avatar {
+    width: 30vw;
+    height: calc(30vw / 2);
+  }
+
+  .To-homescreen-icon {
+    width: 25vw;
+    height: 18vh;
+  }
+}
+
+/* PC向け (min-width: 900px) */
+@media (min-width: 900px) {
+  .group1 {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .group1-1,
+  .group1-2 {
+    width: 50%;
+  }
+
+  .Text {
+    font-size: 3vw;
+  }
+
+  .OutputImg {
+    width: 80%;
+  }
+
+  .Conversation-box {
+    width: 35vw;
+    height: calc(35vw / 2);
+  }
+
+  .Avatar {
+    width: 20vw;
+    height: calc(20vw / 2);
+  }
+
+  .To-homescreen-icon {
+    width: 20vw;
+    height: 15vh;
+  }
+}

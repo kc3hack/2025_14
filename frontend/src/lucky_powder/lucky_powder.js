@@ -30,7 +30,7 @@ function AvatarImage() {
 
 function TextImage() {
   return (
-    <div className="logo-image">
+    <div className="text-image">
       <img src={text} alt="text" />
     </div>
   );

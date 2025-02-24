@@ -37,7 +37,7 @@ function LuckyPowderJudge() {
 
     return (
         <>
-            <div className="background">
+            <div className="background-a">
                 <div className="group1">
                     <div className="group1-1">
                         <div className="Text">

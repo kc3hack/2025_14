@@ -1,177 +1,233 @@
+/* 背景設定 */
 .background {
     background-image: url("./material/background.png");
     background-size: cover;
-    /* 全体をカバー */
     background-position: center;
-    /* 中央配置 */
     width: 100vw;
-    /* ビューポート全幅 */
     height: 100vh;
-    /* ビューポート全高 */
-
 }
 
+/* グループ1: 横並び */
 .Group1 {
     display: flex;
     width: 100%;
     height: 100%;
-
     flex-direction: row;
     align-items: stretch;
-    /* 高さを統一 */
 }
 
+/* グループ2: 右寄せ */
 .Group2 {
     display: flex;
     flex-direction: row;
-
     justify-content: flex-end;
-    /* 横方向（右寄せ） */
-
     position: relative;
-    /* 位置を相対的に指定 */
     top: 10vh;
     right: 5vw;
-
     gap: 5vw;
 }
 
+/* グループ1-1 と グループ1-2: 左右分け */
 .Group1-1,
 .Group1-2 {
     display: flex;
     flex-direction: column;
-    /* 縦並び */
     width: 50%;
-    /* 親の幅の50% */
     height: 100%;
-    /* 親の高さと一致させる */
 }
 
-
+/* グループ1-1: 左寄せ */
 .Group1-1 {
     align-items: flex-start;
-    /* 左寄せ */
     left: 5vw;
 }
 
+/* グループ1-2: 左寄せ */
 .Group1-2 {
     align-items: flex-start;
-    /* 左寄せ */
 }
 
+/* テキストスタイル */
 .text {
     display: flex;
     font-family: "Inter", sans-serif;
     font-weight: 400;
     font-size: 3vw;
-
     width: 100%;
     height: 30%;
     flex-shrink: 0;
 }
 
+/* 画像設定 */
 .outputImg {
     display: flex;
-    /* 親要素が縮小したときに縮む */
     width: 80%;
     background-size: contain;
     margin-right: auto;
-    /* 画像を左に寄せる */
 }
 
+/* 会話ボックス */
 .conversation-box {
     display: flex;
-    flex-direction:column;
-    /* 子要素を縦並びに */
+    flex-direction: column;
     justify-content: flex-start;
-    /* 上端に配置 */
     align-items: center;
-    /* 左寄せ */
-
     background-position: center;
-    /* 画像を中央に配置 */
-
     background-image: url("./material/conversation.svg");
     width: 35vw;
     height: calc(35vw / 2);
-    /* 縦横比2:1に設定 */
-
     background-repeat: no-repeat;
     background-size: contain;
-    /* 画像が枠を埋めるように拡大/縮小 */
-
     margin-top: 7.5vh;
-    /* 下にずらす */
 }
 
+/* 会話内容 */
 .conversation {
     font-size: 1.2vw;
     word-wrap: break-word;
     max-width: 30vw;
-
-    /* 左寄せ */
     margin-top: 0;
     padding-top: 2vw;
-    /* 左側に余白を追加 */
 }
 
+/* アバター画像 */
 .avatar {
     background-image: url("./material/3DAvatar.png");
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0;
-
     width: 20vw;
     height: calc(20vw / 2);
     background-size: contain;
-
     background-repeat: no-repeat;
-    /* 画像の繰り返しを防ぐ */
 }
 
+/* イメージの配置 */
 .img {
     width: 624.889px;
     height: 417.894px;
     flex-shrink: 0;
     aspect-ratio: 624.89/417.89;
-
     position: relative;
     left: 100px;
     top: 100px;
 }
 
+/* ホーム画面アイコン */
 .to-homescreen-icon,
 .to-registering-picturebook-icon {
     background-repeat: no-repeat;
-    /* 画像の繰り返しを防ぐ */
     background-position: center;
-    /* 背景画像を中央に配置 */
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: var(--sds-size-space-300);
     gap: var(--sds-size-space-200);
-
     width: 20vw;
     height: 15vh;
-
     border-radius: 20px;
-    /* 角を大きく丸くする */
 }
 
 .to-homescreen-icon {
     background-size: contain;
     background-color: transparent;
-    /* 背景色を透明に */
     background-image: url("./material/toHomeScreen.svg");
 }
 
 .to-registering-picturebook-icon {
     background-size: contain;
     background-color: black;
-    /* 背景色を黒に */
     background-image: url("./material/toRegisteringPictureBookIcon.svg");
+}
+
+/* レスポンシブ設定 */
+
+/* モバイル（600px以下） */
+@media (max-width: 600px) {
+    .Group1 {
+        flex-direction: column;
+    }
+
+    .Group1-1,
+    .Group1-2 {
+        width: 100%;
+    }
+
+    .text {
+        font-size: 5vw;  /* モバイル用にフォントサイズ調整 */
+        height: 20%;     /* 高さを調整 */
+    }
+
+    .outputImg {
+        width: 100%;     /* 画像をフル幅に */
+    }
+
+    .conversation-box {
+        width: 80vw;     /* 会話ボックスの幅を調整 */
+        height: 50vw;    /* 高さを調整 */
+        margin-top: 20vh; /* 会話を少し下に調整 */
+    }
+
+    .conversation {
+        font-size: 4vw;  /* フォントサイズ調整 */
+        max-width: 80vw; /* 最大幅を調整 */
+        margin-top: 5vh; /* 会話の位置を少し下に調整 */
+    }
+
+    .avatar {
+        width: 40vw;     /* アバター画像の幅調整 */
+        height: 20vw;    /* 高さ調整 */
+    }
+
+    .img {
+        width: 80vw;     /* 画像幅を画面に合わせる */
+        height: auto;    /* 高さ自動調整 */
+    }
+
+    .to-homescreen-icon,
+    .to-registering-picturebook-icon {
+        width: 60vw;     /* アイコンの幅を広げる */
+        height: 12vh;    /* 高さ調整 */
+    }
+}
+
+/* デスクトップ（900px以上） */
+@media (min-width: 600px) {
+    .Group1 {
+        flex-direction: row;
+    }
+
+    .Group1-1,
+    .Group1-2 {
+        width: 50%;
+    }
+
+    .text {
+        font-size: 3vw;  /* デスクトップ用に調整 */
+    }
+
+    .outputImg {
+        width: 80%;
+    }
+
+    .conversation-box {
+        width: 35vw;
+        height: calc(35vw / 2);
+    }
+
+    .conversation {
+        font-size: 1.2vw;
+        max-width: 30vw;
+    }
+
+    .avatar {
+        width: 20vw;
+        height: calc(20vw / 2);
+    }
+
+    .to-homescreen-icon,
+    .to-registering-picturebook-icon {
+        width: 20vw;
+        height: 15vh;
+    }
 }

@@ -8,7 +8,7 @@ import "./lucky_powder.css";
 
 function FortuneButton({ fetchLuckyPowder, Movepage }) {
   const handleClick = () => {
-    alert('Button clicked!');
+    // alert('Button clicked!');
     Movepage("../judge");
     fetchLuckyPowder();
   };

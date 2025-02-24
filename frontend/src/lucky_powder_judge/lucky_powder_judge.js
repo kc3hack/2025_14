@@ -41,7 +41,7 @@ function LuckyPowderJudge() {
                 <div className="group1">
                     <div className="group1-1">
                         <div className="Text">
-                            類似する粉物料理は・・・
+                            今日のラッキー粉物は・・・
                         </div>
                         <img
                             className="OutputImg"

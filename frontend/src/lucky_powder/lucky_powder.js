@@ -8,7 +8,7 @@ import "./lucky_powder.css";
 
 function FortuneButton({ fetchLuckyPowder, Movepage }) {
   const handleClick = () => {
-    alert('Button clicked!');
+    // alert('Button clicked!');
     Movepage("../judge");
     fetchLuckyPowder();
   };
@@ -30,7 +30,7 @@ function AvatarImage() {
 
 function TextImage() {
   return (
-    <div className="logo-image">
+    <div className="text-image">
       <img src={text} alt="text" />
     </div>
   );

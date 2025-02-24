@@ -1,25 +1,35 @@
 /* lucky_powder.css */
+
+/* 全体のスタイル */
 .container {
   text-align: center;
   background: url('./material/background.png') no-repeat center center;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;  /* 高さを100vhからmin-heightに変更 */
   display: flex;
   flex-direction: column;
   justify-content: center; /* 垂直方向の中央揃え */
   align-items: center; /* 水平方向の中央揃え */
+  padding: 20px;  /* 画面端に余白を追加 */
 }
 
+/* ロゴ画像のスタイル */
 .logo-image {
   display: flex;
   justify-content: center; /* 水平方向の中央揃え */
   margin-bottom: 20px; /* 要素間のスペースを追加 */
   background-color: transparent;
-  /*ボタンの縁を消し去るもの(以下の2つ)*/
-  outline: none;
-  border: none;
 }
 
+/* テキストイメージのスタイル */
+.text-image {
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  margin-bottom: 20px; /* 要素間のスペースを追加 */
+  background-color: transparent;
+}
+
+/* ボタンのスタイル */
 .Button {
   border: none;
   background: none;
@@ -34,3 +44,48 @@
   height: auto;
 }
 
+/* モバイルデバイス向けのスタイル（画面幅が600px以下） */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;  /* スマホ用に少し余白を減らす */
+  }
+
+  .Button img {
+    width: 80%; /* ボタンの画像サイズを小さく */
+  }
+
+  .logo-image {
+    margin-bottom: 10px; /* ロゴ画像と他の要素間のスペースを調整 */
+  }
+
+  /* スマホ用にテキストイメージのサイズを調整 */
+  .text-image img {
+    width: 80%;  /* 画像サイズを80%に調整 */
+    height: auto; /* 高さを自動で調整 */
+  }
+
+  .text-image {
+    margin-bottom: 15px; /* テキストイメージと他の要素間のスペースを調整 */
+  }
+}
+
+/* タブレットサイズ（600px〜900px） */
+@media (min-width: 600px) and (max-width: 900px) {
+  .Button img {
+    width: 90%; /* タブレットではボタン画像を少し大きく */
+  }
+
+  .logo-image {
+    margin-bottom: 15px; /* ロゴ画像と他の要素間のスペースを調整 */
+  }
+
+  /* タブレット向けにテキストイメージのサイズ調整 */
+  .text-image img {
+    width: 90%; /* 画像サイズを90%に調整 */
+    height: auto;
+  }
+
+  .text-image {
+    margin-bottom: 18px; /* テキストイメージと他の要素間のスペースを調整 */
+  }
+}

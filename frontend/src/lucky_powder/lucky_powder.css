@@ -44,6 +44,41 @@
   height: auto;
 }
 
+/* グループ2の設定 */
+.group2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  top: 10vh;
+  gap: 5vw;
+
+  width: 100%;
+  height: auto;
+}
+
+/* アイコンのボタン設定 */
+.To-homescreen-icon-a {
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 20vw;
+  height: 15vh;
+  border-radius: 20px;
+}
+
+.To-homescreen-icon-a {
+  background-size: contain;
+  background-color: transparent;
+  background-image: url("./material/home_button.png");
+  outline: none;
+  border: none;
+  width: 30vw;
+  height: 20vh;
+}
+
 /* モバイルデバイス向けのスタイル（画面幅が600px以下） */
 @media (max-width: 600px) {
   .container {
@@ -67,6 +102,13 @@
   .text-image {
     margin-bottom: 15px; /* テキストイメージと他の要素間のスペースを調整 */
   }
+
+  .To-homescreen-icon-a {
+    width: 25vw; /* アイコンボタンの幅を広げる */
+    height: 20vh;  /* アイコンボタンの高さを調整 */
+    right: 5vw;    /* 右端から5vwだけ離す */
+    bottom: 5vh;   /* 下端から5vhだけ離す */
+  }
 }
 
 /* タブレットサイズ（600px〜900px） */
@@ -87,5 +129,10 @@
 
   .text-image {
     margin-bottom: 18px; /* テキストイメージと他の要素間のスペースを調整 */
+  }
+
+  .To-homescreen-icon-a {
+    width: 25vw;
+    height: 18vh;
   }
 }

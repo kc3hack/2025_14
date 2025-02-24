@@ -60,11 +60,26 @@ function LuckyPowder() {
     // fetchLuckyPowder();
   }, []);
 
+  /* 画面遷移 */
+  const movePage = (pageName) => {
+    navigate(pageName);
+  };
+
   return (
     <div className="container">
       <TextImage />
       <AvatarImage />
       <FortuneButton fetchLuckyPowder={fetchLuckyPowder} Movepage={Movepage} />
+      <div className="group2">
+        <button
+          className="To-homescreen-icon-a"
+          onClick={() => {
+            console.log("ホームへ移動");
+            movePage("/");
+          }}
+          aria-label="ホームへ移動"
+        ></button>
+      </div>
       {data && (
         <div className="result">
           <p>{data.caption}</p>

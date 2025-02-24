@@ -5,6 +5,8 @@ from datetime import datetime
 def save(data):
     from db_instance import db
 
+
+    print('cookie',data["cookie"])
     user_name = session.get("user_name")
     if user_name is None:
         return "User not logged in", 400

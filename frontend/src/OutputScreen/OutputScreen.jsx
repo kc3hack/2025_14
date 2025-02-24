@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie"; // Cookie の取得用ライブラリをインポート
 
-import "./OutputScreen.css"
+import "./OutputScreen.css";
 
-//json:caption,tag,tag_id
 function OutputScreen() {
     const [pictureURL, setPictureURL] = useState("");
     const [textData, setTextData] = useState("");
@@ -12,7 +12,7 @@ function OutputScreen() {
     const location = useLocation();
     const { data } = location.state || {};
 
-    //Jsonからデータを抽出
+    // JSON からデータを抽出
     const explainData = data?.caption || "";
     const imgTag = data?.tag || "";
     const imgTagID = data?.tag_id || "";
@@ -20,42 +20,45 @@ function OutputScreen() {
 
     useEffect(() => {
         if (explainData) {
-            setTextData(explainData || "");
+            setTextData(explainData);
         }
-    }, [explainData]); // `explainData` が変更されたときに実行
+    }, [explainData]);
 
     useEffect(() => {
         if (imgPath && imgPath.trim() !== "") {
             setPictureURL(imgPath);
         }
-    }, [imgPath]);  // imgPathが変更されるたびに実行
+    }, [imgPath]);
 
-    /*画面遷移*/
+    /* 画面遷移 */
     const navigate = useNavigate();
 
-    //特定の画面にデータを持って移動する(stateプロパティを用いてデータを送信)
     const movePage = (pageName) => {
         navigate(pageName);
-    }
+    };
 
     // 画像やテキストデータなどを送る
     const sendImageAndTextData = (imagePath, caption, tagID) => {
         console.log("ファイルを送信します");
 
-        // JSONオブジェクトを作成
+        // Cookie を取得
+        const userCookie = Cookies.get("user_id"); // 例: "session_id" という名前の Cookie を取得
+
+        // JSON オブジェクトを作成
         const jsonData = {
-            image_path: imagePath,  // imagePath を image_name に対応
+            image_path: imagePath,
             caption: caption,
-            tag_id: tagID
+            tag_id: tagID,
+            cookie: userCookie || "", // Cookie を JSON に含める
         };
 
-        // axiosでJSONを送信しつつ、クッキーを含める
-        axios.post("http://127.0.0.1:5000/collection/save", jsonData, {
-            headers: {
-                "Content-Type": "application/json", // JSONとして送信
-            },
-            withCredentials: true, // クッキーを送信
-        })
+        // axios で JSON を送信
+        axios
+            .post("http://127.0.0.1:5000/collection/save", jsonData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
             .then((response) => {
                 console.log("Response:", response.data);
             })
@@ -64,21 +67,26 @@ function OutputScreen() {
             });
     };
 
-    // 画像を削除するようJsonを送る
+    // 画像を削除するリクエストを送る
     const sendDeleteData = (imagePath) => {
         console.log("ファイルを送信します");
 
-        // JSONオブジェクトを作成
+        // Cookie を取得
+        const userCookie = Cookies.get("session_id");
+
+        // JSON オブジェクトを作成
         const jsonData = {
-            image_path: imagePath,  // imagePath を image_name に対応
+            image_path: imagePath,
+            cookie: userCookie || "", // Cookie を JSON に含める
         };
 
-        // axiosでJSONを送信
-        axios.post("http://127.0.0.1:5000/collection/delete", jsonData, {
-            headers: {
-                "Content-Type": "application/json", // JSONとして送信
-            },
-        })
+        // axios で JSON を送信
+        axios
+            .post("http://127.0.0.1:5000/collection/delete", jsonData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
             .then((response) => {
                 console.log("通信成功");
             })
@@ -92,9 +100,7 @@ function OutputScreen() {
             <div className="background">
                 <div className="Group1">
                     <div className="Group1-1">
-                        <div className="text">
-                            類似する粉物料理は・・・
-                        </div>
+                        <div className="text">類似する粉物料理は・・・</div>
                         <img
                             className="outputImg"
                             src={pictureURL || ""}

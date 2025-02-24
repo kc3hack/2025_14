@@ -19,7 +19,7 @@ def login(data):
         return jsonify({"error": "Already logged in"}), 400
 
     session["user_name"] = user_name
-    response = jsonify({"status": "success"})
+    response = jsonify({"status": "success", "user_id":user.user_id})
     response.status_code = 200
     # response.set_cookie("user_name", user_name)
     return make_response(response)

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import "./OutputScreen.css"
 
@@ -44,6 +45,7 @@ function OutputScreen() {
 
         // JSONオブジェクトを作成
         const jsonData = {
+            user_id: Cookies.get("user_id"),
             image_path: imagePath,  // imagePath を image_name に対応
             caption: caption,
             tag_id: tagID

@@ -18,18 +18,18 @@ def create_app(config_key):
     app.config["SESSION_COOKIE_HTTPONLY"] = True
     app.config["SESSION_COOKIE_SECURE"] = os.getenv("FLASK_ENV") == "production"
     app.config["SESSION_COOKIE_SAMESITE"] = "None"
-    app.config["SESSION_COOKIE_DOMAIN"] = "frontend-latest-j2w6.onrender.com"
+    app.config["SESSION_COOKIE_DOMAIN"] = "frontend-latest-qscn.onrender.com"
 
     Session(app)
     db.init_app(app)
     Migrate(app, db)
-    CORS(app, supports_credentials=True, origins=["https://frontend-latest-j2w6.onrender.com"], allow_headers=["Content-Type", "Authorization"])
+    CORS(app, supports_credentials=True, origins=["https://frontend-latest-qscn.onrender.com"], allow_headers=["Content-Type", "Authorization"])
 
     @app.before_request
     def handle_options():
         if request.method == "OPTIONS":
             response = make_response()
-            response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-682o.onrender.com"
+            response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-qscn.onrender.com"
             response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
             response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
             response.headers["Access-Control-Allow-Credentials"] = "true"

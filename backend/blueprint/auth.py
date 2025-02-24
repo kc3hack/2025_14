@@ -8,7 +8,7 @@ from db_instance import db
 from datetime import datetime
 auth = Blueprint("blueprint", __name__)
 
-CORS(auth, supports_credentials=True, origins="https://frontend-latest-682o.onrender.com")
+CORS(auth, supports_credentials=True, origins="https://frontend-latest-qscn.onrender.com")
 
 @auth.route("/")
 def home():
@@ -22,7 +22,7 @@ def register():
     if not data or "user_name" not in data or "password" not in data:
         response = make_response(jsonify({"error": "Missing user_name or password"}), 400)
         response.headers["Access-Control-Allow-Credentials"] = "true"
-        response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-682o.onrender.com"
+        response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-qscn.onrender.com"
         response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
         response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization/json"
         return response
@@ -35,7 +35,7 @@ def register():
     if User.query.filter_by(user_name=user_name).first():
         response = make_response(jsonify({"error": "User already exists"}), 400)
         response.headers["Access-Control-Allow-Credentials"] = "true"
-        response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-682o.onrender.com"
+        response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-qscn.onrender.com"
         response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
         response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization/json"
         return response
@@ -47,7 +47,7 @@ def register():
     db.session.commit()
     response = make_response(jsonify({"status": "success"}), 201)
     response.headers["Access-Control-Allow-Credentials"] = "true"
-    response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-682o.onrender.com"
+    response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-qscn.onrender.com"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization/json"
     return response
@@ -66,12 +66,10 @@ def login():
     if not user or not check_password_hash(user.password_hash, password):
         return make_response(jsonify({"error": "Invalid credentials"}), 401)
 
-    session["user_name"] = user_name
-    return make_response(jsonify({"status": "success"}), 200)
+    return make_response(jsonify({"status": "success", "user_id" : user.user_id}), 200)
 
 @auth.route("/logout", methods=["POST", "OPTIONS"])
 def logout():
-    session.pop("user_name", None)
     return jsonify({"status": "success"}), 200
 
 @auth.route("/reset_password", methods=["POST", "OPTIONS"])

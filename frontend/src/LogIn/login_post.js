@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import "./login.css";
+import Cookies from 'js-cookie';
 
 function Post({ userName, password }) {
   const navigate = useNavigate();
@@ -30,24 +31,27 @@ function Post({ userName, password }) {
       body: JSON.stringify(data),
       credentials: "include"
     })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(err => { throw err; });
-        }
-        return response.json();
-      })
-      .then(responseData => {
-        console.log("成功:", responseData);
-        toast.success(" ログイン成功", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true
-        });
-        clickedToPageBtn('/');
-      })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => { throw err; });
+      }
+      return response.json();
+    })
+    .then(responseData => {
+      Cookies.set("user_id", responseData.user_id, { expires: 1, path: '/' });
+
+      console.log("Cookie に保存された user_id:", Cookies.get("user_id"));
+      console.log("成功:", responseData);
+      toast.success(" ログイン成功", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
+      clickedToPageBtn('/');
+    })
       .catch(err => {
         console.error("エラー:", err.error || err.message || "ログイン失敗");
         toast.error("❌ ログイン失敗", {

@@ -1,23 +1,20 @@
-from flask import session, make_response, jsonify
+from flask import make_response, jsonify
 from models import Image, User
 from datetime import datetime
 
 def save(data):
     from db_instance import db
+    user_id = data.get("user_id")
 
-    user_name = session.get("user_name")
-    if user_name is None:
+    if user_id is None:
         return "User not logged in", 400
-    print(user_name)
+    print(user_id)
 
     # dataに必要な形式がないならエラー
     if not data or "image_path" not in data or "caption" not in data or "tag_id" not in data:
         return "Not enough parameter", 400
 
     # 受け取ったデータから保存するデータを取得
-    user = User.query.filter_by(user_name=user_name).first()
-    user_id = user.user_id
-    print(user_id)
     image_path = data["image_path"]
     caption = data["caption"]
     tag_id = data["tag_id"]

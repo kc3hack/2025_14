@@ -1,4 +1,4 @@
 .dockerignoer
 Dockerfile
-.gitiignore
+.gitignore
 node_modules/

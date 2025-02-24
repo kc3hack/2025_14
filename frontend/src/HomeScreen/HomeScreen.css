@@ -214,6 +214,8 @@
   background-size: contain;
   width: 8vw;
   height: 10vh;
+
+  z-index: 5;
 }
 
 .camera-icon {

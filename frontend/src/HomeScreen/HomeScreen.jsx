@@ -146,10 +146,11 @@ function HomeScreen() {
       console.log("ファイルを送信します");
       const formData = new FormData();
       formData.append("file", data); // ファイルを 'file' という名前で追加
-      axios.post("http://127.0.0.1:5000/process", formData, {
+      axios.post("https://backend-backend-latest.onrender.com/process", formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Content-Type は multipart/form-data に設定
         },
+        withCredentials: true
       })
         .then((response) => {
           setResponseData(response.data);
@@ -162,10 +163,11 @@ function HomeScreen() {
     } else {
       console.log("テキストを送信します");
       // テキストを送る場合
-      axios.post("http://127.0.0.1:5000/process", { text: data }, {
+      axios.post("https://backend-backend-latest.onrender.com/process", { text: data }, {
         headers: {
           "Content-Type": "application/json", // JSONとして送ることを明示
         },
+        withCredentials: true
       })
         .then((response) => {
           setResponseData(response.data);

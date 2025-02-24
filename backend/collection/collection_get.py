@@ -1,17 +1,16 @@
 import os
-from flask import session, make_response, jsonify
+from flask import make_response, jsonify
 from models import Image, Text, Tag, User
 
 def get(data):
-
-    user_name = session.get("user_name")
+    user_id = data.get("user_id")
     print('-'*50)
-    print(user_name)
-    if user_name is None:
-        return f'User not Logged in as {user_name}', 400
+    print(user_id)
+    if user_id is None:
+        return f'User not Logged in as {user_id}', 400
 
     # ID情報を抽出する
-    user = User.query.filter_by(user_name=user_name).first()
+    user = User.query.filter_by(user_id=user_id).first()
 
     # DBのImageモデルからuser_idで絞り込んでデータを取得
 

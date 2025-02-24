@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import "./OutputScreen.css"
 
@@ -44,13 +45,14 @@ function OutputScreen() {
 
         // JSONオブジェクトを作成
         const jsonData = {
+            user_id: Cookies.get("user_id"),
             image_path: imagePath,  // imagePath を image_name に対応
             caption: caption,
             tag_id: tagID
         };
 
         // axiosでJSONを送信しつつ、クッキーを含める
-        axios.post("http://127.0.0.1:5000/collection/save", jsonData, {
+        axios.post("https://backend-backend-latest.onrender.com/collection/save", jsonData, {
             headers: {
                 "Content-Type": "application/json", // JSONとして送信
             },
@@ -74,10 +76,11 @@ function OutputScreen() {
         };
 
         // axiosでJSONを送信
-        axios.post("http://127.0.0.1:5000/collection/delete", jsonData, {
+        axios.post("https://backend-backend-latest.onrender.com/collection/delete", jsonData, {
             headers: {
                 "Content-Type": "application/json", // JSONとして送信
             },
+            withCredentials: true
         })
             .then((response) => {
                 console.log("通信成功");

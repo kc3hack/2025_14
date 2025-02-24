@@ -4,7 +4,6 @@ import hmac
 import hashlib
 import base64
 import time
-from gemini.api_key import apiKey
 from models import Tag
 import io
 import os

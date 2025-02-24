@@ -1,36 +1,78 @@
-from flask import Blueprint, redirect, url_for, request, jsonify, session
-from authentication import auth_register, auth_login, auth_reset_password, auth_delete_account
-
+from flask import Blueprint, redirect, url_for, request, jsonify, session, make_response
+from flask_cors import CORS
+from authentication import auth_reset_password, auth_delete_account
+from flask_cors import cross_origin
+from werkzeug.security import generate_password_hash, check_password_hash
+from models import User
+from db_instance import db
+from datetime import datetime
 auth = Blueprint("blueprint", __name__)
+
+CORS(auth, supports_credentials=True, origins="https://frontend-latest-qscn.onrender.com")
 
 @auth.route("/")
 def home():
     return redirect(url_for("blueprint.register"))
 
-@auth.route("/register", methods=["POST"])
+@auth.route("/register", methods=["POST", "OPTIONS"])
 def register():
-    if request.is_json:
-        # ユーザー登録を行う
-        # 登録に成功した場合は json({status: "success"}), 200 を返す
-        # ユーザー登録に失敗した場合は json({error: "error message"}), 400 を返す
-        return auth_register.register(request.get_json())
-    return jsonify({"error": "Request must be JSON"}), 400
+    if request.method == "OPTIONS":
+        return '', 204  # プリフライトリクエスト対応
+    data = request.get_json()
+    if not data or "user_name" not in data or "password" not in data:
+        response = make_response(jsonify({"error": "Missing user_name or password"}), 400)
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-qscn.onrender.com"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization/json"
+        return response
 
-@auth.route("/login", methods=["POST"])
+    user_name = data["user_name"]
+    password = data["password"]
+    date = datetime.now()
+
+    # 重複ユーザーのチェック
+    if User.query.filter_by(user_name=user_name).first():
+        response = make_response(jsonify({"error": "User already exists"}), 400)
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-qscn.onrender.com"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization/json"
+        return response
+
+    hashed_password = generate_password_hash(password)
+
+    user = User(user_name=user_name, password_hash=hashed_password, datetime=date)
+    db.session.add(user)
+    db.session.commit()
+    response = make_response(jsonify({"status": "success"}), 201)
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    response.headers["Access-Control-Allow-Origin"] = "https://frontend-latest-qscn.onrender.com"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization/json"
+    return response
+
+@auth.route("/login", methods=["POST", "OPTIONS"])
 def login():
-    if request.is_json:
-        # ログインを行う
-        # ログインに成功した場合は json({status: "success"}), 200 を返す
-        # ログインに失敗した場合は json({error: "error message"}), 400 を返す
-        return auth_login.login(request.get_json())
-    return jsonify({"error": "Request must be JSON"}), 400
+    print(session.get("user_name"))
+    data = request.get_json()
+    if not data or "user_name" not in data or "password" not in data:
+        return make_response(jsonify({"error": "Missing user_name or password"}), 400)
 
-@auth.route("/logout", methods=["POST"])
+    user_name = data["user_name"]
+    password = data["password"]
+
+    user = User.query.filter_by(user_name=user_name).first()
+    if not user or not check_password_hash(user.password_hash, password):
+        return make_response(jsonify({"error": "Invalid credentials"}), 401)
+
+    return make_response(jsonify({"status": "success", "user_id" : user.user_id}), 200)
+
+@auth.route("/logout", methods=["POST", "OPTIONS"])
 def logout():
-    session.pop("user_name", None)
     return jsonify({"status": "success"}), 200
 
-@auth.route("/reset_password", methods=["POST"])
+@auth.route("/reset_password", methods=["POST", "OPTIONS"])
 def reset_password():
     # パスワードをリセットする
     # リセットに成功した場合は json({status: "success"}), 200 を返す
@@ -48,6 +90,6 @@ def delete_account():
         return jsonify({"error": "Request must be JSON"}, 400)
     return auth_delete_account.delete_account(request.get_json())
 
-@auth.route("/check-session", methods=["GET"])
+@auth.route("/check-session", methods=["GET", "OPTIONS"])
 def check_session():
     return jsonify({"c:user_name": session["user_name"]}), 200

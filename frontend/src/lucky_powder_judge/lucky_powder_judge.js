@@ -37,15 +37,15 @@ function LuckyPowderJudge() {
 
     return (
         <>
-            <div className="background">
+            <div className="background-a">
                 <div className="group1">
                     <div className="group1-1">
                         <div className="Text">
-                            類似する粉物料理は・・・
+                            今日のラッキー粉物は・・・
                         </div>
                         <img
                             className="OutputImg"
-                            src={testPictureURL|| ""}
+                            src={pictureURL|| ""}
                             alt="出力結果"
                             onLoad={() => console.log("画像が読み込まれました")}
                             onError={() => console.error("画像の読み込みに失敗しました")}
@@ -53,7 +53,7 @@ function LuckyPowderJudge() {
                     </div>
                     <div className="group1-2">
                         <div className="Conversation-box">
-                            <p className="Conversation">{testTextData || "データなし"}</p>
+                            <p className="Conversation">{textData || "データなし"}</p>
                         </div>
                         <div className="Avatar"></div>
                     </div>
